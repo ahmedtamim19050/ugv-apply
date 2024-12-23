@@ -65,6 +65,8 @@ return new class extends Migration
             $table->string('honors_degree_institution_name')->nullable();
             $table->string('honors_degree_grade_or_marks')->nullable();
 
+            $table->json('attachments')->nullable();
+
             $table->timestamps();
         });
     }
