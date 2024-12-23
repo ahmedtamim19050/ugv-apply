@@ -5,7 +5,7 @@
                 <div class="col-sm-12">
                     <div class="banner__wrapper">
                         <div class="banner__wrapper--left">
-                            <img src="{{asset('assets/images/banner/image__1.jpg')}}" alt="">
+                            <img src="{{asset('assets/images/banner/banner-left.jpg')}}" alt="">
                         </div>
                         <div class="banner__wrapper--middle">
                             <div class="banner__content">
@@ -42,7 +42,7 @@
                             </div>
                         </div>
                         <div class="banner__wrapper--right">
-                            <img src="assets/images/banner/image__2.jpg" alt="banner right">
+                            <img src="assets/images/banner/banner-right.jpg" alt="banner right">
                         </div>
                     </div>
                     <!-- banner animated shape -->
@@ -68,7 +68,7 @@
                         <div class="about__images">
                             <div class="about__images--wrapper">
                                 <div class="about__images--wrapper--left">
-                                    <img src="assets/images/about/about__h1.png" alt="">
+                                    <img src="assets/images/about/building.jpg" alt="">
                                 </div>
                                 <div class="about__images--wrapper--center">
                                     <div class="rts__circle v__1">
@@ -86,7 +86,7 @@
                                     </div>
                                 </div>
                                 <div class="about__images--wrapper--right">
-                                    <img src="assets/images/about/about__h2.png" alt="">
+                                    <img src="assets/images/about/about-image.jpeg" alt="">
                                 </div>
                             </div>
                         </div>
@@ -109,24 +109,20 @@
                     <div class="col-lg-12 rts-funfact v__1">
                         <div class="rts-funfact-wrapper">
                             <div class="single-cta-item">
-                                <h2 class="single-cta-item__title">20,000</h2>
-                                <p>undergraduate & graduate
-                                    students</p>
+                                <h2 class="single-cta-item__title">6,000</h2>
+                                <p>Happy Students</p>
                             </div>
                             <div class="single-cta-item">
-                                <h2 class="single-cta-item__title">16,214</h2>
-                                <p>Unipix University Faculty
-                                    & Staff</p>
+                                <h2 class="single-cta-item__title">8</h2>
+                                <p>Approved Courses</p>
                             </div>
                             <div class="single-cta-item">
-                                <h2 class="single-cta-item__title">300k</h2>
-                                <p>Unipix University alumni
-                                    Worldwide</p>
+                                <h2 class="single-cta-item__title">150</h2>
+                                <p>Certified Teachers & Trainers</p>
                             </div>
                             <div class="single-cta-item">
-                                <h2 class="single-cta-item__title">20,000</h2>
-                                <p>undergraduate & graduate
-                                    students</p>
+                                <h2 class="single-cta-item__title">3,000</h2>
+                                <p>Graduate Students</p>
                             </div>
                         </div>
                     </div>

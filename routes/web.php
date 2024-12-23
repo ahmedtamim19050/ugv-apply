@@ -19,8 +19,10 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/',[PageController::class,'home'])->name('home');
+Route::get('/fees-stucture',[PageController::class,'FeesStucture'])->name('page.fees-stucture');
+Route::get('/admission-rules',[PageController::class,'AdmissionRules'])->name('page.admission-rules');
+Route::get('/contact',[PageController::class,'contact'])->name('page.contact');
 Route::get('/apply-now',[PageController::class,'apply'])->name('apply');
-
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
