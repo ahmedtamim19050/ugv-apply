@@ -23,8 +23,9 @@
     <link rel="stylesheet" href="{{asset('assets/css/plugins/nice-select.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/plugins/jquery-ui.css')}}">
     <!-- custom style css -->
-    <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
 
+    <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
+    @stack('css')
 </head>
 
 <body class="page">
@@ -262,6 +263,7 @@
  
 
 
+    
     <script src="{{asset('assets/js/vendor/jquery.min.js')}}"></script>
     <script src="{{asset('assets/js/plugins/bootstrap.min.js')}}"></script>
     <script src="{{asset('assets/js/vendor/jquery-ui.js')}}"></script>
@@ -276,15 +278,17 @@
     <!-- counterup -->
     <script src="{{asset('assets/js/plugins/counterup.js')}}"></script>
     <script src="{{asset('assets/js/vendor/waypoint.js')}}"></script>
-
+    
     <script src="{{asset('assets/js/plugins/sticky-sidebar.js')}}"></script>
-
+    
     <!-- dymanic Contact Form -->
     <script src="{{asset('assets/js/plugins/contact.form.js')}}"></script>
     <script src="{{asset('assets/js/plugins/nice-select.min.js')}}"></script>
     <!-- main Js -->
+    @stack('js')
+    
     <script src="{{asset('assets/js/main.js')}}"></script>
-
+    
 </body>
 
 
