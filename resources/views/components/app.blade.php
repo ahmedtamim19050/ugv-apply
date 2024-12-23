@@ -24,12 +24,11 @@
     <link rel="stylesheet" href="{{ asset('assets/css/plugins/nice-select.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/plugins/jquery-ui.css') }}">
     <!-- custom style css -->
-<<<<<<< HEAD
-=======
-    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
->>>>>>> 31fe5535c8c87ea0b36981bac444c239771c185c
 
-    <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+
+
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     @stack('css')
 </head>
 
@@ -78,7 +77,7 @@
                                 </nav>
                             </div>
                         </div>
-                        <div class="header__right">
+                        {{-- <div class="header__right">
                             <div class="header__right--item">
 
                                 <div id="search-btn" class="search__trigger">
@@ -88,7 +87,7 @@
                                     <img src="{{ asset('assets/images/icon/bar__line.svg') }}" alt="bar">
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -112,11 +111,14 @@
                         </p>
                         <div class="footer__widget--social">
                             <ul class="social">
-                                <li class="social__link"><a href="https://www.facebook.com/ugvbarisal"><i class="fa-brands fa-facebook"></i></a>
+                                <li class="social__link"><a href="https://www.facebook.com/ugvbarisal"><i
+                                            class="fa-brands fa-facebook"></i></a>
                                 </li>
                                 {{-- <li class="social__link"><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
                                 <li class="social__link"><a href="#"><i class="fa-brands fa-linkedin"></i></a></li> --}}
-                                <li class="social__link"><a href="https://www.youtube.com/channel/UCYYgkrJPlW2vJ-MM3ltQFhg"><i class="fa-brands fa-youtube"></i></a></li>
+                                <li class="social__link"><a
+                                        href="https://www.youtube.com/channel/UCYYgkrJPlW2vJ-MM3ltQFhg"><i
+                                            class="fa-brands fa-youtube"></i></a></li>
                             </ul>
                         </div>
                     </div>
@@ -126,7 +128,7 @@
                     <div class="footer__widget">
                         <h6 class="footer__widget--title">Quick Button</h6>
                         <div class="footer__widget--button">
-                            <a href="admission.html" class="cta__button active">Applying</a>
+                            <a href="{{route('apply.now')}}" class="cta__button active">Applying</a>
 
                         </div>
                     </div>
@@ -142,7 +144,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="copyright__wrapper">
-                        <p>Copyright &copy; 2024 All Rights Reserved by <a href="#">UVG</a></p>
+                        <p>Copyright &copy; 2024 All Rights Reserved by <a href="#">UGV</a></p>
                     </div>
                 </div>
             </div>
@@ -153,9 +155,9 @@
 
     <!-- offcanvase menu -->
     <!-- header style two -->
-    <div id="side-bar" class="side-bar">
+    {{-- <div id="side-bar" class="side-bar">
         <button class="close-icon-menu"><i class="far fa-times"></i></button>
-        <!-- inner menu area desktop start -->
+       
         <div class="inner-main-wrapper-desk">
             <div class="thumbnail">
                 <img src="assets/images/logo/logo__five.svg" alt="Unipix-university">
@@ -165,7 +167,7 @@
                     A modern HTML template for education, offering intuitive design & essential features for seamless
                     learning experiences.
                 </p>
-                <!-- offcanvase banner -->
+                
                 <div class="offcanvase__banner mt--50">
                     <div class="offcanvase__banner--content">
                         <img src="assets/images/offcanvase.jpg" alt="offcanvase">
@@ -183,8 +185,7 @@
                             <div class="social__links">
                                 <a href="https://www.facebook.com/ugvbarisal"><i
                                         class="fa-brands fa-facebook"></i></a>
-                                {{-- <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                                <a href="#"><i class="fa-brands fa-linkedin"></i></a> --}}
+                                
                                 <a href="https://www.youtube.com/channel/UCYYgkrJPlW2vJ-MM3ltQFhg"><i
                                         class="fa-brands fa-youtube"></i></a>
                             </div>
@@ -193,7 +194,7 @@
                 </div>
             </div>
         </div>
-        <!-- mobile menu area start -->
+        
         <div class="mobile-menu-main">
             <nav class="nav-main mainmenu-nav mt--30">
                 <ul class="mainmenu metismenu" id="mobile-menu-active">
@@ -280,22 +281,20 @@
                 </div>
             </div>
         </div>
-        <!-- mobile menu area end -->
-    </div>
+        
+    </div> --}}
 
 
-
-<<<<<<< HEAD
-    
-    <script src="{{asset('assets/js/vendor/jquery.min.js')}}"></script>
-    <script src="{{asset('assets/js/plugins/bootstrap.min.js')}}"></script>
-    <script src="{{asset('assets/js/vendor/jquery-ui.js')}}"></script>
-=======
 
     <script src="{{ asset('assets/js/vendor/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/js/plugins/bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets/js/vendor/jquery-ui.js') }}"></script>
->>>>>>> 31fe5535c8c87ea0b36981bac444c239771c185c
+
+
+    <script src="{{ asset('assets/js/vendor/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/js/plugins/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/js/vendor/jquery-ui.js') }}"></script>
+
     <!-- wow js -->
     <script src="{{ asset('assets/js/vendor/waw.js') }}"></script>
     <!-- mobile menu -->
@@ -305,32 +304,29 @@
     <!-- swiper JS 10.2.0 -->
     <script src="{{ asset('assets/js/plugins/swiper.js') }}"></script>
     <!-- counterup -->
-<<<<<<< HEAD
-    <script src="{{asset('assets/js/plugins/counterup.js')}}"></script>
-    <script src="{{asset('assets/js/vendor/waypoint.js')}}"></script>
-    
-    <script src="{{asset('assets/js/plugins/sticky-sidebar.js')}}"></script>
-    
-=======
     <script src="{{ asset('assets/js/plugins/counterup.js') }}"></script>
     <script src="{{ asset('assets/js/vendor/waypoint.js') }}"></script>
 
     <script src="{{ asset('assets/js/plugins/sticky-sidebar.js') }}"></script>
 
->>>>>>> 31fe5535c8c87ea0b36981bac444c239771c185c
+
+    <script src="{{ asset('assets/js/plugins/counterup.js') }}"></script>
+    <script src="{{ asset('assets/js/vendor/waypoint.js') }}"></script>
+
+    <script src="{{ asset('assets/js/plugins/sticky-sidebar.js') }}"></script>
+
+
     <!-- dymanic Contact Form -->
     <script src="{{ asset('assets/js/plugins/contact.form.js') }}"></script>
     <script src="{{ asset('assets/js/plugins/nice-select.min.js') }}"></script>
     <!-- main Js -->
-<<<<<<< HEAD
     @stack('js')
-    
-    <script src="{{asset('assets/js/main.js')}}"></script>
-    
-=======
     <script src="{{ asset('assets/js/main.js') }}"></script>
 
->>>>>>> 31fe5535c8c87ea0b36981bac444c239771c185c
+
+    <script src="{{ asset('assets/js/main.js') }}"></script>
+
+
 </body>
 
 

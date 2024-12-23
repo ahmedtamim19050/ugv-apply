@@ -35,7 +35,7 @@
                                     <p>Remember to tailor the section names to fit the specific needs and
                                         structure of your university website.
                                     </p>
-                                    <a href="program-single.html" class="rts-theme-btn btn-arrow">View Our Program
+                                    <a href="{{route('apply.now')}}" class="rts-theme-btn btn-arrow">Apply Now
                                         <span><i class="fa-regular fa-arrow-right"></i></span>
                                     </a>
                                 </div>
