@@ -32,12 +32,16 @@
         display: flex;
         justify-content: space-between;
     }
-    .profile-img{
+
+    .profile-img {
         border-radius: 50%;
     }
 </style>
 
 @section('page_title', __('voyager::generic.view') . ' ' . $dataType->getTranslatedAttribute('display_name_singular'))
+@php
+$attachment = json_decode($dataTypeContent->attachments);
+@endphp
 
 @section('page_header')
     <h1 class="page-title">
@@ -75,14 +79,15 @@
 @stop
 
 @section('content')
-   
+
 
     <div class="container my-5">
 
 
         <div class="card">
             <div class="card-body">
-                <img class="profile-img" src="{{Voyager::image($dataTypeContent->photo)}}" alt="{{$dataTypeContent->name}}" height="100" width="100" >
+                <img class="profile-img" src="{{ Voyager::image($dataTypeContent->photo) }}"
+                    alt="{{ $dataTypeContent->name }}" height="100" width="100">
                 <h3 class="card-title text-primary">{{ $dataTypeContent->name }}</h3>
                 <p class="text-muted">Application ID: <strong>#{{ $dataTypeContent->id }}</strong></p>
                 <hr>
@@ -128,49 +133,70 @@
                     </div>
                 </div>
                 <h5 class="mt-4 section-title">Family Background</h5>
-            
+
                 <div class="row">
                     <div class="col-md-6">
-                        <p><strong>Father's Name:</strong> {{$dataTypeContent->father_name}}</p>
-                        <p><strong>Father's Contact Number:</strong> {{$dataTypeContent->father_contact_number}}</p>
-                        <p><strong>Father's Email:</strong> {{$dataTypeContent->father_email}}</p>
-                        <p><strong>Father's Occupation:</strong> {{$dataTypeContent->father_occupation}}</p>
-                        <p><strong>Father's Passport Number:</strong> {{$dataTypeContent->father_passport_number}}</p>
+                        <p><strong>Father's Name:</strong> {{ $dataTypeContent->father_name }}</p>
+                        <p><strong>Father's Contact Number:</strong> {{ $dataTypeContent->father_contact_number }}</p>
+                        <p><strong>Father's Email:</strong> {{ $dataTypeContent->father_email }}</p>
+                        <p><strong>Father's Occupation:</strong> {{ $dataTypeContent->father_occupation }}</p>
+                        <p><strong>Father's Passport Number:</strong> {{ $dataTypeContent->father_passport_number }}</p>
                     </div>
                     <div class="col-md-6">
-                        <p><strong>Mother's Name:</strong> {{$dataTypeContent->mother_name}}</p>
-                        <p><strong>Mother's Contact Number:</strong> {{$dataTypeContent->mother_contact_number}}</p>
-                        <p><strong>Mother's Email:</strong> {{$dataTypeContent->mother_email}}</p>
-                        <p><strong>Mother's Occupation:</strong> {{$dataTypeContent->mother_occupation}}</p>
-                        <p><strong>Mother's Passport Number:</strong> {{$dataTypeContent->mother_passport_number ?? 'N/A'}}</p>
+                        <p><strong>Mother's Name:</strong> {{ $dataTypeContent->mother_name }}</p>
+                        <p><strong>Mother's Contact Number:</strong> {{ $dataTypeContent->mother_contact_number }}</p>
+                        <p><strong>Mother's Email:</strong> {{ $dataTypeContent->mother_email }}</p>
+                        <p><strong>Mother's Occupation:</strong> {{ $dataTypeContent->mother_occupation }}</p>
+                        <p><strong>Mother's Passport Number:</strong>
+                            {{ $dataTypeContent->mother_passport_number ?? 'N/A' }}</p>
                     </div>
                 </div>
                 @php
-                    $attachments=json_decode($dataTypeContent->attachments);
-                    
+                    $attachments = json_decode($dataTypeContent->attachments);
+
                 @endphp
 
-          
+
 
                 <h5 class="mt-4 section-title">Uploaded Documents</h5>
-              
+
                 <ul class="list-group">
-                    
-           
-                    @if(isset($attachments->file1))
-                    <li class="list-group-item">
-                        {{$attachments->file1}} <a href="{{Voyager::image($attachments->file1)}}" target="_black" class="btn btn-primary btn-sm">View</a>
-                    </li>
+                    <p><strong>Passport :</strong> <a href="{{ Storage::url($attachment->passport) }}"
+                            target="_blank">{{ $attachment->passport }}</a></p>
+                    <p><strong>Police Verification :</strong> <a href="{{ Storage::url($attachment->police_verification) }}"
+                            target="_blank">{{ $attachment->police_verification }}</a></p>
+                    <p><strong>Statement Of Purpose :</strong> <a href="{{ Storage::url($attachment->statement_of_purpose) }}"
+                            target="_blank">{{ $attachment->statement_of_purpose }}</a></p>
+                    <p><strong>HSC Academic Transcript :</strong> <a href="{{ Storage::url($attachment->hsc_academic_transcript) }}"
+                            target="_blank">{{ $attachment->hsc_academic_transcript }}</a></p>
+                    <p><strong>SSC Academic Transcript :</strong> <a href="{{ Storage::url($attachment->ssc_academic_transcript) }}"
+                            target="_blank">{{ $attachment->ssc_academic_transcript }}</a></p>
+                    <p><strong>Letter Of Recomandation 1 :</strong> <a
+                            href="{{ Storage::url($attachment->letter_of_recomandation_1) }}"
+                            target="_blank">{{ $attachment->letter_of_recomandation_1 }}</a></p>
+                    <p><strong>Letter Of Recomandation 2 :</strong> <a
+                            href="{{ Storage::url($attachment->letter_of_recomandation_2) }}"
+                            target="_blank">{{ $attachment->letter_of_recomandation_2 }}</a></p>
+                    @foreach ($attachment->others as $other)
+                        <p><strong>Others :</strong> <a href="{{ $other }}">{{ $other }}</a></p>
+                    @endforeach
+
+                    {{-- @if (isset($attachments->file1))
+                        <li class="list-group-item">
+                            {{ $attachments->file1 }} <a href="{{ Voyager::image($attachments->file1) }}" target="_black"
+                                class="btn btn-primary btn-sm">View</a>
+                        </li>
                     @endif
-                    @if(isset($attachments->file2))
-                    <li class="list-group-item">
-                        {{$attachments->file2}} <a href="{{Voyager::image($attachments->file2)}}" target="_black" class="btn btn-primary btn-sm">View</a>
-                    </li>
-                    @endif
-              
-                
+                    @if (isset($attachments->file2))
+                        <li class="list-group-item">
+                            {{ $attachments->file2 }} <a href="{{ Voyager::image($attachments->file2) }}" target="_black"
+                                class="btn btn-primary btn-sm">View</a>
+                        </li>
+                    @endif --}}
+
+
                 </ul>
-           
+
 
                 {{-- <div class="mt-4 d-flex justify-content-between">
                     <button class="btn btn-success" data-bs-toggle="tooltip"

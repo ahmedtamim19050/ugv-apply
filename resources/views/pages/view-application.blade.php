@@ -24,7 +24,7 @@
                 <img src="{{ asset('assets/images/logougv.png') }}" alt="">
             </div>
             <div class="title mt-3">
-                <h3 style="color: #1e386b">Fred Connelly !!</h3>
+                <h3 style="color: #1e386b">{{ $application->name }}</h3>
                 <p class="text-secondary">Application ID : #{{ $application->unique_id }}</p>
             </div>
             <hr class="my-5">
