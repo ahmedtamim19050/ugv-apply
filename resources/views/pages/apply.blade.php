@@ -111,14 +111,14 @@
                                                         English</option>
                                                     <option x-show="application == 'Postgraduate'"
                                                         value="Master in Business Administration">Master in
-                                                        Business Administration</option>
+                                                        Business Administration (MBA)</option>
 
                                                     <option x-show="application == 'Undergraduate'"
                                                         value="Bachelor of Arts in English">Bachelor of Arts in
                                                         English</option>
                                                     <option x-show="application == 'Undergraduate'"
                                                         value="Bachelor of Business Administration">Bachelor of
-                                                        Business Administration</option>
+                                                        Business Administration (BBA)</option>
                                                     <option x-show="application == 'Undergraduate'"
                                                         value="Bachelor of Science in Computer Science and Engineering">
                                                         Bachelor of Science in
