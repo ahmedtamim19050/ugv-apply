@@ -147,7 +147,8 @@ class ApplyController extends Controller
     public function viewApply($uid)
     {
         $application = Application::where('unique_id', $uid)->firstOrFail();
-        // dd($application);
-        return view('pages.view-application', compact('application'));
+        $attachment = json_decode($application->attachments);
+        // dd($attachment);
+        return view('pages.view-application', compact('application', 'attachment'));
     }
 }

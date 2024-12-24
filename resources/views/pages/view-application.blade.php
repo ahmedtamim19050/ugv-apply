@@ -100,6 +100,25 @@
                     
                 </div>
             </div>
+            <div class="attachments pt--50">
+                <h5 class="text-secondary pb-3" style="border-bottom: 2px solid #1e386b;">Uploaded Documents</h5>
+                <div class="mt-5 row">
+                    <div class="col-md-12">
+                        <p><b>Passport :</b> <a href="{{Storage::url($attachment->passport)}}" target="_blank">{{ $attachment->passport }}</a></p>
+                        <p><b>Police Verification :</b> <a href="{{ Storage::url($attachment->police_verification) }}" target="_blank">{{ $attachment->police_verification }}</a></p>
+                        <p><b>Statement Of Purpose :</b> <a href="{{ Storage::url($attachment->statement_of_purpose) }}" target="_blank">{{ $attachment->statement_of_purpose }}</a></p>
+                        <p><b>HSC Academic Transcript :</b> <a href="{{ Storage::url($attachment->hsc_academic_transcript) }}" target="_blank">{{ $attachment->hsc_academic_transcript }}</a></p>
+                        <p><b>SSC Academic Transcript :</b> <a href="{{ Storage::url($attachment->ssc_academic_transcript) }}" target="_blank">{{ $attachment->ssc_academic_transcript }}</a></p>
+                        <p><b>Letter Of Recomandation 1 :</b> <a href="{{ Storage::url($attachment->letter_of_recomandation_1) }}" target="_blank">{{ $attachment->letter_of_recomandation_1 }}</a></p>
+                        <p><b>Letter Of Recomandation 2 :</b> <a href="{{ Storage::url($attachment->letter_of_recomandation_2) }}" target="_blank">{{ $attachment->letter_of_recomandation_2 }}</a></p>
+                        @foreach ($attachment->others as $other)
+                        <p><b>Others :</b> <a href="{{ $other }}">{{ $other }}</a></p>
+                        @endforeach
+                    </div>
+                    
+                    
+                </div>
+            </div>
         </div>
     </section>
 </x-app>
