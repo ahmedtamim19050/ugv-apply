@@ -41,6 +41,7 @@
 @section('page_title', __('voyager::generic.view') . ' ' . $dataType->getTranslatedAttribute('display_name_singular'))
 @php
     $attachment = json_decode($dataTypeContent->attachments);
+    $attachment = json_decode($dataTypeContent->attachments);
 @endphp
 
 @section('page_header')
