@@ -68,7 +68,8 @@ class ApplyController extends Controller
 
         if ($request->hasFile('attachment')) {
             foreach ($request->file('attachment') as $key => $file) {
-                if (is_null($file)) continue;
+                if (is_null($file))
+                    continue;
                 if (is_array($file)) {
 
                     foreach ($file as $k => $f) {
@@ -132,6 +133,16 @@ class ApplyController extends Controller
             'attachments' => $attachments ? json_encode($attachments) : null,
         ]);
 
-        return redirect(route('apply.thank-you'))->with('success', 'Application submitted successfully!');
+        return redirect(route('apply.thank-you', $application->unique_id))->with('success', 'Application submitted successfully!');
+    }
+    public function thankYou($uid)
+    {
+        return view('pages.thank-you', compact('uid'));
+    }
+    public function viewApply($uid)
+    {
+        $application = Application::where('unique_id', $uid)->firstOrFail();
+        // dd($application);
+        return view('pages.view-application', compact('application'));
     }
 }

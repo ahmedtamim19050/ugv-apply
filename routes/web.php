@@ -27,11 +27,14 @@ Route::get('/fees-stucture', [PageController::class, 'FeesStucture'])->name('pag
 Route::get('/admission-rules', [PageController::class, 'AdmissionRules'])->name('page.admission-rules');
 Route::get('/contact', [PageController::class, 'contact'])->name('page.contact');
 Route::get('/apply-now', [PageController::class, 'apply'])->name('apply.now');
-Route::get('/thank-you', [PageController::class, 'thankYou'])->name('apply.thank-you');
+
 
 
 Route::controller(ApplyController::class)->group(function () {
     Route::post('/save/apply-now', 'saveApply')->name('apply.save');
+    Route::get('/thank-you/{uid}', 'thankYou')->name('apply.thank-you');
+    Route::get('/view/application/{uid}', 'viewApply')->name('apply.view');
+
 });
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();

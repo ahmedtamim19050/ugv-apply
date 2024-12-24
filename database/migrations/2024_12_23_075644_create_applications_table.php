@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('applications', function (Blueprint $table) {
             $table->id();
             $table->string('unique_id')->unique();
+            $table->boolean('status')->default(0);
             $table->enum('application', ['Under Graduate', 'Graduate'])->nullable();
             $table->enum('session', ['January', 'June'])->nullable();
             $table->string('interested_course')->nullable();

@@ -17,4 +17,16 @@
             </div>
         </div>
     </section>
+    <section class="pt--100 pb--80">
+        <div class="container">
+            <div class="row">
+                <div class="rts-section text-center">
+                    <a href="{{ route('apply.view',$uid) }}" class="rts-theme-btn btn-arrow">View Application
+                        <span><i class="fa-regular fa-arrow-right"></i></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
 </x-app>
