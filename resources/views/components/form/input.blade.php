@@ -13,17 +13,17 @@
 
     </div>
 @elseif($type == 'tel')
-<div class="single-input-item">
-    <label for="{{ $id }}">{{ $label }} @if ($required)
-            <span class="text-danger">*</span>
-        @endif
-    </label>
-    <div class="d-grid">
+    <div class="single-input-item">
+        <label for="{{ $id }}">{{ $label }} @if ($required)
+                <span class="text-danger">*</span>
+            @endif
+        </label>
+        <div class="d-grid">
 
-        <input type="{{ $type }}" name="{{ $name }}" value="{{ old($name) }}"
-        id="{{ $id }}" placeholder="{{ $placeholder }}" {{$attributes}}>
+            <input type="{{ $type }}" name="{{ $name }}" value="{{ old($name) }}"
+                id="{{ $id }}" placeholder="{{ $placeholder }}" {{ $attributes }}>
+        </div>
     </div>
-</div>
 @else
     <div class="single-input-item">
         <label for="{{ $id }}">{{ $label }} @if ($required)
@@ -31,6 +31,6 @@
             @endif
         </label>
         <input type="{{ $type }}" name="{{ $name }}" value="{{ old($name) }}"
-            id="{{ $id }}" placeholder="{{ $placeholder }}" {{$attributes}}>
+            id="{{ $id }}" placeholder="{{ $placeholder }}" {{ $attributes }}>
     </div>
 @endif

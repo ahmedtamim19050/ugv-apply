@@ -538,13 +538,9 @@
                                                 <div class="single-input">
                                                     <div class="single-input-item">
                                                         <label for="medical_examination">Medical examination <span
-                                                                <<<<<<< HEAD class="text-danger">*</span></label>
+                                                                 class="text-danger">*</span></label>
                                                         <input type="file" name="attachment[medical_examination]"
-                                                            id="medical_examination"=======class="text-danger">*</span><span
-                                                            class="fs-5"> (must be 512kb or less)</span></label>
-                                                        <input type="file" name="attachment[medical_examination]"
-                                                            id="medical_examination" required>>>>>>>
-                                                        d5418a643be2afd40f338ffbfaa8cb171771877f
+                                                            id="medical_examination" required
                                                         accept="image/png, image/jpeg, image/gif .doc, .docx, .pdf">
                                                         <p> <a style="text-decoration: underline" class="text-danger"
                                                                 href="{{ asset('assets/Physical Examination Form.pdf') }}">Download
@@ -568,12 +564,8 @@
                                                 <div class="single-input">
                                                     <div class="single-input-item">
                                                         <label for="statement_of_purpose">Statement of Purpose (SOP)
-                                                            <span class="text-danger" <<<<<<< HEAD
+                                                            <span class="text-danger" 
                                                                 x-show="application == 'Postgraduate'">*</span></label>
-                                                        =======
-                                                        x-show="application == 'Postgraduate'">*</span><span
-                                                            class="fs-5"> (must be 512kb or less)</span></label>
-                                                        >>>>>>> d5418a643be2afd40f338ffbfaa8cb171771877f
                                                         <input type="file" name="attachment[statement_of_purpose]"
                                                             id="statement_of_purpose"
                                                             accept="image/png, image/jpeg, image/gif ,.doc, .docx, .pdf">
@@ -583,12 +575,8 @@
                                                 <div class="single-input">
                                                     <div class="single-input-item">
                                                         <label for="letter_of_recomandation_1">Letter of Recommendation
-                                                            <span class="text-danger" <<<<<<< HEAD
-                                                                x-show="application == 'Postgraduate'">*</span></label>
-                                                        =======
-                                                        x-show="application == 'Postgraduate'">*</span><span
-                                                            class="fs-5"> (must be 512kb or less)</span></label>
-                                                        >>>>>>> d5418a643be2afd40f338ffbfaa8cb171771877f
+                                                            <span class="text-danger"
+                                                            class="fs-5">*</span> <span class="fs-5"> (must be 512kb or less)</span></label>
                                                         <input type="file"
                                                             name="attachment[letter_of_recomandation_1]"
                                                             id="letter_of_recomandation_1"
@@ -597,13 +585,9 @@
                                                 </div>
                                                 <div class="single-input">
                                                     <div class="single-input-item">
-                                                        <<<<<<< HEAD <label for="letter_of_recomandation_2">Letter of
-                                                            Recommendation
-                                                            =======
                                                             <label for="letter_of_recomandation_2">Letter of
                                                                 Recommendation<span class="fs-5"> (must be 512kb or
                                                                     less)</span>
-                                                                >>>>>>> d5418a643be2afd40f338ffbfaa8cb171771877f
                                                             </label>
                                                             <input type="file"
                                                                 name="attachment[letter_of_recomandation_2]"

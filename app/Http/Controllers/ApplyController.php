@@ -11,6 +11,7 @@ class ApplyController extends Controller
 {
     public function saveApply(Request $request)
     {
+        // dd($request->all());
         // Validate the incoming data
         $validated = $request->validate([
             'application' => 'required|in:Undergraduate,Postgraduate',
@@ -18,7 +19,11 @@ class ApplyController extends Controller
             'course' => 'required|string',
             'name' => 'required|string',
             'photo' => 'required|file|mimes:jpeg,png,jpg,gif',
-            'contact_number' => 'required|string',
+            //apatoto nullable kore nici
+            'contact_number' => 'nullable',
+            'father_contact_number' => 'nullable',
+            'mother_contact_number' => 'nullable',
+            //end
             'email' => 'required|email',
             'passport' => 'required|string',
             'dob' => 'required|date',
@@ -31,12 +36,10 @@ class ApplyController extends Controller
             'state' => 'required|string',
             'country' => 'required|string',
             'father_name' => 'required|string',
-            'father_contact_number' => 'required|string',
             'father_email' => 'required|email',
             'father_occupation' => 'required|string',
             'father_passport' => 'required|string',
             'mother_name' => 'required|string',
-            'mother_contact_number' => 'required|string',
             'mother_email' => 'required|email',
             'mother_occupation' => 'required|string',
             'mother_passport' => 'required|string',
@@ -139,9 +142,13 @@ class ApplyController extends Controller
             'honors_degree_grade_or_marks' => $validated['undergraduate_cgpa'],
             'attachments' => $attachments ? json_encode($attachments) : null,
         ]);
-        $uid = $application->unique_id;
-        // dd($uid);
-        Mail::to($validated['email'])->send(new ApplicationCompleteMail($uid));
+        $data = [
+            'uid' => $application->unique_id,
+            'name' => $application->name,
+        ];
+        
+        
+        Mail::to($validated['email'])->send(new ApplicationCompleteMail($data));
         return redirect(route('apply.thank-you', $application->unique_id))->with('success', 'Application submitted successfully!');
     }
     public function thankYou($uid)
