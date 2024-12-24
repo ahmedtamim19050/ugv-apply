@@ -163,7 +163,7 @@
             </div>
             <div class="contact-map mt--30">
                 <iframe class="contact-map"
-                    src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14602.288851207937!2d90.47855065!3d23.798243149999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sbd!4v1663151706353!5m2!1sen!2sbd"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1327.4879585325345!2d90.35179577869552!3d22.70729366571429!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755342394b62973%3A0x17e6bd03d1efe7f9!2sUniversity%20of%20Global%20Village!5e0!3m2!1sen!2sbd!4v1735017501160!5m2!1sen!2sbd"
                     style="border:0;" allowfullscreen="" loading="lazy"
                     referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>

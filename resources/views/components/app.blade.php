@@ -40,7 +40,7 @@
                 <div class="col-xl-12">
                     <div class="header__wrapper">
                         <div class="header__logo">
-                            <a href="index-2.html" class="header__logo--link">
+                            <a href="{{url('/')}}" class="header__logo--link">
                                 <img src="{{ asset('assets/images/logougv.png') }}" alt="ugv" width="100px">
                             </a>
                         </div>
@@ -64,14 +64,14 @@
                                                 class="navigation__menu--item__link">Admission Rules</a>
 
                                         </li>
-                                        <li class="navigation__menu--item has-child has-arrow">
+                                        {{-- <li class="navigation__menu--item has-child has-arrow">
                                             <a href="#" class="navigation__menu--item__link">Download Application
                                                 Copy</a>
 
-                                        </li>
+                                        </li> --}}
 
                                         <li class="navigation__menu--item">
-                                            <a href="contact.html" class="navigation__menu--item__link">Contact</a>
+                                            <a href="{{route('page.contact')}}" class="navigation__menu--item__link">Contact</a>
                                         </li>
                                     </ul>
                                 </nav>

@@ -9,60 +9,75 @@ class ApplyController extends Controller
 {
     public function saveApply(Request $request)
     {
-        // dd($request->all());
         // Validate the incoming data
         $validated = $request->validate([
-            'application' => 'nullable|in:Under Graduate,Graduate',
-            'session' => 'nullable|in:January,June',
-            'course' => 'nullable|string',
+            'application' => 'required|in:Under Graduate,Graduate',
+            'session' => 'required|in:January,June',
+            'course' => 'required|string',
             'name' => 'required|string',
-            'photo' => 'nullable|file|mimes:jpeg,png,jpg,gif',
-            'contact_number' => 'nullable|string',
+            'photo' => 'required|file|mimes:jpeg,png,jpg,gif',
+            'contact_number' => 'required|string',
             'email' => 'required|email',
-            'passport' => 'nullable|string',
-            'dob' => 'nullable|date',
-            'religion' => 'nullable|in:Islam,Buddhism,Hinduism,Jainism,Shinto,Judaism,Baháʼí Faith,Mormonism,Christianity,Sikhism,Chinese religion,Others',
-            'gender' => 'nullable|in:Male,Female,Others',
-            'blood_group' => 'nullable|in:A+,A-,B+,B-,O+,O-,AB+,AB-',
-            'address' => 'nullable|string',
-            'post_code' => 'nullable|string',
-            'city' => 'nullable|string',
-            'state' => 'nullable|string',
-            'country' => 'nullable|string',
-            'father_name' => 'nullable|string',
+            'passport' => 'required|string',
+            'dob' => 'required|date',
+            'religion' => 'required|in:Islam,Buddhism,Hinduism,Jainism,Shinto,Judaism,Baháʼí Faith,Mormonism,Christianity,Sikhism,Chinese religion,Others',
+            'gender' => 'required|in:Male,Female,Others',
+            'blood_group' => 'required|in:A+,A-,B+,B-,O+,O-,AB+,AB-',
+            'address' => 'required|string',
+            'post_code' => 'required|string',
+            'city' => 'required|string',
+            'state' => 'required|string',
+            'country' => 'required|string',
+            'father_name' => 'required|string',
             'father_contact_number' => 'nullable|string',
             'father_email' => 'nullable|email',
-            'father_occupation' => 'nullable|string',
+            'father_occupation' => 'required|string',
             'father_passport' => 'nullable|string',
-            'mother_name' => 'nullable|string',
+            'mother_name' => 'required|string',
             'mother_contact_number' => 'nullable|string',
             'mother_email' => 'nullable|email',
             'mother_occupation' => 'nullable|string',
             'mother_passport' => 'nullable|string',
-            'ssc_exam_name' => 'nullable|string',
-            'ssc_group' => 'nullable|string',
-            'ssc_year' => 'nullable|string',
-            'ssc_inistitute' => 'nullable|string',
-            'ssc_gpa' => 'nullable|string',
-            'ssc_ministry' => 'nullable|string',
-            'hsc_exam_name' => 'nullable|string',
-            'hsc_group' => 'nullable|string',
-            'hsc_year' => 'nullable|string',
-            'hsc_inistitute' => 'nullable|string',
-            'hsc_gpa' => 'nullable|string',
-            'hsc_ministry' => 'nullable|string',
-            'undergraduate_course' => 'nullable|string',
-            'undergraduate_year' => 'nullable|string',
-            'undergraduate_inistitute' => 'nullable|string',
-            'undergraduate_cgpa' => 'nullable|string',
-            'attachment.*' => 'nullable|file|mimes:jpeg,png,jpg,gif,doc,docx,pdf|max:2048',
+            'ssc_exam_name' => 'required|string',
+            'ssc_group' => 'required|string',
+            'ssc_year' => 'required|string',
+            'ssc_inistitute' => 'required|string',
+            'ssc_gpa' => 'required|string',
+            'ssc_ministry' => 'required|string',
+            'hsc_exam_name' => 'required|string',
+            'hsc_group' => 'required|string',
+            'hsc_year' => 'required|string',
+            'hsc_inistitute' => 'required|string',
+            'hsc_gpa' => 'required|string',
+            'hsc_ministry' => 'required|string',
+            'undergraduate_course' => 'required_if:application,Graduate|nullable',
+            'undergraduate_year' => 'required_if:application,Graduate|nullable',
+            'undergraduate_inistitute' => 'required_if:application,Graduate|nullable',
+            'undergraduate_cgpa' => 'required_if:application,Graduate|nullable',
+            'attachment.undergraduate_academic_transcript' => 'required_if:application,Graduate|nullable|file|mimes:jpeg,png,jpg,gif,doc,docx,pdf|max:2048',
+            'attachment.undergraduate_certificate' => 'required_if:application,Graduate|nullable|file|mimes:jpeg,png,jpg,gif,doc,docx,pdf|max:2048',
+            'attachment.police_verification' => 'required|file|mimes:jpeg,png,jpg,gif,doc,docx,pdf|max:2048',
+            'attachment.statement_of_purpose' => 'required|file|mimes:jpeg,png,jpg,gif,doc,docx,pdf|max:2048',
+            'attachment.letter_of_recomandation_1' => 'required|file|mimes:jpeg,png,jpg,gif,doc,docx,pdf|max:2048',
+            'attachment.letter_of_recomandation_2' => 'required|file|mimes:jpeg,png,jpg,gif,doc,docx,pdf|max:2048',
+            'attachment.others.*' => 'nullable|mimes:jpeg,png,jpg,gif,doc,docx,pdf|max:2048',
         ]);
 
         // Handle file uploads
         $attachments = [];
+
         if ($request->hasFile('attachment')) {
             foreach ($request->file('attachment') as $key => $file) {
-                $attachments[$key] = $file->store('attachments');
+                if (is_null($file)) continue;
+                if (is_array($file)) {
+
+                    foreach ($file as $k => $f) {
+
+                        $attachments['others'][$k] = $f->store('attachments');
+                    }
+                } else {
+                    $attachments[$key] = $file->store('attachments');
+                }
             }
         }
 

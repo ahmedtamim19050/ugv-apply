@@ -141,7 +141,7 @@
                                                     <div class="single-input-item">
                                                         <label for="profileImage">Student's Image <span
                                                                 class="text-danger">*</span></label>
-                                                        <input type="file" name="image" id="profileImage"
+                                                        <input type="file" name="photo" id="profileImage"
                                                             accept="image/png, image/jpeg, image/gif" required>
                                                     </div>
 
@@ -477,33 +477,33 @@
                                                                 required>
                                                         </div>
                                                     </div>
-                                                    <h5 x-if="application == 'Graduate'">Undergraduate Education
+                                                    <h5 x-show="application == 'Graduate'">Undergraduate Education
                                                     </h5>
-                                                    <div class="single-input" x-if="application == 'Graduate'">
+                                                    <div class="single-input" x-show="application == 'Graduate'">
                                                         <div class="single-input-item">
                                                             <label for="undergraduate_course">Degree Title <span
                                                                     class="text-danger">*</span></label>
                                                             <input name="undergraduate_course"
                                                                 id="undergraduate_course" type="text" value="{{ old('undergraduate_course') }}"
                                                                 placeholder="Degree Title (e.g., Bachelor of Science in Computer Science)"
-                                                                required>
+                                                                >
                                                         </div>
 
                                                     </div>
-                                                    <div class="single-input" x-if="application == 'Graduate'">
+                                                    <div class="single-input" x-show="application == 'Graduate'">
                                                         <div class="single-input-item">
                                                             <label for="undergraduate_inistitute">Institue Name <span
                                                                     class="text-danger">*</span></label>
                                                             <input name="undergraduate_inistitute"
                                                                 id="undergraduate_inistitute" type="text" value="{{ old('undergraduate_inistitute') }}"
-                                                                placeholder="Institute Name" required>
+                                                                placeholder="Institute Name" >
                                                         </div>
                                                         <div class="single-input-item"
-                                                            x-if="application == 'Graduate'">
+                                                            x-show="application == 'Graduate'">
                                                             <label for="undergraduate_inistitute_country">Country of
                                                                 Institue <span class="text-danger">*</span></label>
                                                             <select name="undergraduate_inistitute_country"
-                                                                id="undergraduate_inistitute_country" required>
+                                                                id="undergraduate_inistitute_country" >
                                                                 <option value="">Country of Institue</option>
                                                                 @foreach (App\Constant::Countries as $country)
                                                                     <option value="{{ $country }}">
@@ -513,23 +513,23 @@
                                                             </select>
                                                         </div>
                                                     </div>
-                                                    <div class="single-input" x-if="application == 'Graduate'">
+                                                    <div class="single-input" x-show="application == 'Graduate'">
                                                         <div class="single-input-item">
                                                             <label for="undergraduate_year">Year of Graduation <span
                                                                     class="text-danger">*</span></label>
                                                             <input type="text" name="undergraduate_year"
                                                                 id="undergraduate_year"     value="{{ old('undergraduate_year') }}"
-                                                                placeholder="Year of Graduation" required>
+                                                                placeholder="Year of Graduation" >
                                                         </div>
                                                         <div class="single-input-item">
                                                             <label for="undergraduate_cgpa">CGPA <span
                                                                     class="text-danger">*</span></label>
                                                             <input type="text" name="undergraduate_cgpa"
                                                                 id="undergraduate_cgpa" value="{{ old('undergraduate_cgpa') }}"
-                                                                placeholder="Undergraduate CGPA" required>
+                                                                placeholder="Undergraduate CGPA" >
                                                         </div>
                                                     </div>
-                                                    <div class="single-input" x-if="application == 'Graduate'">
+                                                    <div class="single-input" x-show="application == 'Graduate'">
                                                         <div class="single-input-item">
                                                             <label for="hsc_academic_transcript">Academic Transcript
                                                                 <span class="text-danger">*</span></label>
@@ -537,17 +537,17 @@
                                                                 name="attachment[undergraduate_academic_transcript]"
                                                                 id="hsc_academic_transcript" 
                                                                 accept="image/png, image/jpeg, image/gif, .doc, .docx, .pdf"
-                                                                required>
+                                                                >
                                                         </div>
                                                         <div class="single-input-item"
-                                                            x-if="application == 'Graduate'">
+                                                        x-show="application == 'Graduate'">
                                                             <label for="undergraduate_certificate">Certificate/Degree
                                                                 <span class="text-danger">*</span></label>
                                                             <input type="file"
                                                                 name="attachment[undergraduate_certificate]"
                                                                 id="undergraduate_certificate"
                                                                 accept="image/png, image/jpeg, image/gif, .doc, .docx, .pdf"
-                                                                required>
+                                                                >
                                                         </div>
 
                                                     </div>
@@ -619,7 +619,7 @@
                                                     <div class="single-input-item">
                                                         <label for="others">Others</label>
                                                         <small>(multiple upload supported)</small>
-                                                        <input type="file" name="attachment[others]"
+                                                        <input type="file" name="attachment[others][]"
                                                             id="others" multiple
                                                             accept="image/png, image/jpeg, image/gif ,.doc, .docx, .pdf">
                                                     </div>
