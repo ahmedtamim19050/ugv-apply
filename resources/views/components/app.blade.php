@@ -285,17 +285,10 @@
 
 
 
-<<<<<<< HEAD
     
     <script src="{{asset('assets/js/vendor/jquery.min.js')}}"></script>
     <script src="{{asset('assets/js/plugins/bootstrap.min.js')}}"></script>
     <script src="{{asset('assets/js/vendor/jquery-ui.js')}}"></script>
-=======
-
-    <script src="{{ asset('assets/js/vendor/jquery.min.js') }}"></script>
-    <script src="{{ asset('assets/js/plugins/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('assets/js/vendor/jquery-ui.js') }}"></script>
->>>>>>> 31fe5535c8c87ea0b36981bac444c239771c185c
     <!-- wow js -->
     <script src="{{ asset('assets/js/vendor/waw.js') }}"></script>
     <!-- mobile menu -->
@@ -305,32 +298,19 @@
     <!-- swiper JS 10.2.0 -->
     <script src="{{ asset('assets/js/plugins/swiper.js') }}"></script>
     <!-- counterup -->
-<<<<<<< HEAD
     <script src="{{asset('assets/js/plugins/counterup.js')}}"></script>
     <script src="{{asset('assets/js/vendor/waypoint.js')}}"></script>
     
     <script src="{{asset('assets/js/plugins/sticky-sidebar.js')}}"></script>
     
-=======
-    <script src="{{ asset('assets/js/plugins/counterup.js') }}"></script>
-    <script src="{{ asset('assets/js/vendor/waypoint.js') }}"></script>
-
-    <script src="{{ asset('assets/js/plugins/sticky-sidebar.js') }}"></script>
-
->>>>>>> 31fe5535c8c87ea0b36981bac444c239771c185c
     <!-- dymanic Contact Form -->
     <script src="{{ asset('assets/js/plugins/contact.form.js') }}"></script>
     <script src="{{ asset('assets/js/plugins/nice-select.min.js') }}"></script>
     <!-- main Js -->
-<<<<<<< HEAD
     @stack('js')
     
     <script src="{{asset('assets/js/main.js')}}"></script>
     
-=======
-    <script src="{{ asset('assets/js/main.js') }}"></script>
-
->>>>>>> 31fe5535c8c87ea0b36981bac444c239771c185c
 </body>
 
 

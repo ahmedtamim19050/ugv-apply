@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\PageController;
+use App\Models\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use TCG\Voyager\Facades\Voyager;
 
 /*
 |--------------------------------------------------------------------------
