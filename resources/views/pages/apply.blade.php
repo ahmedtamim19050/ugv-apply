@@ -451,7 +451,7 @@
                                                                     class="text-danger">*</span></label>
                                                             <input name="hsc_group" id="hsc_group" type="text"
                                                                 value="{{ old('hsc_group') }}"
-                                                                placeholder="Subject Name [eg: SSC]" required>
+                                                                placeholder="Subject Name [eg: Science]" required>
                                                         </div>
                                                         <div class="single-input-item">
                                                             <label for="hsc_year">Passing Year <span
