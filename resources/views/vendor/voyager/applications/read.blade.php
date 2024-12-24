@@ -41,6 +41,7 @@
 @section('page_title', __('voyager::generic.view') . ' ' . $dataType->getTranslatedAttribute('display_name_singular'))
 @php
     $attachment = json_decode($dataTypeContent->attachments);
+    $attachment = json_decode($dataTypeContent->attachments);
 @endphp
 
 @section('page_header')
@@ -161,30 +162,56 @@
                 <h5 class="mt-4 section-title">Uploaded Documents</h5>
 
                 <ul class="list-group">
-                   
-                    <p><strong>Passport :</strong> <a href="{{ Storage::url($attachment?->passport) }}"
-                            target="_blank">{{ $attachment?->passport }}</a></p>
-                    <p><strong>Police Verification :</strong> <a
-                            href="{{ Storage::url($attachment?->police_verification) }}"
-                            target="_blank">{{ $attachment?->police_verification }}</a></p>
-                    <p><strong>Statement Of Purpose :</strong> <a
-                            href="{{ Storage::url($attachment?->statement_of_purpose) }}"
-                            target="_blank">{{ $attachment?->statement_of_purpose }}</a></p>
-                    <p><strong>HSC Academic Transcript :</strong> <a
-                            href="{{ Storage::url($attachment?->hsc_academic_transcript) }}"
-                            target="_blank">{{ $attachment?->hsc_academic_transcript }}</a></p>
-                    <p><strong>SSC Academic Transcript :</strong> <a
-                            href="{{ Storage::url($attachment?->ssc_academic_transcript) }}"
-                            target="_blank">{{ $attachment?->ssc_academic_transcript }}</a></p>
-                    <p><strong>Letter Of Recomandation 1 :</strong> <a
-                            href="{{ Storage::url($attachment?->letter_of_recomandation_1) }}"
-                            target="_blank">{{ $attachment?->letter_of_recomandation_1 }}</a></p>
-                    <p><strong>Letter Of Recomandation 2 :</strong> <a
-                            href="{{ Storage::url($attachment?->letter_of_recomandation_2) }}"
-                            target="_blank">{{ $attachment?->letter_of_recomandation_2 }}</a></p>
-                    @foreach ($attachment?->others as $other)
-                        <p><strong>Others :</strong> <a href="{{ $other }}">{{ $other }}</a></p>
-                    @endforeach
+                    @if ($attachment->passport)
+                        <p><strong>Passport :</strong> <a href="{{ Storage::url($attachment->passport) }}"
+                                target="_blank">{{ $attachment->passport }}</a></p>
+                    @endif
+
+                    @if ($attachment->police_verification)
+                        <p><strong>Police Verification :</strong> <a
+                                href="{{ Storage::url($attachment->police_verification) }}"
+                                target="_blank">{{ $attachment->police_verification }}</a></p>
+                    @endif
+
+                    @if ($attachment->statement_of_purpose)
+                        <p><strong>Statement Of Purpose :</strong> <a
+                                href="{{ Storage::url($attachment->statement_of_purpose) }}"
+                                target="_blank">{{ $attachment->statement_of_purpose }}</a></p>
+                    @endif
+
+                    @if ($attachment->hsc_academic_transcript)
+                        <p><strong>HSC Academic Transcript :</strong> <a
+                                href="{{ Storage::url($attachment->hsc_academic_transcript) }}"
+                                target="_blank">{{ $attachment->hsc_academic_transcript }}</a></p>
+                    @endif
+
+                    @if ($attachment->ssc_academic_transcript)
+                        <p><strong>SSC Academic Transcript :</strong> <a
+                                href="{{ Storage::url($attachment->ssc_academic_transcript) }}"
+                                target="_blank">{{ $attachment->ssc_academic_transcript }}</a></p>
+                    @endif
+
+                    @if ($attachment->letter_of_recomandation_1)
+                        <p><strong>Letter Of Recommendation 1 :</strong> <a
+                                href="{{ Storage::url($attachment->letter_of_recomandation_1) }}"
+                                target="_blank">{{ $attachment->letter_of_recomandation_1 }}</a></p>
+                    @endif
+
+                    @if ($attachment->letter_of_recomandation_2)
+                        <p><strong>Letter Of Recommendation 2 :</strong> <a
+                                href="{{ Storage::url($attachment->letter_of_recomandation_2) }}"
+                                target="_blank">{{ $attachment->letter_of_recomandation_2 }}</a></p>
+                    @endif
+
+                    @if (!empty($attachment->others))
+                        @foreach ($attachment->others as $other)
+                            @if ($other)
+                                <p><strong>Others :</strong> <a href="{{ $other }}"
+                                        target="_blank">{{ $other }}</a></p>
+                            @endif
+                        @endforeach
+                    @endif
+
 
                     {{-- @if (isset($attachments->file1))
                         <li class="list-group-item">

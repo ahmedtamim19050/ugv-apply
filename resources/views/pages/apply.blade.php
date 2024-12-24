@@ -275,7 +275,11 @@
                                                     <div class="single-input-item">
                                                         <label for="country">Country <span
                                                                 class="text-danger">*</span></label>
+<<<<<<< HEAD
                                                         <select name="country" id="country" >
+=======
+                                                        <select name="country" id="country" required>
+>>>>>>> d5418a643be2afd40f338ffbfaa8cb171771877f
                                                             <option value="">Country</option>
                                                             @foreach (App\Constant::Countries as $country)
                                                                 <option value="{{ $country }}">
@@ -466,7 +470,7 @@
                                                         </div>
                                                         <div class="single-input-item">
                                                             <label for="ssc_academic_transcript">Academic Transcript
-                                                                <span class="text-danger">*</span></label>
+                                                                <span class="text-danger">*</span><span class="fs-5"> (must be 512kb or less)</span></label>
                                                             <input type="file"
                                                                 name="attachment[ssc_academic_transcript]"
                                                                 id="ssc_academic_transcript"
@@ -474,7 +478,7 @@
                                                         </div>
                                                         <div class="single-input-item">
                                                             <label for="ssc_certificate">Degree Certificate
-                                                                <span class="text-danger">*</span></label>
+                                                                <span class="text-danger">*</span><span class="fs-5"> (must be 512kb or less)</span></label>
                                                             <input type="file" name="attachment[ssc_certificate]"
                                                                 id="ssc_certificate"
                                                                 accept="image/png, image/jpeg, image/gif" >
@@ -532,7 +536,7 @@
 
                                                         <div class="single-input-item">
                                                             <label for="hsc_academic_transcript">Academic Transcript
-                                                                <span class="text-danger">*</span></label>
+                                                                <span class="text-danger">*</span><span class="fs-5"> (must be 512kb or less)</span></label>
                                                             <input type="file"
                                                                 name="attachment[hsc_academic_transcript]"
                                                                 id="hsc_academic_transcript"
@@ -541,7 +545,7 @@
                                                         </div>
                                                         <div class="single-input-item">
                                                             <label for="hsc_certificate">Degree Certificate
-                                                                <span class="text-danger">*</span></label>
+                                                                <span class="text-danger">*</span><span class="fs-5"> (must be 512kb or less)</span></label>
                                                             <input type="file" name="attachment[hsc_certificate]"
                                                                 id="hsc_certificate"
                                                                 accept="image/png, image/jpeg, image/gif, .doc, .docx, .pdf"
@@ -606,7 +610,7 @@
                                                     <div class="single-input" x-show="application == 'Postgraduate'">
                                                         <div class="single-input-item">
                                                             <label for="hsc_academic_transcript">Academic Transcript
-                                                                <span class="text-danger">*</span></label>
+                                                                <span class="text-danger">*</span><span class="fs-5"> (must be 512kb or less)</span></label>
                                                             <input type="file"
                                                                 name="attachment[undergraduate_academic_transcript]"
                                                                 id="hsc_academic_transcript"
@@ -615,7 +619,7 @@
                                                         <div class="single-input-item"
                                                             x-show="application == 'Postgraduate'">
                                                             <label for="undergraduate_certificate">Degree Certificate
-                                                                <span class="text-danger">*</span></label>
+                                                                <span class="text-danger">*</span><span class="fs-5"> (must be 512kb or less)</span></label>
                                                             <input type="file"
                                                                 name="attachment[undergraduate_certificate]"
                                                                 id="undergraduate_certificate"
@@ -632,7 +636,7 @@
                                                 <h5 class="form-title">Attachments</h5>
                                                 <div class="single-input">
                                                     <div class="single-input-item">
-                                                        <label for="police_verification">Police verification </label>
+                                                        <label for="police_verification">Police verification <span class="fs-5"> (must be 512kb or less)</span></label>
                                                         <input type="file" name="attachment[police_verification]"
                                                             id="police_verification"
                                                             accept="image/png, image/jpeg, image/gif .doc, .docx, .pdf">
@@ -642,9 +646,15 @@
                                                 <div class="single-input">
                                                     <div class="single-input-item">
                                                         <label for="medical_examination">Medical examination <span
+<<<<<<< HEAD
                                                                 class="text-danger">*</span></label>
                                                         <input type="file" name="attachment[medical_examination]"
                                                             id="medical_examination" 
+=======
+                                                                class="text-danger">*</span><span class="fs-5"> (must be 512kb or less)</span></label>
+                                                        <input type="file" name="attachment[medical_examination]"
+                                                            id="medical_examination" required
+>>>>>>> d5418a643be2afd40f338ffbfaa8cb171771877f
                                                             accept="image/png, image/jpeg, image/gif .doc, .docx, .pdf">
                                                         <p> <a style="text-decoration: underline" class="text-danger"
                                                                 href="{{ asset('assets/Physical Examination Form.pdf') }}">Download
@@ -656,7 +666,7 @@
                                                 <div class="single-input">
                                                     <div class="single-input-item">
                                                         <label for="passport_copy">Passport <span
-                                                                class="text-danger">*</span></label>
+                                                                class="text-danger">*</span><span class="fs-5"> (must be 512kb or less)</span></label>
                                                         <input type="file" name="attachment[passport]"
                                                             id="passport_copy"
                                                             accept="image/png, image/jpeg, image/gif .doc, .docx, .pdf"
@@ -669,7 +679,11 @@
                                                     <div class="single-input-item">
                                                         <label for="statement_of_purpose">Statement of Purpose (SOP)
                                                             <span class="text-danger"
+<<<<<<< HEAD
                                                                 x-show="application == 'Postgraduate'">*</span></label>
+=======
+                                                                x-show="application == 'Postgraduate'">*</span><span class="fs-5"> (must be 512kb or less)</span></label>
+>>>>>>> d5418a643be2afd40f338ffbfaa8cb171771877f
                                                         <input type="file" name="attachment[statement_of_purpose]"
                                                             id="statement_of_purpose"
                                                             accept="image/png, image/jpeg, image/gif ,.doc, .docx, .pdf">
@@ -680,7 +694,11 @@
                                                     <div class="single-input-item">
                                                         <label for="letter_of_recomandation_1">Letter of Recommendation
                                                             <span class="text-danger"
+<<<<<<< HEAD
                                                                 x-show="application == 'Postgraduate'">*</span></label>
+=======
+                                                                x-show="application == 'Postgraduate'">*</span><span class="fs-5"> (must be 512kb or less)</span></label>
+>>>>>>> d5418a643be2afd40f338ffbfaa8cb171771877f
                                                         <input type="file"
                                                             name="attachment[letter_of_recomandation_1]"
                                                             id="letter_of_recomandation_1"
@@ -689,7 +707,11 @@
                                                 </div>
                                                 <div class="single-input">
                                                     <div class="single-input-item">
+<<<<<<< HEAD
                                                         <label for="letter_of_recomandation_2">Letter of Recommendation
+=======
+                                                        <label for="letter_of_recomandation_2">Letter of Recommendation<span class="fs-5"> (must be 512kb or less)</span>
+>>>>>>> d5418a643be2afd40f338ffbfaa8cb171771877f
                                                         </label>
                                                         <input type="file"
                                                             name="attachment[letter_of_recomandation_2]"
@@ -703,7 +725,7 @@
                                                 <div class="single-input">
                                                     <div class="single-input-item">
                                                         <label for="others">Others</label>
-                                                        <small>(multiple upload supported)</small>
+                                                        <small>(multiple upload supported) <span class="fs-5"> (must be 512kb or less)</span></small>
                                                         <input type="file" name="attachment[others][]"
                                                             id="others" multiple
                                                             accept="image/png, image/jpeg, image/gif ,.doc, .docx, .pdf">
