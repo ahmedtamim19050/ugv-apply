@@ -321,18 +321,17 @@
                                                     </div>
                                                     <div class="single-input">
                                                         <div class="single-input-item">
-                                                            <label for="father_email">Father's Email
-                                                                Number</label>
+                                                            <label for="father_email">Father's Email Address
+                                                                </label>
                                                             <input name="father_email" id="father_email"
                                                                 value="{{ old('father_email') }}" type="text"
-                                                                placeholder="Father's Contact Number">
+                                                                placeholder="Father's Email Address">
                                                         </div>
                                                         <div class="single-input-item">
-                                                            <label for="mother_email">Mother's Email
-                                                                Number</label>
+                                                            <label for="mother_email">Mother's Email Address</label>
                                                             <input name="mother_email" id="mother_email"
                                                                 value="{{ old('mother_email') }}" type="text"
-                                                                placeholder="Mother's Passport Number">
+                                                                placeholder="Mother's Email Address">
                                                         </div>
                                                     </div>
                                                     <div class="single-input">
