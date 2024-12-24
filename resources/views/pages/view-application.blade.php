@@ -20,8 +20,8 @@
 
     <section class="">
         <div class="container">
-            <div class="logo">
-                <img src="{{ asset('assets/images/logougv.png') }}" alt="">
+            <div class="profile">
+                <img class="rounded-circle" src="{{Storage::url($application->photo)}}" alt="" height="150" width="150">
             </div>
             <div class="title mt-3">
                 <h3 style="color: #1e386b">{{ $application->name }}</h3>
