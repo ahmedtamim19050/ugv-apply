@@ -42,3 +42,6 @@ Route::controller(ApplyController::class)->group(function () {
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });
+
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
