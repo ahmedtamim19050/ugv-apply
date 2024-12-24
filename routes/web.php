@@ -28,6 +28,9 @@ Route::get('/admission-rules', [PageController::class, 'AdmissionRules'])->name(
 Route::get('/contact', [PageController::class, 'contact'])->name('page.contact');
 Route::get('/apply-now', [PageController::class, 'apply'])->name('apply.now');
 
+Route::get('/test-mail', function () {
+    return view('mail.application-complete');
+});
 
 
 Route::controller(ApplyController::class)->group(function () {

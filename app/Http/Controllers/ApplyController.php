@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ApplicationCompleteMail;
 use App\Models\Application;
 use Illuminate\Http\Request;
+use Mail;
 
 class ApplyController extends Controller
 {
@@ -137,7 +139,9 @@ class ApplyController extends Controller
             'honors_degree_grade_or_marks' => $validated['undergraduate_cgpa'],
             'attachments' => $attachments ? json_encode($attachments) : null,
         ]);
-
+        $uid = $application->unique_id;
+        // dd($uid);
+        Mail::to($validated['email'])->send(new ApplicationCompleteMail($uid));
         return redirect(route('apply.thank-you', $application->unique_id))->with('success', 'Application submitted successfully!');
     }
     public function thankYou($uid)

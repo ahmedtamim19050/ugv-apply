@@ -98,7 +98,7 @@
 
                             </p>
                             <div class="stroke__text v__1">EST. 2016</div>
-                            <a href="https://ugv.edu.bd/" class="rts-nbg-btn btn-arrow">University Overview <span><i class="fa-sharp fa-regular fa-arrow-right"></i></span></a>
+                            <a href="https://ugv.edu.bd/" class="rts-nbg-btn btn-arrow" target="_blank">University Overview <span><i class="fa-sharp fa-regular fa-arrow-right"></i></span></a>
                         </div>
                     </div>
                 </div>
