@@ -601,11 +601,12 @@
                                                 </div>
                                                 <div class="single-input">
                                                     <div class="single-input-item">
-                                                        <label for="police_verification">Medical examination</label>
+                                                        <label for="medical_examination">Medical examination <span class="text-danger">*</span></label>
                                                         <input type="file" name="attachment[medical_examination]"
-                                                            id="police_verification"
+                                                            id="medical_examination" required
                                                             accept="image/png, image/jpeg, image/gif .doc, .docx, .pdf"
                                                             >
+                                                            <p>  <a style="text-decoration: underline" class="text-danger" href="{{asset('assets/Physical Examination Form.pdf')}}">Download the format from here</a>, complete it, and then upload it.</p>
                                                     </div>
 
                                                 </div>

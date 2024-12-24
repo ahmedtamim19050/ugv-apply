@@ -61,7 +61,7 @@ class ApplyController extends Controller
             'attachment.undergraduate_academic_transcript' => 'required_if:application,Graduate|nullable|file|mimes:jpeg,png,jpg,gif,doc,docx,pdf|max:2048',
             'attachment.undergraduate_certificate' => 'required_if:application,Graduate|nullable|file|mimes:jpeg,png,jpg,gif,doc,docx,pdf|max:2048',
             'attachment.police_verification' => 'nullable|file|mimes:jpeg,png,jpg,gif,doc,docx,pdf|max:2048',
-            'attachment.medical_examination' => 'nullable|file|mimes:jpeg,png,jpg,gif,doc,docx,pdf|max:2048',
+            'attachment.medical_examination' => 'required|file|mimes:doc,docx,pdf|max:2048',
             'attachment.statement_of_purpose' => 'required_if:application,Graduate|file|mimes:jpeg,png,jpg,gif,doc,docx,pdf|max:2048',
             'attachment.letter_of_recomandation_1' => 'required_if:application,Graduate|file|mimes:jpeg,png,jpg,gif,doc,docx,pdf|max:2048',
             'attachment.letter_of_recomandation_2' => 'nullable|file|mimes:jpeg,png,jpg,gif,doc,docx,pdf|max:2048',
@@ -78,7 +78,7 @@ class ApplyController extends Controller
 
                     foreach ($file as $k => $f) {
 
-                        $attachments['others'][$k] = $f->store('attachments');
+                        $attachments[$key][$k] = $f->store('attachments');
                     }
                 } else {
                     $attachments[$key] = $file->store('attachments');
