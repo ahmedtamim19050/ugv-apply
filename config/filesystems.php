@@ -38,10 +38,9 @@ return [
 
         'public' => [
             'driver' => 'local',
-            'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'root' => public_path('uploads'), // Change this to your desired public path for images
+            'url' => env('APP_URL') . '/uploads',
             'visibility' => 'public',
-            'throw' => false,
         ],
 
         's3' => [
