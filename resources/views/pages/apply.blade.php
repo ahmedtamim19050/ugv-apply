@@ -1,6 +1,9 @@
 <x-app>
     @push('css')
         <style>
+            .rts-ap-section .rts-application-form .single-form-part .single-input-item label{
+                text-transform: none;
+            }
             .card {
                 border: 2px solid #444545b3;
                 border-radius: 8px;
@@ -67,7 +70,7 @@
                 </ul>
             </div>
         @endif
-        <form action="{{ route('apply.save') }}" enctype="multipart/form-data" method="post" x-data="{ application: 'Under Graduate' }">
+        <form action="{{ route('apply.save') }}" enctype="multipart/form-data" method="post" x-data="{ application: 'Undergraduate' }">
             @csrf
             <div class="rts-page-content ">
                 <div class="container">
@@ -82,17 +85,17 @@
                                                         class="text-danger">*</span></label>
                                                 <select name="application" x-model="application" id="application"
                                                     required>
-                                                    <option value="">Select Graduate or Under Graduate</option>
-                                                    <option value="Graduate">Graduate</option>
-                                                    <option value="Under Graduate">Under Graduate</option>
+                                                    <option value="">Select Postgraduate or Undergraduate</option>
+                                                    <option value="Postgraduate">Postgraduate</option>
+                                                    <option value="Undergraduate">Undergraduate</option>
                                                 </select>
                                             </div>
                                             <div class="single-input-item">
                                                 <label for="session">Session <span class="text-danger">*</span></label>
                                                 <select name="session" id="session" required>
                                                     <option value="">Select session</option>
-                                                    <option value="January">January</option>
-                                                    <option value="June">June</option>
+                                                    <option value="June-2025">June-2025</option>
+                                                    <option value="January-2026">January-2026</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -103,28 +106,28 @@
                                                 <select name="course" id="course" required>
                                                     <option value="">Select course</option>
 
-                                                    <option x-if="application == 'Graduate'"
+                                                    <option x-show="application == 'Postgraduate'"
                                                         value="Master of Arts in English">Master of Arts in
                                                         English</option>
-                                                    <option x-if="application == 'Graduate'"
+                                                    <option x-show="application == 'Postgraduate'"
                                                         value="Master in Business Administration">Master in
-                                                        Business Administration</option>
+                                                        Business Administration (MBA)</option>
 
-                                                    <option x-if="application == 'Under Graduate'"
+                                                    <option x-show="application == 'Undergraduate'"
                                                         value="Bachelor of Arts in English">Bachelor of Arts in
                                                         English</option>
-                                                    <option x-if="application == 'Under Graduate'"
-                                                        value="Bachelor Of Business Administration">Bachelor Of
-                                                        Business Administration</option>
-                                                    <option x-if="application == 'Under Graduate'"
-                                                        value="Bachelor Of Science in Computer Science and Engineering">
-                                                        Bachelor Of Science in
+                                                    <option x-show="application == 'Undergraduate'"
+                                                        value="Bachelor of Business Administration">Bachelor of
+                                                        Business Administration (BBA)</option>
+                                                    <option x-show="application == 'Undergraduate'"
+                                                        value="Bachelor of Science in Computer Science and Engineering">
+                                                        Bachelor of Science in
                                                         Computer Science and Engineering</option>
-                                                    <option x-if="application == 'Under Graduate'"
+                                                    <option x-show="application == 'Undergraduate'"
                                                         value="Bachelor of Science in Electrical and Electronics Engineering">
                                                         Bachelor of Science in Electrical
                                                         and Electronics Engineering</option>
-                                                    <option x-if="application == 'Under Graduate'"
+                                                    <option x-show="application == 'Undergraduate'"
                                                         value="Bachelor of Science in Civil Engineering">
                                                         Bachelor of Science in
                                                         Civil Engineering</option>
@@ -187,9 +190,8 @@
                                                         </select>
                                                     </div>
                                                     <div class="single-input-item">
-                                                        <label for="gender">Blood Group <span
-                                                                class="text-danger">*</span></label>
-                                                        <select name="blood_group" id="blood" required>
+                                                        <label for="gender">Blood Group </label>
+                                                        <select name="blood_group" id="blood">
                                                             <option value="">Blood Group</option>
                                                             @foreach (App\Constant::BloodGroup as $group)
                                                                 <option value="{{ $group }}">{{ $group }}
@@ -198,9 +200,8 @@
                                                         </select>
                                                     </div>
                                                     <div class="single-input-item">
-                                                        <label for="religion">Religion <span
-                                                                class="text-danger">*</span></label>
-                                                        <select name="religion" id="religion" required>
+                                                        <label for="religion">Religion </label>
+                                                        <select name="religion" id="religion">
                                                             <option value="">Religion</option>
                                                             @foreach (App\Constant::Religion as $religion)
                                                                 <option value="{{ $religion }}">
@@ -227,7 +228,8 @@
                                                 </div>
                                                 <div class="single-input">
                                                     <div class="single-input-item">
-                                                        <label for="country">Country</label>
+                                                        <label for="country">Country <span
+                                                            class="text-danger">*</span></label>
                                                         <select name="country" id="country" required>
                                                             <option value="">Country</option>
                                                             @foreach (App\Constant::Countries as $country)
@@ -238,30 +240,35 @@
                                                         </select>
                                                     </div>
                                                     <div class="single-input-item">
-                                                        <label for="state">State/Province/Region</label>
+                                                        <label for="state">State/Province/Region <span
+                                                            class="text-danger">*</span></label>
                                                         <input type="text" name="state" id="state"
                                                             value="{{ old('state') }}"
                                                             placeholder="Enter student's state" required>
                                                     </div>
                                                 </div>
                                                 <div class="single-input">
+                                                    
                                                     <div class="single-input-item">
-                                                        <label for="address">Address</label>
-                                                        <input type="text" name="address" id="address"
-                                                            value="{{ old('address') }}"
-                                                            placeholder="Enter student's Address" required>
-                                                    </div>
-                                                    <div class="single-input-item">
-                                                        <label for="city">City/Town</label>
+                                                        <label for="city">City/Town <span
+                                                            class="text-danger">*</span></label>
                                                         <input type="text" name="city" id="city"
                                                             value="{{ old('city') }}"
                                                             placeholder="Enter student's city" required>
                                                     </div>
                                                     <div class="single-input-item">
-                                                        <label for="post_code">Postal Code</label>
+                                                        <label for="post_code">Postal Code <span
+                                                            class="text-danger">*</span></label>
                                                         <input type="text" name="post_code" id="post_code"
                                                             value="{{ old('post_code') }}"
                                                             placeholder="Enter student's postal code" required>
+                                                    </div>
+                                                    <div class="single-input-item">
+                                                        <label for="address">Address <span
+                                                            class="text-danger">*</span></label>
+                                                        <input type="text" name="address" id="address"
+                                                            value="{{ old('address') }}"
+                                                            placeholder="Enter student's Address" required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -289,66 +296,73 @@
                                                     </div>
                                                     <div class="single-input">
                                                         <div class="single-input-item">
-                                                            <label for="father_occupation">Father's occupation</label>
+                                                            <label for="father_occupation">Father's occupation <span
+                                                                class="text-danger">*</span></label>
                                                             <input name="father_occupation" id="father_occupation"
                                                                 value="{{ old('father_occupation') }}" type="text"
-                                                                placeholder="Father's occupation">
+                                                                placeholder="Father's occupation" required>
                                                         </div>
                                                         <div class="single-input-item">
-                                                            <label for="mother_occupation">Mother's occupation</label>
+                                                            <label for="mother_occupation">Mother's occupation <span
+                                                                class="text-danger">*</span></label>
                                                             <input name="mother_occupation" id="mother_occupation"
                                                                 value="{{ old('mother_occupation') }}" type="text"
-                                                                placeholder="Mother's occupation">
+                                                                placeholder="Mother's occupation" required>
                                                         </div>
                                                     </div>
                                                     <div class="single-input">
                                                         <div class="single-input-item">
                                                             <label for="father_contact_number">Father's Contact
-                                                                Number</label>
+                                                                Number <span
+                                                                class="text-danger">*</span></label>
                                                             <input name="father_contact_number"
                                                                 id="father_contact_number" type="text"
                                                                 value="{{ old('father_contact_number') }}"
-                                                                placeholder="Father's Contact Number">
+                                                                placeholder="Father's Contact Number" required>
                                                         </div>
                                                         <div class="single-input-item">
                                                             <label for="mother_contact_number">Mother's Contact
-                                                                Number</label>
+                                                                Number <span
+                                                                class="text-danger">*</span></label>
                                                             <input name="mother_contact_number"
                                                                 id="mother_contact_number" type="text"
                                                                 value="{{ old('mother_contact_number') }}"
-                                                                placeholder="Mother's Passport Number">
+                                                                placeholder="Mother's Passport Number" required>
                                                         </div>
                                                     </div>
                                                     <div class="single-input">
                                                         <div class="single-input-item">
-                                                            <label for="father_email">Father's Email
-                                                                Number</label>
+                                                            <label for="father_email">Father's Email Address <span
+                                                                class="text-danger">*</span>
+                                                            </label>
                                                             <input name="father_email" id="father_email"
                                                                 value="{{ old('father_email') }}" type="text"
-                                                                placeholder="Father's Contact Number">
+                                                                placeholder="Father's Email Address" required>
                                                         </div>
                                                         <div class="single-input-item">
-                                                            <label for="mother_email">Mother's Email
-                                                                Number</label>
+                                                            <label for="mother_email">Mother's Email Address <span
+                                                                class="text-danger">*</span></label>
                                                             <input name="mother_email" id="mother_email"
                                                                 value="{{ old('mother_email') }}" type="text"
-                                                                placeholder="Mother's Passport Number">
+                                                                placeholder="Mother's Email Address" required>
                                                         </div>
                                                     </div>
                                                     <div class="single-input">
                                                         <div class="single-input-item">
                                                             <label for="father_passport">Father's Passport
-                                                                Number</label>
+                                                                Number <span
+                                                                class="text-danger">*</span></label>
                                                             <input name="father_passport" id="father_passport"
                                                                 value="{{ old('father_passport') }}" type="text"
-                                                                placeholder="Father's Passport Number">
+                                                                placeholder="Father's Passport Number" required>
                                                         </div>
                                                         <div class="single-input-item">
                                                             <label for="mother_passport">Mother's Passport
-                                                                Number</label>
+                                                                Number <span
+                                                                class="text-danger">*</span></label>
                                                             <input name="mother_passport" id="mother_passport"
                                                                 value="{{ old('mother_passport') }}" type="text"
-                                                                placeholder="Mother's Passport Number">
+                                                                placeholder="Mother's Passport Number" required>
                                                         </div>
                                                     </div>
 
@@ -364,18 +378,18 @@
                                                     <h5>SSC or Equivalent</h5>
                                                     <div class="single-input">
                                                         <div class="single-input-item">
-                                                            <label for="ssc_exam_name">Exam name <span
+                                                            <label for="ssc_exam_name">Examination Name <span
                                                                     class="text-danger">*</span></label>
                                                             <input name="ssc_exam_name" id="ssc_exam_name"
                                                                 value="{{ old('ssc_exam_name') }}" type="text"
-                                                                placeholder="Exam name [eg: SSC]" required>
+                                                                placeholder="Examination Name [eg: SSC]" required>
                                                         </div>
                                                         <div class="single-input-item">
-                                                            <label for="ssc_group">Group Name <span
+                                                            <label for="ssc_group">Subject Name <span
                                                                     class="text-danger">*</span></label>
                                                             <input name="ssc_group" id="ssc_group" type="text"
                                                                 value="{{ old('ssc_group') }}"
-                                                                placeholder="Group Name [eg: SSC]" required>
+                                                                placeholder="Subject Name [eg: Science]" required>
                                                         </div>
                                                         <div class="single-input-item">
                                                             <label for="ssc_year">Passing Year <span
@@ -387,7 +401,7 @@
                                                     </div>
                                                     <div class="single-input">
                                                         <div class="single-input-item">
-                                                            <label for="ssc_inistitute">Institue Name <span
+                                                            <label for="ssc_inistitute">Institute Name <span
                                                                     class="text-danger">*</span></label>
                                                             <input name="ssc_inistitute" id="ssc_inistitute"
                                                                 value="{{ old('ssc_inistitute') }}" type="text"
@@ -417,22 +431,30 @@
                                                                 id="ssc_academic_transcript"
                                                                 accept="image/png, image/jpeg, image/gif" required>
                                                         </div>
+                                                        <div class="single-input-item">
+                                                            <label for="ssc_certificate">Degree Certificate
+                                                                <span class="text-danger">*</span></label>
+                                                            <input type="file" name="attachment[ssc_certificate]"
+                                                                id="ssc_certificate"
+                                                                accept="image/png, image/jpeg, image/gif" required>
+                                                        </div>
                                                     </div>
                                                     <h5>HSC or Equivalent</h5>
                                                     <div class="single-input">
                                                         <div class="single-input-item">
-                                                            <label for="hsc_exam_name">Exam name <span
+                                                            <label for="hsc_exam_name">Examination Name <span
                                                                     class="text-danger">*</span></label>
                                                             <input name="hsc_exam_name" id="hsc_exam_name"
-                                                                type="text" placeholder="Exam name [eg: HSC]"
+                                                                type="text"
+                                                                placeholder="Examination Name [eg: Science]"
                                                                 value="{{ old('hsc_exam_name') }}" required>
                                                         </div>
                                                         <div class="single-input-item">
-                                                            <label for="hsc_group">Group Name <span
+                                                            <label for="hsc_group">Subject Name <span
                                                                     class="text-danger">*</span></label>
                                                             <input name="hsc_group" id="hsc_group" type="text"
                                                                 value="{{ old('hsc_group') }}"
-                                                                placeholder="Group Name [eg: SSC]" required>
+                                                                placeholder="Subject Name [eg: Science]" required>
                                                         </div>
                                                         <div class="single-input-item">
                                                             <label for="hsc_year">Passing Year <span
@@ -444,7 +466,7 @@
                                                     </div>
                                                     <div class="single-input">
                                                         <div class="single-input-item">
-                                                            <label for="hsc_inistitute">Institue Name <span
+                                                            <label for="hsc_inistitute">Institute Name <span
                                                                     class="text-danger">*</span></label>
                                                             <input name="hsc_inistitute" id="hsc_inistitute"
                                                                 value="{{ old('hsc_inistitute') }}" type="text"
@@ -476,35 +498,44 @@
                                                                 accept="image/png, image/jpeg, image/gif, .doc, .docx, .pdf"
                                                                 required>
                                                         </div>
+                                                        <div class="single-input-item">
+                                                            <label for="hsc_certificate">Degree Certificate
+                                                                <span class="text-danger">*</span></label>
+                                                            <input type="file" name="attachment[hsc_certificate]"
+                                                                id="hsc_certificate"
+                                                                accept="image/png, image/jpeg, image/gif, .doc, .docx, .pdf"
+                                                                required>
+                                                        </div>
                                                     </div>
-                                                    <h5 x-show="application == 'Graduate'">Undergraduate Education
+                                                    <h5 x-show="application == 'Postgraduate'">Undergraduate Education
                                                     </h5>
-                                                    <div class="single-input" x-show="application == 'Graduate'">
+                                                    <div class="single-input" x-show="application == 'Postgraduate'">
                                                         <div class="single-input-item">
                                                             <label for="undergraduate_course">Degree Title <span
                                                                     class="text-danger">*</span></label>
                                                             <input name="undergraduate_course"
-                                                                id="undergraduate_course" type="text" value="{{ old('undergraduate_course') }}"
-                                                                placeholder="Degree Title (e.g., Bachelor of Science in Computer Science)"
-                                                                >
+                                                                id="undergraduate_course" type="text"
+                                                                value="{{ old('undergraduate_course') }}"
+                                                                placeholder="Degree Title (e.g., Bachelor of Science in Computer Science and Engineering)">
                                                         </div>
 
                                                     </div>
-                                                    <div class="single-input" x-show="application == 'Graduate'">
+                                                    <div class="single-input" x-show="application == 'Postgraduate'">
                                                         <div class="single-input-item">
-                                                            <label for="undergraduate_inistitute">Institue Name <span
+                                                            <label for="undergraduate_inistitute">Institute Name <span
                                                                     class="text-danger">*</span></label>
                                                             <input name="undergraduate_inistitute"
-                                                                id="undergraduate_inistitute" type="text" value="{{ old('undergraduate_inistitute') }}"
-                                                                placeholder="Institute Name" >
+                                                                id="undergraduate_inistitute" type="text"
+                                                                value="{{ old('undergraduate_inistitute') }}"
+                                                                placeholder="Institute Name">
                                                         </div>
                                                         <div class="single-input-item"
-                                                            x-show="application == 'Graduate'">
+                                                            x-show="application == 'Postgraduate'">
                                                             <label for="undergraduate_inistitute_country">Country of
-                                                                Institue <span class="text-danger">*</span></label>
+                                                                Institute <span class="text-danger">*</span></label>
                                                             <select name="undergraduate_inistitute_country"
-                                                                id="undergraduate_inistitute_country" >
-                                                                <option value="">Country of Institue</option>
+                                                                id="undergraduate_inistitute_country">
+                                                                <option value="">Country of Institute</option>
                                                                 @foreach (App\Constant::Countries as $country)
                                                                     <option value="{{ $country }}">
                                                                         {{ $country }}
@@ -513,41 +544,41 @@
                                                             </select>
                                                         </div>
                                                     </div>
-                                                    <div class="single-input" x-show="application == 'Graduate'">
+                                                    <div class="single-input" x-show="application == 'Postgraduate'">
                                                         <div class="single-input-item">
                                                             <label for="undergraduate_year">Year of Graduation <span
                                                                     class="text-danger">*</span></label>
                                                             <input type="text" name="undergraduate_year"
-                                                                id="undergraduate_year"     value="{{ old('undergraduate_year') }}"
-                                                                placeholder="Year of Graduation" >
+                                                                id="undergraduate_year"
+                                                                value="{{ old('undergraduate_year') }}"
+                                                                placeholder="Year of Graduation">
                                                         </div>
                                                         <div class="single-input-item">
                                                             <label for="undergraduate_cgpa">CGPA <span
                                                                     class="text-danger">*</span></label>
                                                             <input type="text" name="undergraduate_cgpa"
-                                                                id="undergraduate_cgpa" value="{{ old('undergraduate_cgpa') }}"
-                                                                placeholder="Undergraduate CGPA" >
+                                                                id="undergraduate_cgpa"
+                                                                value="{{ old('undergraduate_cgpa') }}"
+                                                                placeholder="Undergraduate CGPA">
                                                         </div>
                                                     </div>
-                                                    <div class="single-input" x-show="application == 'Graduate'">
+                                                    <div class="single-input" x-show="application == 'Postgraduate'">
                                                         <div class="single-input-item">
                                                             <label for="hsc_academic_transcript">Academic Transcript
                                                                 <span class="text-danger">*</span></label>
                                                             <input type="file"
                                                                 name="attachment[undergraduate_academic_transcript]"
-                                                                id="hsc_academic_transcript" 
-                                                                accept="image/png, image/jpeg, image/gif, .doc, .docx, .pdf"
-                                                                >
+                                                                id="hsc_academic_transcript"
+                                                                accept="image/png, image/jpeg, image/gif, .doc, .docx, .pdf">
                                                         </div>
                                                         <div class="single-input-item"
-                                                        x-show="application == 'Graduate'">
-                                                            <label for="undergraduate_certificate">Certificate/Degree
+                                                            x-show="application == 'Postgraduate'">
+                                                            <label for="undergraduate_certificate">Degree Certificate
                                                                 <span class="text-danger">*</span></label>
                                                             <input type="file"
                                                                 name="attachment[undergraduate_certificate]"
                                                                 id="undergraduate_certificate"
-                                                                accept="image/png, image/jpeg, image/gif, .doc, .docx, .pdf"
-                                                                >
+                                                                accept="image/png, image/jpeg, image/gif, .doc, .docx, .pdf">
                                                         </div>
 
                                                     </div>
@@ -560,12 +591,22 @@
                                                 <h5 class="form-title">Attachments</h5>
                                                 <div class="single-input">
                                                     <div class="single-input-item">
-                                                        <label for="police_verification">Police verification <span
-                                                                class="text-danger">*</span></label>
+                                                        <label for="police_verification">Police verification </label>
                                                         <input type="file" name="attachment[police_verification]"
                                                             id="police_verification"
                                                             accept="image/png, image/jpeg, image/gif .doc, .docx, .pdf"
-                                                            required>
+                                                            >
+                                                    </div>
+
+                                                </div>
+                                                <div class="single-input">
+                                                    <div class="single-input-item">
+                                                        <label for="medical_examination">Medical examination <span class="text-danger">*</span></label>
+                                                        <input type="file" name="attachment[medical_examination]"
+                                                            id="medical_examination" required
+                                                            accept="image/png, image/jpeg, image/gif .doc, .docx, .pdf"
+                                                            >
+                                                            <p>  <a style="text-decoration: underline" class="text-danger" href="{{asset('assets/Physical Examination Form.pdf')}}">Download the format from here</a>, complete it, and then upload it.</p>
                                                     </div>
 
                                                 </div>
@@ -584,36 +625,38 @@
                                                 <div class="single-input">
                                                     <div class="single-input-item">
                                                         <label for="statement_of_purpose">Statement of Purpose (SOP)
-                                                            <span class="text-danger">*</span></label>
+                                                            <span class="text-danger" x-show="application == 'Postgraduate'">*</span></label>
                                                         <input type="file" name="attachment[statement_of_purpose]"
                                                             id="statement_of_purpose"
                                                             accept="image/png, image/jpeg, image/gif ,.doc, .docx, .pdf"
-                                                            required>
+                                                            >
                                                     </div>
                                                 </div>
 
                                                 <div class="single-input">
                                                     <div class="single-input-item">
-                                                        <label for="letter_of_recomandation_1">Letter of Recomandation
-                                                            <span class="text-danger">*</span></label>
+                                                        <label for="letter_of_recomandation_1">Letter of Recommendation
+                                                            <span class="text-danger" x-show="application == 'Postgraduate'">*</span></label>
                                                         <input type="file"
                                                             name="attachment[letter_of_recomandation_1]"
                                                             id="letter_of_recomandation_1"
                                                             accept="image/png, image/jpeg, image/gif ,.doc, .docx, .pdf"
-                                                            required>
+                                                                >
                                                     </div>
                                                 </div>
                                                 <div class="single-input">
                                                     <div class="single-input-item">
-                                                        <label for="letter_of_recomandation_2">Letter of Recomandation
-                                                            <span class="text-danger">*</span></label>
+                                                        <label for="letter_of_recomandation_2">Letter of Recommendation
+                                                            </label>
                                                         <input type="file"
                                                             name="attachment[letter_of_recomandation_2]"
                                                             id="letter_of_recomandation_2"
                                                             accept="image/png, image/jpeg, image/gif ,.doc, .docx, .pdf"
-                                                            required>
+                                                            >
                                                     </div>
                                                 </div>
+
+
 
                                                 <div class="single-input">
                                                     <div class="single-input-item">

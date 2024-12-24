@@ -11,8 +11,8 @@ class ApplyController extends Controller
     {
         // Validate the incoming data
         $validated = $request->validate([
-            'application' => 'required|in:Under Graduate,Graduate',
-            'session' => 'required|in:January,June',
+            'application' => 'required|in:Undergraduate,Postgraduate',
+            'session' => 'required',
             'course' => 'required|string',
             'name' => 'required|string',
             'photo' => 'required|file|mimes:jpeg,png,jpg,gif',
@@ -20,24 +20,24 @@ class ApplyController extends Controller
             'email' => 'required|email',
             'passport' => 'required|string',
             'dob' => 'required|date',
-            'religion' => 'required|in:Islam,Buddhism,Hinduism,Jainism,Shinto,Judaism,Baháʼí Faith,Mormonism,Christianity,Sikhism,Chinese religion,Others',
+            'religion' => 'nullable|in:Islam,Buddhism,Hinduism,Jainism,Shinto,Judaism,Baháʼí Faith,Mormonism,Christianity,Sikhism,Chinese religion,Others',
             'gender' => 'required|in:Male,Female,Others',
-            'blood_group' => 'required|in:A+,A-,B+,B-,O+,O-,AB+,AB-',
+            'blood_group' => 'nullable|in:A+,A-,B+,B-,O+,O-,AB+,AB-',
             'address' => 'required|string',
             'post_code' => 'required|string',
             'city' => 'required|string',
             'state' => 'required|string',
             'country' => 'required|string',
             'father_name' => 'required|string',
-            'father_contact_number' => 'nullable|string',
-            'father_email' => 'nullable|email',
+            'father_contact_number' => 'required|string',
+            'father_email' => 'required|email',
             'father_occupation' => 'required|string',
-            'father_passport' => 'nullable|string',
+            'father_passport' => 'required|string',
             'mother_name' => 'required|string',
-            'mother_contact_number' => 'nullable|string',
-            'mother_email' => 'nullable|email',
-            'mother_occupation' => 'nullable|string',
-            'mother_passport' => 'nullable|string',
+            'mother_contact_number' => 'required|string',
+            'mother_email' => 'required|email',
+            'mother_occupation' => 'required|string',
+            'mother_passport' => 'required|string',
             'ssc_exam_name' => 'required|string',
             'ssc_group' => 'required|string',
             'ssc_year' => 'required|string',
@@ -54,12 +54,17 @@ class ApplyController extends Controller
             'undergraduate_year' => 'required_if:application,Graduate|nullable',
             'undergraduate_inistitute' => 'required_if:application,Graduate|nullable',
             'undergraduate_cgpa' => 'required_if:application,Graduate|nullable',
+            'attachment.ssc_academic_transcript' => 'required|file|mimes:jpeg,png,jpg,gif,doc,docx,pdf|max:2048',
+            'attachment.ssc_certificate' => 'required|file|mimes:jpeg,png,jpg,gif,doc,docx,pdf|max:2048',
+            'attachment.hsc_academic_transcript' => 'required|file|mimes:jpeg,png,jpg,gif,doc,docx,pdf|max:2048',
+            'attachment.hsc_certificate' => 'required|file|mimes:jpeg,png,jpg,gif,doc,docx,pdf|max:2048',
             'attachment.undergraduate_academic_transcript' => 'required_if:application,Graduate|nullable|file|mimes:jpeg,png,jpg,gif,doc,docx,pdf|max:2048',
             'attachment.undergraduate_certificate' => 'required_if:application,Graduate|nullable|file|mimes:jpeg,png,jpg,gif,doc,docx,pdf|max:2048',
-            'attachment.police_verification' => 'required|file|mimes:jpeg,png,jpg,gif,doc,docx,pdf|max:2048',
-            'attachment.statement_of_purpose' => 'required|file|mimes:jpeg,png,jpg,gif,doc,docx,pdf|max:2048',
-            'attachment.letter_of_recomandation_1' => 'required|file|mimes:jpeg,png,jpg,gif,doc,docx,pdf|max:2048',
-            'attachment.letter_of_recomandation_2' => 'required|file|mimes:jpeg,png,jpg,gif,doc,docx,pdf|max:2048',
+            'attachment.police_verification' => 'nullable|file|mimes:jpeg,png,jpg,gif,doc,docx,pdf|max:2048',
+            'attachment.medical_examination' => 'required|file|mimes:doc,docx,pdf|max:2048',
+            'attachment.statement_of_purpose' => 'required_if:application,Graduate|file|mimes:jpeg,png,jpg,gif,doc,docx,pdf|max:2048',
+            'attachment.letter_of_recomandation_1' => 'required_if:application,Graduate|file|mimes:jpeg,png,jpg,gif,doc,docx,pdf|max:2048',
+            'attachment.letter_of_recomandation_2' => 'nullable|file|mimes:jpeg,png,jpg,gif,doc,docx,pdf|max:2048',
             'attachment.others.*' => 'nullable|mimes:jpeg,png,jpg,gif,doc,docx,pdf|max:2048',
         ]);
 
@@ -74,7 +79,7 @@ class ApplyController extends Controller
 
                     foreach ($file as $k => $f) {
 
-                        $attachments['others'][$k] = $f->store('attachments');
+                        $attachments[$key][$k] = $f->store('attachments');
                     }
                 } else {
                     $attachments[$key] = $file->store('attachments');

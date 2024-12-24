@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('unique_id')->unique();
             $table->boolean('status')->default(0);
-            $table->enum('application', ['Under Graduate', 'Graduate'])->nullable();
-            $table->enum('session', ['January', 'June'])->nullable();
+            $table->string('application')->nullable();
+            $table->string('session')->nullable();
             $table->string('interested_course')->nullable();
             $table->string('name')->nullable();
             $table->string('photo')->nullable();
