@@ -573,7 +573,7 @@
                                                         </div>
                                                         <div class="single-input-item"
                                                             x-show="application == 'Postgraduate'">
-                                                            <label for="undergraduate_certificate">Certificate/Degree
+                                                            <label for="undergraduate_certificate">Degree Certificate
                                                                 <span class="text-danger">*</span></label>
                                                             <input type="file"
                                                                 name="attachment[undergraduate_certificate]"
@@ -593,6 +593,16 @@
                                                     <div class="single-input-item">
                                                         <label for="police_verification">Police verification </label>
                                                         <input type="file" name="attachment[police_verification]"
+                                                            id="police_verification"
+                                                            accept="image/png, image/jpeg, image/gif .doc, .docx, .pdf"
+                                                            >
+                                                    </div>
+
+                                                </div>
+                                                <div class="single-input">
+                                                    <div class="single-input-item">
+                                                        <label for="police_verification">Medical examination</label>
+                                                        <input type="file" name="attachment[medical_examination]"
                                                             id="police_verification"
                                                             accept="image/png, image/jpeg, image/gif .doc, .docx, .pdf"
                                                             >
@@ -644,6 +654,8 @@
                                                             >
                                                     </div>
                                                 </div>
+
+
 
                                                 <div class="single-input">
                                                     <div class="single-input-item">
