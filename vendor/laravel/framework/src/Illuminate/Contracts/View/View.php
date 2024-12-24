@@ -6,6 +6,8 @@ use Illuminate\Contracts\Support\Renderable;
 
 interface View extends Renderable
 {
+
+    
     /**
      * Get the name of the view.
      *

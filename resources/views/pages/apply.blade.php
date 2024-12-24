@@ -13,7 +13,7 @@
                 border: 2px solid #444545b3;
                 border-radius: 8px;
                 overflow: hidden;
-            cursor: pointer;
+                cursor: pointer;
                 transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
             }
 
@@ -33,33 +33,37 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/25.2.0/build/js/intlTelInput.min.js"
             integrity="sha512-H0skyHW3SNpqlUsVKCM9+5ufNLLipKqvFeGapbvGlgv9RV6KulEDsRNZ7wMV7R0Hs8nMxalbJAF+d+NmNdYVYA=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-       
+
         </script>
         <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const phoneInput = document.querySelector('#intl-phone');
-        
+            document.addEventListener('DOMContentLoaded', function() {
+                const phoneInput = document.querySelectorAll("input[type='tel']");
+                [...phoneInput].forEach((el) => {
+                    let iti = intlTelInput(el, {
+                        initialCountry: "auto",
+                        separateDialCode: true,
+                        geoIpLookup: function(callback) {
+                            fetch(
+                                'https://ipinfo.io/json?token=<YOUR_TOKEN>') // Replace <YOUR_TOKEN> with a valid token
+                                .then(response => response.json())
+                                .then(data => callback(data.country))
+                                .catch(() => callback('US'));
+                        },
+                        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js", // For formatting
+                    });
+
+                    // Set the value in the form submission
+                    const form = el.closest('form');
+                    form.addEventListener('submit', function() {
+                        el.value = iti.getNumber(); // Set full international number
+                    });
+
+
+                });
                 // Initialize intl-tel-input
-                const iti = intlTelInput(phoneInput, {
-                    initialCountry: "auto",
-                    separateDialCode: true,
-                    geoIpLookup: function (callback) {
-                        fetch('https://ipinfo.io/json?token=<YOUR_TOKEN>') // Replace <YOUR_TOKEN> with a valid token
-                            .then(response => response.json())
-                            .then(data => callback(data.country))
-                            .catch(() => callback('US'));
-                    },
-                    utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js", // For formatting
-                });
-        
-                // Set the value in the form submission
-                const form = phoneInput.closest('form');
-                form.addEventListener('submit', function () {
-                    phoneInput.value = iti.getNumber(); // Set full international number
-                });
             });
         </script>
-        
+
         <!-- Load FilePond library -->
         <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
         <script src="//unpkg.com/alpinejs" defer></script>
@@ -119,8 +123,7 @@
                                             <div class="single-input-item">
                                                 <label class="form-title">Application for <span
                                                         class="text-danger">*</span></label>
-                                                <select name="application" x-model="application" id="application"
-                                                    >
+                                                <select name="application" x-model="application" id="application">
                                                     <option value="">Select Postgraduate or Undergraduate</option>
                                                     <option value="Postgraduate">Postgraduate</option>
                                                     <option value="Undergraduate">Undergraduate</option>
@@ -128,7 +131,7 @@
                                             </div>
                                             <div class="single-input-item">
                                                 <label for="session">Session <span class="text-danger">*</span></label>
-                                                <select name="session" id="session" >
+                                                <select name="session" id="session">
                                                     <option value="">Select session</option>
                                                     <option value="June-2025">June-2025</option>
                                                     <option value="January-2026">January-2026</option>
@@ -139,7 +142,7 @@
                                             <div class="single-input-item">
 
                                                 <label for="course">Course <span class="text-danger">*</span></label>
-                                                <select name="course" id="course" >
+                                                <select name="course" id="course">
                                                     <option value="">Select course</option>
 
                                                     <option x-show="application == 'Postgraduate'"
@@ -177,148 +180,53 @@
                                                 <h5 class="form-title">Personal Information</h5>
 
                                                 <div class="single-input">
-                                                    <div class="single-input-item">
-                                                        <label for="profileImage">Student's Image <span
-                                                                class="text-danger">*</span></label>
-                                                        <input type="file" name="photo" id="profileImage"
-                                                            accept="image/png, image/jpeg, image/gif" >
-                                                    </div>
+                                                    <x-form.input type="file" label="Student's Image"
+                                                        id="profileImage" name="photo"
+                                                        placeholder="Enter student's full name"
+                                                        accept="image/png, image/jpeg, image/gif" />
+                                                </div>
+                                                <div class="single-input">
+                                                    <x-form.input type="text" label="Full Name" id="name"
+                                                        name="name" placeholder="Enter student's full name" />
+                                                </div>
+                                                <div class="single-input">
+                                                    <x-form.input type="email" label="Email" id="email"
+                                                        name="email" placeholder="Enter your E-mail" />
+                                                    <x-form.input type="tel"
+                                                        label="Contact Number (with country code)" id="contact_number"
+                                                        name="contact_number" />
+
 
                                                 </div>
                                                 <div class="single-input">
-                                                    <div class="single-input-item">
-                                                        <label for="name">Full Name <span
-                                                                class="text-danger">*</span></label>
-                                                        <input type="text" name="name" id="name"
-                                                            value="{{ old('name') }}"
-                                                            placeholder="Enter student's full name" >
-
-                                                    </div>
-
+                                                    <x-form.input type="select" label="Gender" id="gender"
+                                                        name="gender" :options="App\Constant::Gender" />
+                                                    <x-form.input type="select" label="Blood Group" id="blood"
+                                                        name="blood_group" :options="App\Constant::BloodGroup" />
+                                                    <x-form.input type="select" label="Religion" id="religion"
+                                                        name="religion" :options="App\Constant::Religion" />
                                                 </div>
                                                 <div class="single-input">
-                                                    <div class="single-input-item">
-                                                        <label for="email">Email <span
-                                                                class="text-danger">*</span></label>
-                                                        <input type="email" name="email"
-                                                            value="{{ old('email') }}" id="email"
-                                                            placeholder="Enter your mail" >
-                                                    </div>
-                                                    <div class="single-input-item">
-                                                       <div>
-
-                                                           <label for="intl-phone">Contact Number <span class="text-danger">*</span></label>
-                                                           <small>(with country code)</small>
-                                                        </div>
-                                                        <div class="d-grid">
-
-                                                            <input   type="tel" name="contact_number" 
-                                                            value="{{ old('contact_number') }}" 
-                                                            id="intl-phone" 
-                                                            placeholder="Enter Student's Contact Number" 
-                                                            >
-                                                        </div>
-                                                    </div>
-                                                    
+                                                    <x-form.input type="date" label="Date of Birth"
+                                                        id="datepicker" placeholder="dd/mm/yy" name="dob" />
+                                                    <x-form.input type="email" label="Passport Number"
+                                                        id="passport" name="passport"
+                                                        placeholder="Enter student's passport number" />
                                                 </div>
                                                 <div class="single-input">
-
-                                                    <div class="single-input-item">
-                                                        <label for="gender">Gender <span
-                                                                class="text-danger">*</span></label>
-                                                        <select name="gender" id="gender" >
-                                                            <option value="">Gender</option>
-                                                            @foreach (App\Constant::Gender as $gender)
-                                                                <option value="{{ $gender }}">{{ $gender }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                    <div class="single-input-item">
-                                                        <label for="gender">Blood Group </label>
-                                                        <select name="blood_group" id="blood">
-                                                            <option value="">Blood Group</option>
-                                                            @foreach (App\Constant::BloodGroup as $group)
-                                                                <option value="{{ $group }}">{{ $group }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                    <div class="single-input-item">
-                                                        <label for="religion">Religion </label>
-                                                        <select name="religion" id="religion">
-                                                            <option value="">Religion</option>
-                                                            @foreach (App\Constant::Religion as $religion)
-                                                                <option value="{{ $religion }}">
-                                                                    {{ $religion }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
+                                                    <x-form.input type="select" label="Country" id="country"
+                                                        name="country" :options="App\Constant::Countries" />
+                                                    <x-form.input type="text" label="State/Province/Region"
+                                                        id="state" name="state"
+                                                        placeholder="Enter student's state" />
                                                 </div>
                                                 <div class="single-input">
-                                                    <div class="single-input-item">
-                                                        <label for="datepicker">Date of Birth <span
-                                                                class="text-danger">*</span></label>
-                                                        <input type="date" name="dob" id="datepicker"
-                                                            value="{{ old('dob') }}" placeholder="dd/mm/yy"
-                                                            >
-                                                    </div>
-                                                    <div class="single-input-item">
-                                                        <label for="passport">Passport Number <span
-                                                                class="text-danger">*</span></label>
-                                                        <input type="text" name="passport" id="passport"
-                                                            placeholder="Enter student's passport number" >
-                                                    </div>
-                                                </div>
-                                                <div class="single-input">
-                                                    <div class="single-input-item">
-                                                        <label for="country">Country <span
-                                                                class="text-danger">*</span></label>
-<<<<<<< HEAD
-                                                        <select name="country" id="country" >
-=======
-                                                        <select name="country" id="country" required>
->>>>>>> d5418a643be2afd40f338ffbfaa8cb171771877f
-                                                            <option value="">Country</option>
-                                                            @foreach (App\Constant::Countries as $country)
-                                                                <option value="{{ $country }}">
-                                                                    {{ $country }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                    <div class="single-input-item">
-                                                        <label for="state">State/Province/Region <span
-                                                                class="text-danger">*</span></label>
-                                                        <input type="text" name="state" id="state"
-                                                            value="{{ old('state') }}"
-                                                            placeholder="Enter student's state" >
-                                                    </div>
-                                                </div>
-                                                <div class="single-input">
-
-                                                    <div class="single-input-item">
-                                                        <label for="city">City/Town <span
-                                                                class="text-danger">*</span></label>
-                                                        <input type="text" name="city" id="city"
-                                                            value="{{ old('city') }}"
-                                                            placeholder="Enter student's city" >
-                                                    </div>
-                                                    <div class="single-input-item">
-                                                        <label for="post_code">Postal Code <span
-                                                                class="text-danger">*</span></label>
-                                                        <input type="text" name="post_code" id="post_code"
-                                                            value="{{ old('post_code') }}"
-                                                            placeholder="Enter student's postal code" >
-                                                    </div>
-                                                    <div class="single-input-item">
-                                                        <label for="address">Address <span
-                                                                class="text-danger">*</span></label>
-                                                        <input type="text" name="address" id="address"
-                                                            value="{{ old('address') }}"
-                                                            placeholder="Enter student's Address" >
-                                                    </div>
+                                                    <x-form.input type="text" label="City/Town" id="city"
+                                                        name="city" placeholder="Enter student's city" />
+                                                    <x-form.input type="text" label="Postal Code" id="post_code"
+                                                        name="post_code" placeholder="Enter student's postal code" />
+                                                    <x-form.input type="text" label="Address" id="address"
+                                                        name="address" placeholder="Enter student's Address" />
                                                 </div>
                                             </div>
                                         </div>
@@ -328,54 +236,27 @@
                                                 <h5 class="form-title">Family Background</h5>
                                                 <div class="single-form-part">
                                                     <div class="single-input">
-                                                        <div class="single-input-item">
-                                                            <label for="father_name">Father's name <span
-                                                                    class="text-danger"> *</span></label>
-                                                            <input name="father_name" id="father_name" type="text"
-                                                                value="{{ old('father_name') }}"
-                                                                placeholder="Father's name" >
-                                                        </div>
-                                                        <div class="single-input-item">
-                                                            <label for="mother_name">Mother's name<span
-                                                                    class="text-danger"> *</span></label>
-                                                            <input name="mother_name" id="mother_name" type="text"
-                                                                value="{{ old('mother_name') }}"
-                                                                placeholder="Mother's name" >
-                                                        </div>
+                                                        <x-form.input type="text" label="Father's name" id="father_name"
+                                                        name="father_name" placeholder="Father's name" />
+                                                    
+                                                        <x-form.input type="text" label="Mother's name" id="mother_name"
+                                                        name="mother_name" placeholder="Mother's name" />
+                                                    
+                                                       
                                                     </div>
                                                     <div class="single-input">
-                                                        <div class="single-input-item">
-                                                            <label for="father_occupation">Father's occupation <span
-                                                                    class="text-danger">*</span></label>
-                                                            <input name="father_occupation" id="father_occupation"
-                                                                value="{{ old('father_occupation') }}" type="text"
-                                                                placeholder="Father's occupation" >
-                                                        </div>
-                                                        <div class="single-input-item">
-                                                            <label for="mother_occupation">Mother's occupation <span
-                                                                    class="text-danger">*</span></label>
-                                                            <input name="mother_occupation" id="mother_occupation"
-                                                                value="{{ old('mother_occupation') }}" type="text"
-                                                                placeholder="Mother's occupation" >
-                                                        </div>
+                                                        <x-form.input type="text" label="Father's occupation" id="father_occupation"
+                                                        name="father_occupation" placeholder="Father's occupation" />
+
+                                                        <x-form.input type="text" label="Mother's occupation" id="mother_occupation"
+                                                        name="mother_occupation" placeholder="Mother's occupation" />
                                                     </div>
                                                     <div class="single-input">
-                                                        <div class="single-input-item">
-                                                            <label for="father_contact_number">Father's Contact
-                                                                Number <span class="text-danger">*</span></label>
-                                                            <input name="father_contact_number"
-                                                                id="father_contact_number" type="text"
-                                                                value="{{ old('father_contact_number') }}"
-                                                                placeholder="Father's Contact Number" >
-                                                        </div>
-                                                        <div class="single-input-item">
-                                                            <label for="mother_contact_number">Mother's Contact
-                                                                Number <span class="text-danger">*</span></label>
-                                                            <input name="mother_contact_number"
-                                                                id="mother_contact_number" type="text"
-                                                                value="{{ old('mother_contact_number') }}"
-                                                                placeholder="Mother's Passport Number" >
-                                                        </div>
+                                                        <x-form.input type="tel" label="Father's Contact" id="father_contact_number"
+                                                        name="father_contact_number" placeholder="Father's Contact Number" />
+                                                        
+                                                        <x-form.input type="tel" label="Mother's Contact" id="mother_contact_number"
+                                                        name="mother_contact_number" placeholder="Mother's Contact Number"  />
                                                     </div>
                                                     <div class="single-input">
                                                         <div class="single-input-item">
@@ -384,14 +265,14 @@
                                                             </label>
                                                             <input name="father_email" id="father_email"
                                                                 value="{{ old('father_email') }}" type="text"
-                                                                placeholder="Father's Email Address" >
+                                                                placeholder="Father's Email Address">
                                                         </div>
                                                         <div class="single-input-item">
                                                             <label for="mother_email">Mother's Email Address <span
                                                                     class="text-danger">*</span></label>
                                                             <input name="mother_email" id="mother_email"
                                                                 value="{{ old('mother_email') }}" type="text"
-                                                                placeholder="Mother's Email Address" >
+                                                                placeholder="Mother's Email Address">
                                                         </div>
                                                     </div>
                                                     <div class="single-input">
@@ -400,14 +281,14 @@
                                                                 Number <span class="text-danger">*</span></label>
                                                             <input name="father_passport" id="father_passport"
                                                                 value="{{ old('father_passport') }}" type="text"
-                                                                placeholder="Father's Passport Number" >
+                                                                placeholder="Father's Passport Number">
                                                         </div>
                                                         <div class="single-input-item">
                                                             <label for="mother_passport">Mother's Passport
                                                                 Number <span class="text-danger">*</span></label>
                                                             <input name="mother_passport" id="mother_passport"
                                                                 value="{{ old('mother_passport') }}" type="text"
-                                                                placeholder="Mother's Passport Number" >
+                                                                placeholder="Mother's Passport Number">
                                                         </div>
                                                     </div>
 
@@ -427,21 +308,21 @@
                                                                     class="text-danger">*</span></label>
                                                             <input name="ssc_exam_name" id="ssc_exam_name"
                                                                 value="{{ old('ssc_exam_name') }}" type="text"
-                                                                placeholder="Examination Name [eg: SSC]" >
+                                                                placeholder="Examination Name [eg: SSC]">
                                                         </div>
                                                         <div class="single-input-item">
                                                             <label for="ssc_group">Subject Name <span
                                                                     class="text-danger">*</span></label>
                                                             <input name="ssc_group" id="ssc_group" type="text"
                                                                 value="{{ old('ssc_group') }}"
-                                                                placeholder="Subject Name [eg: Science]" >
+                                                                placeholder="Subject Name [eg: Science]">
                                                         </div>
                                                         <div class="single-input-item">
                                                             <label for="ssc_year">Passing Year <span
                                                                     class="text-danger">*</span></label>
                                                             <input name="ssc_year" id="ssc_year" type="text"
                                                                 value="{{ old('ssc_year') }}"
-                                                                placeholder="Passing Year [eg: 2022]" >
+                                                                placeholder="Passing Year [eg: 2022]">
                                                         </div>
                                                     </div>
                                                     <div class="single-input">
@@ -450,14 +331,14 @@
                                                                     class="text-danger">*</span></label>
                                                             <input name="ssc_inistitute" id="ssc_inistitute"
                                                                 value="{{ old('ssc_inistitute') }}" type="text"
-                                                                placeholder="Institute Name" >
+                                                                placeholder="Institute Name">
                                                         </div>
                                                         <div class="single-input-item">
                                                             <label for="gpa2">Grade / Marks / GPA <span
                                                                     class="text-danger">*</span></label>
                                                             <input type="text" name="ssc_gpa" id="ssc_gpa"
                                                                 value="{{ old('ssc_gpa') }}"
-                                                                placeholder="Grade / Marks / GPA" >
+                                                                placeholder="Grade / Marks / GPA">
                                                         </div>
                                                     </div>
                                                     <div class="single-input">
@@ -466,22 +347,26 @@
                                                                     class="text-danger">*</span></label>
                                                             <input type="text" name="ssc_ministry"
                                                                 id="ssc_ministry" placeholder="Ministry of education"
-                                                                value="{{ old('ssc_ministry') }}" >
+                                                                value="{{ old('ssc_ministry') }}">
                                                         </div>
                                                         <div class="single-input-item">
                                                             <label for="ssc_academic_transcript">Academic Transcript
-                                                                <span class="text-danger">*</span><span class="fs-5"> (must be 512kb or less)</span></label>
+                                                                <span class="text-danger">*</span><span
+                                                                    class="fs-5"> (must be 512kb or
+                                                                    less)</span></label>
                                                             <input type="file"
                                                                 name="attachment[ssc_academic_transcript]"
                                                                 id="ssc_academic_transcript"
-                                                                accept="image/png, image/jpeg, image/gif" >
+                                                                accept="image/png, image/jpeg, image/gif">
                                                         </div>
                                                         <div class="single-input-item">
                                                             <label for="ssc_certificate">Degree Certificate
-                                                                <span class="text-danger">*</span><span class="fs-5"> (must be 512kb or less)</span></label>
+                                                                <span class="text-danger">*</span><span
+                                                                    class="fs-5"> (must be 512kb or
+                                                                    less)</span></label>
                                                             <input type="file" name="attachment[ssc_certificate]"
                                                                 id="ssc_certificate"
-                                                                accept="image/png, image/jpeg, image/gif" >
+                                                                accept="image/png, image/jpeg, image/gif">
                                                         </div>
                                                     </div>
                                                     <h5>HSC or Equivalent</h5>
@@ -492,21 +377,21 @@
                                                             <input name="hsc_exam_name" id="hsc_exam_name"
                                                                 type="text"
                                                                 placeholder="Examination Name [eg: Science]"
-                                                                value="{{ old('hsc_exam_name') }}" >
+                                                                value="{{ old('hsc_exam_name') }}">
                                                         </div>
                                                         <div class="single-input-item">
                                                             <label for="hsc_group">Subject Name <span
                                                                     class="text-danger">*</span></label>
                                                             <input name="hsc_group" id="hsc_group" type="text"
                                                                 value="{{ old('hsc_group') }}"
-                                                                placeholder="Subject Name [eg: Science]" >
+                                                                placeholder="Subject Name [eg: Science]">
                                                         </div>
                                                         <div class="single-input-item">
                                                             <label for="hsc_year">Passing Year <span
                                                                     class="text-danger">*</span></label>
                                                             <input name="hsc_year" id="hsc_year" type="text"
                                                                 value="{{ old('hsc_year') }}"
-                                                                placeholder="Passing Year [eg: 2022]" >
+                                                                placeholder="Passing Year [eg: 2022]">
                                                         </div>
                                                     </div>
                                                     <div class="single-input">
@@ -515,14 +400,14 @@
                                                                     class="text-danger">*</span></label>
                                                             <input name="hsc_inistitute" id="hsc_inistitute"
                                                                 value="{{ old('hsc_inistitute') }}" type="text"
-                                                                placeholder="Institute Name" >
+                                                                placeholder="Institute Name">
                                                         </div>
                                                         <div class="single-input-item">
                                                             <label for="gpa2">Grade / Marks / GPA <span
                                                                     class="text-danger">*</span></label>
                                                             <input type="text" name="hsc_gpa" id="hsc_gpa"
                                                                 value="{{ old('hsc_gpa') }}"
-                                                                placeholder="Grade / Marks / GPA" >
+                                                                placeholder="Grade / Marks / GPA">
                                                         </div>
                                                     </div>
                                                     <div class="single-input">
@@ -531,25 +416,27 @@
                                                                     class="text-danger">*</span></label>
                                                             <input type="text" name="hsc_ministry"
                                                                 value="{{ old('hsc_ministry') }}" id="hsc_ministry"
-                                                                placeholder="Ministry of education" >
+                                                                placeholder="Ministry of education">
                                                         </div>
 
                                                         <div class="single-input-item">
                                                             <label for="hsc_academic_transcript">Academic Transcript
-                                                                <span class="text-danger">*</span><span class="fs-5"> (must be 512kb or less)</span></label>
+                                                                <span class="text-danger">*</span><span
+                                                                    class="fs-5"> (must be 512kb or
+                                                                    less)</span></label>
                                                             <input type="file"
                                                                 name="attachment[hsc_academic_transcript]"
                                                                 id="hsc_academic_transcript"
-                                                                accept="image/png, image/jpeg, image/gif, .doc, .docx, .pdf"
-                                                                >
+                                                                accept="image/png, image/jpeg, image/gif, .doc, .docx, .pdf">
                                                         </div>
                                                         <div class="single-input-item">
                                                             <label for="hsc_certificate">Degree Certificate
-                                                                <span class="text-danger">*</span><span class="fs-5"> (must be 512kb or less)</span></label>
+                                                                <span class="text-danger">*</span><span
+                                                                    class="fs-5"> (must be 512kb or
+                                                                    less)</span></label>
                                                             <input type="file" name="attachment[hsc_certificate]"
                                                                 id="hsc_certificate"
-                                                                accept="image/png, image/jpeg, image/gif, .doc, .docx, .pdf"
-                                                                >
+                                                                accept="image/png, image/jpeg, image/gif, .doc, .docx, .pdf">
                                                         </div>
                                                     </div>
                                                     <h5 x-show="application == 'Postgraduate'">Undergraduate Education
@@ -610,7 +497,9 @@
                                                     <div class="single-input" x-show="application == 'Postgraduate'">
                                                         <div class="single-input-item">
                                                             <label for="hsc_academic_transcript">Academic Transcript
-                                                                <span class="text-danger">*</span><span class="fs-5"> (must be 512kb or less)</span></label>
+                                                                <span class="text-danger">*</span><span
+                                                                    class="fs-5"> (must be 512kb or
+                                                                    less)</span></label>
                                                             <input type="file"
                                                                 name="attachment[undergraduate_academic_transcript]"
                                                                 id="hsc_academic_transcript"
@@ -619,7 +508,9 @@
                                                         <div class="single-input-item"
                                                             x-show="application == 'Postgraduate'">
                                                             <label for="undergraduate_certificate">Degree Certificate
-                                                                <span class="text-danger">*</span><span class="fs-5"> (must be 512kb or less)</span></label>
+                                                                <span class="text-danger">*</span><span
+                                                                    class="fs-5"> (must be 512kb or
+                                                                    less)</span></label>
                                                             <input type="file"
                                                                 name="attachment[undergraduate_certificate]"
                                                                 id="undergraduate_certificate"
@@ -636,7 +527,8 @@
                                                 <h5 class="form-title">Attachments</h5>
                                                 <div class="single-input">
                                                     <div class="single-input-item">
-                                                        <label for="police_verification">Police verification <span class="fs-5"> (must be 512kb or less)</span></label>
+                                                        <label for="police_verification">Police verification <span
+                                                                class="fs-5"> (must be 512kb or less)</span></label>
                                                         <input type="file" name="attachment[police_verification]"
                                                             id="police_verification"
                                                             accept="image/png, image/jpeg, image/gif .doc, .docx, .pdf">
@@ -646,16 +538,14 @@
                                                 <div class="single-input">
                                                     <div class="single-input-item">
                                                         <label for="medical_examination">Medical examination <span
-<<<<<<< HEAD
-                                                                class="text-danger">*</span></label>
+                                                                <<<<<<< HEAD class="text-danger">*</span></label>
                                                         <input type="file" name="attachment[medical_examination]"
-                                                            id="medical_examination" 
-=======
-                                                                class="text-danger">*</span><span class="fs-5"> (must be 512kb or less)</span></label>
+                                                            id="medical_examination"=======class="text-danger">*</span><span
+                                                            class="fs-5"> (must be 512kb or less)</span></label>
                                                         <input type="file" name="attachment[medical_examination]"
-                                                            id="medical_examination" required
->>>>>>> d5418a643be2afd40f338ffbfaa8cb171771877f
-                                                            accept="image/png, image/jpeg, image/gif .doc, .docx, .pdf">
+                                                            id="medical_examination" required>>>>>>>
+                                                        d5418a643be2afd40f338ffbfaa8cb171771877f
+                                                        accept="image/png, image/jpeg, image/gif .doc, .docx, .pdf">
                                                         <p> <a style="text-decoration: underline" class="text-danger"
                                                                 href="{{ asset('assets/Physical Examination Form.pdf') }}">Download
                                                                 the format from here</a>, complete it, and then upload
@@ -666,11 +556,11 @@
                                                 <div class="single-input">
                                                     <div class="single-input-item">
                                                         <label for="passport_copy">Passport <span
-                                                                class="text-danger">*</span><span class="fs-5"> (must be 512kb or less)</span></label>
+                                                                class="text-danger">*</span><span class="fs-5">
+                                                                (must be 512kb or less)</span></label>
                                                         <input type="file" name="attachment[passport]"
                                                             id="passport_copy"
-                                                            accept="image/png, image/jpeg, image/gif .doc, .docx, .pdf"
-                                                            >
+                                                            accept="image/png, image/jpeg, image/gif .doc, .docx, .pdf">
                                                     </div>
 
                                                 </div>
@@ -678,12 +568,12 @@
                                                 <div class="single-input">
                                                     <div class="single-input-item">
                                                         <label for="statement_of_purpose">Statement of Purpose (SOP)
-                                                            <span class="text-danger"
-<<<<<<< HEAD
+                                                            <span class="text-danger" <<<<<<< HEAD
                                                                 x-show="application == 'Postgraduate'">*</span></label>
-=======
-                                                                x-show="application == 'Postgraduate'">*</span><span class="fs-5"> (must be 512kb or less)</span></label>
->>>>>>> d5418a643be2afd40f338ffbfaa8cb171771877f
+                                                        =======
+                                                        x-show="application == 'Postgraduate'">*</span><span
+                                                            class="fs-5"> (must be 512kb or less)</span></label>
+                                                        >>>>>>> d5418a643be2afd40f338ffbfaa8cb171771877f
                                                         <input type="file" name="attachment[statement_of_purpose]"
                                                             id="statement_of_purpose"
                                                             accept="image/png, image/jpeg, image/gif ,.doc, .docx, .pdf">
@@ -693,12 +583,12 @@
                                                 <div class="single-input">
                                                     <div class="single-input-item">
                                                         <label for="letter_of_recomandation_1">Letter of Recommendation
-                                                            <span class="text-danger"
-<<<<<<< HEAD
+                                                            <span class="text-danger" <<<<<<< HEAD
                                                                 x-show="application == 'Postgraduate'">*</span></label>
-=======
-                                                                x-show="application == 'Postgraduate'">*</span><span class="fs-5"> (must be 512kb or less)</span></label>
->>>>>>> d5418a643be2afd40f338ffbfaa8cb171771877f
+                                                        =======
+                                                        x-show="application == 'Postgraduate'">*</span><span
+                                                            class="fs-5"> (must be 512kb or less)</span></label>
+                                                        >>>>>>> d5418a643be2afd40f338ffbfaa8cb171771877f
                                                         <input type="file"
                                                             name="attachment[letter_of_recomandation_1]"
                                                             id="letter_of_recomandation_1"
@@ -707,16 +597,18 @@
                                                 </div>
                                                 <div class="single-input">
                                                     <div class="single-input-item">
-<<<<<<< HEAD
-                                                        <label for="letter_of_recomandation_2">Letter of Recommendation
-=======
-                                                        <label for="letter_of_recomandation_2">Letter of Recommendation<span class="fs-5"> (must be 512kb or less)</span>
->>>>>>> d5418a643be2afd40f338ffbfaa8cb171771877f
-                                                        </label>
-                                                        <input type="file"
-                                                            name="attachment[letter_of_recomandation_2]"
-                                                            id="letter_of_recomandation_2"
-                                                            accept="image/png, image/jpeg, image/gif ,.doc, .docx, .pdf">
+                                                        <<<<<<< HEAD <label for="letter_of_recomandation_2">Letter of
+                                                            Recommendation
+                                                            =======
+                                                            <label for="letter_of_recomandation_2">Letter of
+                                                                Recommendation<span class="fs-5"> (must be 512kb or
+                                                                    less)</span>
+                                                                >>>>>>> d5418a643be2afd40f338ffbfaa8cb171771877f
+                                                            </label>
+                                                            <input type="file"
+                                                                name="attachment[letter_of_recomandation_2]"
+                                                                id="letter_of_recomandation_2"
+                                                                accept="image/png, image/jpeg, image/gif ,.doc, .docx, .pdf">
                                                     </div>
                                                 </div>
 
@@ -725,7 +617,8 @@
                                                 <div class="single-input">
                                                     <div class="single-input-item">
                                                         <label for="others">Others</label>
-                                                        <small>(multiple upload supported) <span class="fs-5"> (must be 512kb or less)</span></small>
+                                                        <small>(multiple upload supported) <span class="fs-5"> (must
+                                                                be 512kb or less)</span></small>
                                                         <input type="file" name="attachment[others][]"
                                                             id="others" multiple
                                                             accept="image/png, image/jpeg, image/gif ,.doc, .docx, .pdf">
