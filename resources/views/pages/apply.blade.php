@@ -1,9 +1,10 @@
 <x-app>
     @push('css')
         <style>
-            .rts-ap-section .rts-application-form .single-form-part .single-input-item label{
+            .rts-ap-section .rts-application-form .single-form-part .single-input-item label {
                 text-transform: none;
             }
+
             .card {
                 border: 2px solid #444545b3;
                 border-radius: 8px;
@@ -229,7 +230,7 @@
                                                 <div class="single-input">
                                                     <div class="single-input-item">
                                                         <label for="country">Country <span
-                                                            class="text-danger">*</span></label>
+                                                                class="text-danger">*</span></label>
                                                         <select name="country" id="country" required>
                                                             <option value="">Country</option>
                                                             @foreach (App\Constant::Countries as $country)
@@ -241,31 +242,31 @@
                                                     </div>
                                                     <div class="single-input-item">
                                                         <label for="state">State/Province/Region <span
-                                                            class="text-danger">*</span></label>
+                                                                class="text-danger">*</span></label>
                                                         <input type="text" name="state" id="state"
                                                             value="{{ old('state') }}"
                                                             placeholder="Enter student's state" required>
                                                     </div>
                                                 </div>
                                                 <div class="single-input">
-                                                    
+
                                                     <div class="single-input-item">
                                                         <label for="city">City/Town <span
-                                                            class="text-danger">*</span></label>
+                                                                class="text-danger">*</span></label>
                                                         <input type="text" name="city" id="city"
                                                             value="{{ old('city') }}"
                                                             placeholder="Enter student's city" required>
                                                     </div>
                                                     <div class="single-input-item">
                                                         <label for="post_code">Postal Code <span
-                                                            class="text-danger">*</span></label>
+                                                                class="text-danger">*</span></label>
                                                         <input type="text" name="post_code" id="post_code"
                                                             value="{{ old('post_code') }}"
                                                             placeholder="Enter student's postal code" required>
                                                     </div>
                                                     <div class="single-input-item">
                                                         <label for="address">Address <span
-                                                            class="text-danger">*</span></label>
+                                                                class="text-danger">*</span></label>
                                                         <input type="text" name="address" id="address"
                                                             value="{{ old('address') }}"
                                                             placeholder="Enter student's Address" required>
@@ -297,14 +298,14 @@
                                                     <div class="single-input">
                                                         <div class="single-input-item">
                                                             <label for="father_occupation">Father's occupation <span
-                                                                class="text-danger">*</span></label>
+                                                                    class="text-danger">*</span></label>
                                                             <input name="father_occupation" id="father_occupation"
                                                                 value="{{ old('father_occupation') }}" type="text"
                                                                 placeholder="Father's occupation" required>
                                                         </div>
                                                         <div class="single-input-item">
                                                             <label for="mother_occupation">Mother's occupation <span
-                                                                class="text-danger">*</span></label>
+                                                                    class="text-danger">*</span></label>
                                                             <input name="mother_occupation" id="mother_occupation"
                                                                 value="{{ old('mother_occupation') }}" type="text"
                                                                 placeholder="Mother's occupation" required>
@@ -313,8 +314,7 @@
                                                     <div class="single-input">
                                                         <div class="single-input-item">
                                                             <label for="father_contact_number">Father's Contact
-                                                                Number <span
-                                                                class="text-danger">*</span></label>
+                                                                Number <span class="text-danger">*</span></label>
                                                             <input name="father_contact_number"
                                                                 id="father_contact_number" type="text"
                                                                 value="{{ old('father_contact_number') }}"
@@ -322,8 +322,7 @@
                                                         </div>
                                                         <div class="single-input-item">
                                                             <label for="mother_contact_number">Mother's Contact
-                                                                Number <span
-                                                                class="text-danger">*</span></label>
+                                                                Number <span class="text-danger">*</span></label>
                                                             <input name="mother_contact_number"
                                                                 id="mother_contact_number" type="text"
                                                                 value="{{ old('mother_contact_number') }}"
@@ -333,7 +332,7 @@
                                                     <div class="single-input">
                                                         <div class="single-input-item">
                                                             <label for="father_email">Father's Email Address <span
-                                                                class="text-danger">*</span>
+                                                                    class="text-danger">*</span>
                                                             </label>
                                                             <input name="father_email" id="father_email"
                                                                 value="{{ old('father_email') }}" type="text"
@@ -341,7 +340,7 @@
                                                         </div>
                                                         <div class="single-input-item">
                                                             <label for="mother_email">Mother's Email Address <span
-                                                                class="text-danger">*</span></label>
+                                                                    class="text-danger">*</span></label>
                                                             <input name="mother_email" id="mother_email"
                                                                 value="{{ old('mother_email') }}" type="text"
                                                                 placeholder="Mother's Email Address" required>
@@ -350,16 +349,14 @@
                                                     <div class="single-input">
                                                         <div class="single-input-item">
                                                             <label for="father_passport">Father's Passport
-                                                                Number <span
-                                                                class="text-danger">*</span></label>
+                                                                Number <span class="text-danger">*</span></label>
                                                             <input name="father_passport" id="father_passport"
                                                                 value="{{ old('father_passport') }}" type="text"
                                                                 placeholder="Father's Passport Number" required>
                                                         </div>
                                                         <div class="single-input-item">
                                                             <label for="mother_passport">Mother's Passport
-                                                                Number <span
-                                                                class="text-danger">*</span></label>
+                                                                Number <span class="text-danger">*</span></label>
                                                             <input name="mother_passport" id="mother_passport"
                                                                 value="{{ old('mother_passport') }}" type="text"
                                                                 placeholder="Mother's Passport Number" required>
@@ -425,7 +422,7 @@
                                                         </div>
                                                         <div class="single-input-item">
                                                             <label for="ssc_academic_transcript">Academic Transcript
-                                                                <span class="text-danger">*</span></label>
+                                                                <span class="text-danger">*</span><span class="fs-5"> (must be 512kb or less)</span></label>
                                                             <input type="file"
                                                                 name="attachment[ssc_academic_transcript]"
                                                                 id="ssc_academic_transcript"
@@ -433,7 +430,7 @@
                                                         </div>
                                                         <div class="single-input-item">
                                                             <label for="ssc_certificate">Degree Certificate
-                                                                <span class="text-danger">*</span></label>
+                                                                <span class="text-danger">*</span><span class="fs-5"> (must be 512kb or less)</span></label>
                                                             <input type="file" name="attachment[ssc_certificate]"
                                                                 id="ssc_certificate"
                                                                 accept="image/png, image/jpeg, image/gif" required>
@@ -491,7 +488,7 @@
 
                                                         <div class="single-input-item">
                                                             <label for="hsc_academic_transcript">Academic Transcript
-                                                                <span class="text-danger">*</span></label>
+                                                                <span class="text-danger">*</span><span class="fs-5"> (must be 512kb or less)</span></label>
                                                             <input type="file"
                                                                 name="attachment[hsc_academic_transcript]"
                                                                 id="hsc_academic_transcript"
@@ -500,7 +497,7 @@
                                                         </div>
                                                         <div class="single-input-item">
                                                             <label for="hsc_certificate">Degree Certificate
-                                                                <span class="text-danger">*</span></label>
+                                                                <span class="text-danger">*</span><span class="fs-5"> (must be 512kb or less)</span></label>
                                                             <input type="file" name="attachment[hsc_certificate]"
                                                                 id="hsc_certificate"
                                                                 accept="image/png, image/jpeg, image/gif, .doc, .docx, .pdf"
@@ -565,7 +562,7 @@
                                                     <div class="single-input" x-show="application == 'Postgraduate'">
                                                         <div class="single-input-item">
                                                             <label for="hsc_academic_transcript">Academic Transcript
-                                                                <span class="text-danger">*</span></label>
+                                                                <span class="text-danger">*</span><span class="fs-5"> (must be 512kb or less)</span></label>
                                                             <input type="file"
                                                                 name="attachment[undergraduate_academic_transcript]"
                                                                 id="hsc_academic_transcript"
@@ -574,7 +571,7 @@
                                                         <div class="single-input-item"
                                                             x-show="application == 'Postgraduate'">
                                                             <label for="undergraduate_certificate">Degree Certificate
-                                                                <span class="text-danger">*</span></label>
+                                                                <span class="text-danger">*</span><span class="fs-5"> (must be 512kb or less)</span></label>
                                                             <input type="file"
                                                                 name="attachment[undergraduate_certificate]"
                                                                 id="undergraduate_certificate"
@@ -591,29 +588,31 @@
                                                 <h5 class="form-title">Attachments</h5>
                                                 <div class="single-input">
                                                     <div class="single-input-item">
-                                                        <label for="police_verification">Police verification </label>
+                                                        <label for="police_verification">Police verification <span class="fs-5"> (must be 512kb or less)</span></label>
                                                         <input type="file" name="attachment[police_verification]"
                                                             id="police_verification"
-                                                            accept="image/png, image/jpeg, image/gif .doc, .docx, .pdf"
-                                                            >
+                                                            accept="image/png, image/jpeg, image/gif .doc, .docx, .pdf">
                                                     </div>
 
                                                 </div>
                                                 <div class="single-input">
                                                     <div class="single-input-item">
-                                                        <label for="medical_examination">Medical examination <span class="text-danger">*</span></label>
+                                                        <label for="medical_examination">Medical examination <span
+                                                                class="text-danger">*</span><span class="fs-5"> (must be 512kb or less)</span></label>
                                                         <input type="file" name="attachment[medical_examination]"
                                                             id="medical_examination" required
-                                                            accept="image/png, image/jpeg, image/gif .doc, .docx, .pdf"
-                                                            >
-                                                            <p>  <a style="text-decoration: underline" class="text-danger" href="{{asset('assets/Physical Examination Form.pdf')}}">Download the format from here</a>, complete it, and then upload it.</p>
+                                                            accept="image/png, image/jpeg, image/gif .doc, .docx, .pdf">
+                                                        <p> <a style="text-decoration: underline" class="text-danger"
+                                                                href="{{ asset('assets/Physical Examination Form.pdf') }}">Download
+                                                                the format from here</a>, complete it, and then upload
+                                                            it.</p>
                                                     </div>
 
                                                 </div>
                                                 <div class="single-input">
                                                     <div class="single-input-item">
                                                         <label for="passport_copy">Passport <span
-                                                                class="text-danger">*</span></label>
+                                                                class="text-danger">*</span><span class="fs-5"> (must be 512kb or less)</span></label>
                                                         <input type="file" name="attachment[passport]"
                                                             id="passport_copy"
                                                             accept="image/png, image/jpeg, image/gif .doc, .docx, .pdf"
@@ -625,34 +624,33 @@
                                                 <div class="single-input">
                                                     <div class="single-input-item">
                                                         <label for="statement_of_purpose">Statement of Purpose (SOP)
-                                                            <span class="text-danger" x-show="application == 'Postgraduate'">*</span></label>
+                                                            <span class="text-danger"
+                                                                x-show="application == 'Postgraduate'">*</span><span class="fs-5"> (must be 512kb or less)</span></label>
                                                         <input type="file" name="attachment[statement_of_purpose]"
                                                             id="statement_of_purpose"
-                                                            accept="image/png, image/jpeg, image/gif ,.doc, .docx, .pdf"
-                                                            >
+                                                            accept="image/png, image/jpeg, image/gif ,.doc, .docx, .pdf">
                                                     </div>
                                                 </div>
 
                                                 <div class="single-input">
                                                     <div class="single-input-item">
                                                         <label for="letter_of_recomandation_1">Letter of Recommendation
-                                                            <span class="text-danger" x-show="application == 'Postgraduate'">*</span></label>
+                                                            <span class="text-danger"
+                                                                x-show="application == 'Postgraduate'">*</span><span class="fs-5"> (must be 512kb or less)</span></label>
                                                         <input type="file"
                                                             name="attachment[letter_of_recomandation_1]"
                                                             id="letter_of_recomandation_1"
-                                                            accept="image/png, image/jpeg, image/gif ,.doc, .docx, .pdf"
-                                                                >
+                                                            accept="image/png, image/jpeg, image/gif ,.doc, .docx, .pdf">
                                                     </div>
                                                 </div>
                                                 <div class="single-input">
                                                     <div class="single-input-item">
-                                                        <label for="letter_of_recomandation_2">Letter of Recommendation
-                                                            </label>
+                                                        <label for="letter_of_recomandation_2">Letter of Recommendation<span class="fs-5"> (must be 512kb or less)</span>
+                                                        </label>
                                                         <input type="file"
                                                             name="attachment[letter_of_recomandation_2]"
                                                             id="letter_of_recomandation_2"
-                                                            accept="image/png, image/jpeg, image/gif ,.doc, .docx, .pdf"
-                                                            >
+                                                            accept="image/png, image/jpeg, image/gif ,.doc, .docx, .pdf">
                                                     </div>
                                                 </div>
 
@@ -661,7 +659,7 @@
                                                 <div class="single-input">
                                                     <div class="single-input-item">
                                                         <label for="others">Others</label>
-                                                        <small>(multiple upload supported)</small>
+                                                        <small>(multiple upload supported) <span class="fs-5"> (must be 512kb or less)</span></small>
                                                         <input type="file" name="attachment[others][]"
                                                             id="others" multiple
                                                             accept="image/png, image/jpeg, image/gif ,.doc, .docx, .pdf">
