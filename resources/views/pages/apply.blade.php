@@ -634,7 +634,7 @@
 
                                                 <div class="single-input">
                                                     <div class="single-input-item">
-                                                        <label for="letter_of_recomandation_1">Letter of Recomandation
+                                                        <label for="letter_of_recomandation_1">Letter of Recommendation
                                                             <span class="text-danger" x-show="application == 'Postgraduate'">*</span></label>
                                                         <input type="file"
                                                             name="attachment[letter_of_recomandation_1]"
@@ -645,7 +645,7 @@
                                                 </div>
                                                 <div class="single-input">
                                                     <div class="single-input-item">
-                                                        <label for="letter_of_recomandation_2">Letter of Recomandation
+                                                        <label for="letter_of_recomandation_2">Letter of Recommendation
                                                             </label>
                                                         <input type="file"
                                                             name="attachment[letter_of_recomandation_2]"
