@@ -77,17 +77,14 @@
                                 </nav>
                             </div>
                         </div>
-                        {{-- <div class="header__right">
+                        <div  class="header__right d-lg-none d-md-block">
                             <div class="header__right--item">
 
-                                <div id="search-btn" class="search__trigger">
-                                    <i class="fa-sharp fa-light fa-magnifying-glass"></i>
-                                </div>
                                 <div id="menu-btn" class="menu__trigger">
                                     <img src="{{ asset('assets/images/icon/bar__line.svg') }}" alt="bar">
                                 </div>
                             </div>
-                        </div> --}}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -155,43 +152,17 @@
 
     <!-- offcanvase menu -->
     <!-- header style two -->
-    {{-- <div id="side-bar" class="side-bar">
+    <div id="side-bar" class="side-bar">
         <button class="close-icon-menu"><i class="far fa-times"></i></button>
        
         <div class="inner-main-wrapper-desk">
             <div class="thumbnail">
-                <img src="assets/images/logo/logo__five.svg" alt="Unipix-university">
+                <img src="{{asset('assets/images/logougv.png')}}" alt="Unipix-university">
             </div>
             <div class="inner-content">
-                <p class="disc">
-                    A modern HTML template for education, offering intuitive design & essential features for seamless
-                    learning experiences.
-                </p>
-                
-                <div class="offcanvase__banner mt--50">
-                    <div class="offcanvase__banner--content">
-                        <img src="assets/images/offcanvase.jpg" alt="offcanvase">
-                        <a href="admission.html" class="rts-theme-btn">Apply Now</a>
-                    </div>
-                </div>
-                <div class="offcanvase__info">
-                    <div class="offcanvase__info--content">
-                        <a href="callto:+61485826710"><span><i class="fa-sharp fa-light fa-phone"></i></span>+(61)
-                            485-826-710</a>
-                        <a href="#"><span><i class="fa-sharp fa-light fa-location-dot"></i></span>Yarra Park,
-                            Melbourne, Australia</a>
-                        <div class="offcanvase__info--content--social">
-                            <p class="title">Follow Us:</p>
-                            <div class="social__links">
-                                <a href="https://www.facebook.com/ugvbarisal"><i
-                                        class="fa-brands fa-facebook"></i></a>
-                                
-                                <a href="https://www.youtube.com/channel/UCYYgkrJPlW2vJ-MM3ltQFhg"><i
-                                        class="fa-brands fa-youtube"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+               
+               
+               
             </div>
         </div>
         
@@ -282,7 +253,7 @@
             </div>
         </div>
         
-    </div> --}}
+    </div>
 
 
 
