@@ -386,7 +386,7 @@
                                                     </div>
                                                     <div class="single-input">
                                                         <div class="single-input-item">
-                                                            <label for="ssc_inistitute">Institue Name <span
+                                                            <label for="ssc_inistitute">Institute Name <span
                                                                     class="text-danger">*</span></label>
                                                             <input name="ssc_inistitute" id="ssc_inistitute"
                                                                 value="{{ old('ssc_inistitute') }}" type="text"
@@ -443,7 +443,7 @@
                                                     </div>
                                                     <div class="single-input">
                                                         <div class="single-input-item">
-                                                            <label for="hsc_inistitute">Institue Name <span
+                                                            <label for="hsc_inistitute">Institute Name <span
                                                                     class="text-danger">*</span></label>
                                                             <input name="hsc_inistitute" id="hsc_inistitute"
                                                                 value="{{ old('hsc_inistitute') }}" type="text"
@@ -491,7 +491,7 @@
                                                     </div>
                                                     <div class="single-input" x-show="application == 'Graduate'">
                                                         <div class="single-input-item">
-                                                            <label for="undergraduate_inistitute">Institue Name <span
+                                                            <label for="undergraduate_inistitute">Institute Name <span
                                                                     class="text-danger">*</span></label>
                                                             <input name="undergraduate_inistitute"
                                                                 id="undergraduate_inistitute" type="text" value="{{ old('undergraduate_inistitute') }}"
@@ -500,10 +500,10 @@
                                                         <div class="single-input-item"
                                                             x-show="application == 'Graduate'">
                                                             <label for="undergraduate_inistitute_country">Country of
-                                                                Institue <span class="text-danger">*</span></label>
+                                                                Institute <span class="text-danger">*</span></label>
                                                             <select name="undergraduate_inistitute_country"
                                                                 id="undergraduate_inistitute_country" >
-                                                                <option value="">Country of Institue</option>
+                                                                <option value="">Country of Institute</option>
                                                                 @foreach (App\Constant::Countries as $country)
                                                                     <option value="{{ $country }}">
                                                                         {{ $country }}
