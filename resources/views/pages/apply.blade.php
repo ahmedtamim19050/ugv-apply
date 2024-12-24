@@ -1,6 +1,9 @@
 <x-app>
     @push('css')
         <style>
+            .rts-ap-section .rts-application-form .single-form-part .single-input-item label{
+                text-transform: none;
+            }
             .card {
                 border: 2px solid #444545b3;
                 border-radius: 8px;
@@ -429,7 +432,7 @@
                                                                 accept="image/png, image/jpeg, image/gif" required>
                                                         </div>
                                                         <div class="single-input-item">
-                                                            <label for="ssc_certificate">SSC Certificate
+                                                            <label for="ssc_certificate">Degree Certificate
                                                                 <span class="text-danger">*</span></label>
                                                             <input type="file" name="attachment[ssc_certificate]"
                                                                 id="ssc_certificate"
@@ -496,7 +499,7 @@
                                                                 required>
                                                         </div>
                                                         <div class="single-input-item">
-                                                            <label for="hsc_certificate">Certificate
+                                                            <label for="hsc_certificate">Degree Certificate
                                                                 <span class="text-danger">*</span></label>
                                                             <input type="file" name="attachment[hsc_certificate]"
                                                                 id="hsc_certificate"
