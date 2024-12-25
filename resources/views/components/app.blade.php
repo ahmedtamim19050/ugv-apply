@@ -130,15 +130,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="footer__widget">
-                        <h6 class="footer__widget--title">Quick Button</h6>
-                        <div class="footer__widget--button">
-                            <a href="{{ route('apply.now') }}" class="cta__button active">Applying</a>
 
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </footer>
