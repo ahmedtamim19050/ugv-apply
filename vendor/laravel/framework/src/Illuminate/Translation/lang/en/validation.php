@@ -173,6 +173,54 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'attachment.ssc_academic_transcript' => [
+            'file' => 'The uploaded file must be a PDF!',
+            'mimes'=> 'The file size must not exceed 512 KB!',
+        ],
+        'attachment.ssc_certificate' => [
+            'file' => 'The uploaded file must be a PDF!',
+            'mimes'=> 'The file size must not exceed 512 KB!',
+        ],
+        'attachment.hsc_academic_transcript' => [
+            'file' => 'The uploaded file must be a PDF!',
+            'mimes'=> 'The file size must not exceed 512 KB!',
+        ],
+        'attachment.hsc_certificate' => [
+            'file' => 'The uploaded file must be a PDF!',
+            'mimes'=> 'The file size must not exceed 512 KB!',
+        ],
+        'attachment.undergraduate_academic_transcript' => [
+            'file' => 'The uploaded file must be a PDF!',
+            'mimes'=> 'The file size must not exceed 512 KB!',
+        ],
+        'attachment.undergraduate_certificate' => [
+            'file' => 'The uploaded file must be a PDF!',
+            'mimes'=> 'The file size must not exceed 512 KB!',
+        ],
+        'attachment.police_verification' => [
+            'file' => 'The uploaded file must be a PDF!',
+            'mimes'=> 'The file size must not exceed 512 KB!',
+        ],
+        'attachment.medical_examination' => [
+            'file' => 'The uploaded file must be a PDF!',
+            'mimes'=> 'The file size must not exceed 512 KB!',
+        ],
+        'attachment.statement_of_purpose' => [
+            'file' => 'The uploaded file must be a PDF!',
+            'mimes'=> 'The file size must not exceed 512 KB!',
+        ],
+        'attachment.letter_of_recomandation_1' => [
+            'file' => 'The uploaded file must be a PDF!',
+            'mimes'=> 'The file size must not exceed 512 KB!',
+        ],
+        'attachment.letter_of_recomandation_2' => [
+            'file' => 'The uploaded file must be a PDF!',
+            'mimes'=> 'The file size must not exceed 512 KB!',
+        ],
+        'attachment.others.*' => [
+            'file' => 'The uploaded file must be a PDF!',
+            'mimes'=> 'The file size must not exceed 512 KB!',
+        ],
     ],
 
     /*
@@ -186,6 +234,9 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'file' => 'File',
+    ]
+
 
 ];
