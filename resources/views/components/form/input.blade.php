@@ -16,12 +16,12 @@
             @endforeach
         </select>
         @error(str_replace(['[', ']'], ['.', ''], $name))
-            <span class="text-danger">
-                {{ $message }}
-            </span>
-        @else
-            <span class="fs-5"> {{ $info }}</span>
+        <span class="text-danger">
+             {{ $message }}
+        </span>
+        
         @enderror
+        <span class="fs-5"> {{ $info }}</span>
     </div>
 @elseif($type == 'tel')
     <div class="single-input-item">
@@ -40,9 +40,9 @@
             <span class="text-danger">
                 {{ $message }}
             </span>
-        @else
-            <span class="fs-5"> {{ $info }}</span>
+        
         @enderror
+        <span class="fs-5"> {{ $info }}</span>
     </div>
 @else
     <div class="single-input-item">
@@ -58,8 +58,7 @@
             <span class="text-danger">
                 {{ $message }}
             </span>
-        @else
+            @enderror
             <span class="fs-5"> {{ $info }}</span>
-        @enderror
     </div>
 @endif
