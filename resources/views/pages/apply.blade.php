@@ -1,9 +1,6 @@
 <x-app>
     @push('css')
-        <link rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/25.2.0/build/css/intlTelInput.min.css"
-            integrity="sha512-X3pJz9m4oT4uHCYS6UjxVdWk1yxSJJIJOJMIkf7TjPpb1BzugjiFyHu7WsXQvMMMZTnGUA9Q/GyxxCWNDZpdHA=="
-            crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" integrity="sha512-gxWow8Mo6q6pLa1XH/CcH8JyiSDEtiwJV78E+D+QP0EVasFs8wKXq16G8CLD4CJ2SnonHr4Lm/yY2fSI2+cbmw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <style>
             .rts-ap-section .rts-application-form .single-form-part .single-input-item label {
                 text-transform: none;
@@ -30,40 +27,32 @@
     @endpush
 
     @push('js')
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/25.2.0/build/js/intlTelInput.min.js"
-            integrity="sha512-H0skyHW3SNpqlUsVKCM9+5ufNLLipKqvFeGapbvGlgv9RV6KulEDsRNZ7wMV7R0Hs8nMxalbJAF+d+NmNdYVYA=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+ 
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js'></script> 
 
         </script>
         <script>
-            document.addEventListener('DOMContentLoaded', function () {
+            $(document).ready(function() {
+
+
                 const phoneInputs = document.querySelectorAll("input[type='tel']");
-        
                 [...phoneInputs].forEach((el) => {
-                    let iti = intlTelInput(el, {
-                        initialCountry: "auto",
+                    var iti = intlTelInput(el, {
                         separateDialCode: true,
-                        geoIpLookup: function (callback) {
-                            fetch('https://ipinfo.io/json?token=<YOUR_TOKEN>') // Replace <YOUR_TOKEN> with a valid token
-                                .then(response => response.json())
-                                .then(data => callback(data.country))
-                                .catch(() => callback('US'));
-                        },
-                        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js",
+                        hiddenInput: $(el).attr('name'),
+                        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js" // just for formatting/placeholders etc
                     });
-        
-                    // Set the value before form submission
-                    const form = el.closest('form');
-                    if (form) {
-                        form.addEventListener('submit', function () {
-                            // Set the input value to the full number (international format)
-                            el.value = iti.getNumber();
-                        });
-                    }
-                });
+
+                })
+
+
+
+
+
             });
+           
         </script>
-        
+
 
         <!-- Load FilePond library -->
         <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
@@ -71,16 +60,16 @@
         <!-- Turn all file input elements into ponds -->
     @endpush
 
-    <div class="banner v__1" style="height: 40vh;align-items:center">
+    <div class="banner v__1" style="height: 60vh;align-items:center">
         <div class="container">
             <div class="col-sm-12">
                 <div class="">
 
                     <div class="banner__wrapper--middle">
-                        <div class="banner__content">
-                            <div class="breadcrumb-content">
-
-                                <h2 class="section-title text-center text-white" style="margin-top:80px">Application for
+                        <div class="banner__content " >
+                            <div class="breadcrumb-content text-center"  >
+                                <img src="{{asset('assets/UGV-Logo-01.png')}}" style="margin-top:110px;width:500px;" alt="">
+                                <h2 class="section-title text-center text-white mt-3" >Application for
                                     International students
                                 </h2>
                             </div>
@@ -115,58 +104,73 @@
                                         <div class="single-input">
 
                                             <div class="single-input-item">
-                                                <label class="form-title">Application for <span
-                                                        class="text-danger">*</span></label>
-                                                <select name="application" x-model="application" id="application">
-                                                    <option value="">Select Postgraduate or Undergraduate</option>
-                                                    <option value="Postgraduate">Postgraduate</option>
-                                                    <option value="Undergraduate">Undergraduate</option>
+                                                <label class="form-title">Application for <span class="text-danger">*</span></label>
+                                                <select class="@error('application') border border-danger @enderror" name="application" x-model="application" id="application">
+                                                    <option value="" {{ old('application') == '' ? 'selected' : '' }}>Select Postgraduate or Undergraduate</option>
+                                                    <option value="Postgraduate" {{ old('application') == 'Postgraduate' ? 'selected' : '' }}>Postgraduate</option>
+                                                    <option value="Undergraduate" {{ old('application') == 'Undergraduate' ? 'selected' : '' }}>Undergraduate</option>
                                                 </select>
+                                                @error('application')
+                                                <span class="text-danger">
+                                                    {{ $message }}
+                                                </span>
+                                                @enderror
                                             </div>
-                                            <div class="single-input-item">
-                                                <label for="session">Session <span class="text-danger">*</span></label>
-                                                <select name="session" id="session">
-                                                    <option value="">Select session</option>
-                                                    <option value="June-2025">June-2025</option>
-                                                    <option value="January-2026">January-2026</option>
-                                                </select>
-                                            </div>
+                                            
+
+                                            <x-form.input type="select" name="session" id="session" label="Session" :options="['June-2025','January-2026']"/>
+                                            
                                         </div>
                                         <div class="single-input">
                                             <div class="single-input-item">
-
                                                 <label for="course">Course <span class="text-danger">*</span></label>
-                                                <select name="course" id="course">
-                                                    <option value="">Select course</option>
-
-                                                    <option x-show="application == 'Postgraduate'"
-                                                        value="Master of Arts in English">Master of Arts in
-                                                        English</option>
-                                                    <option x-show="application == 'Postgraduate'"
-                                                        value="Master in Business Administration">Master in
-                                                        Business Administration (MBA)</option>
-
-                                                    <option x-show="application == 'Undergraduate'"
-                                                        value="Bachelor of Arts in English">Bachelor of Arts in
-                                                        English</option>
-                                                    <option x-show="application == 'Undergraduate'"
-                                                        value="Bachelor of Business Administration">Bachelor of
-                                                        Business Administration (BBA)</option>
-                                                    <option x-show="application == 'Undergraduate'"
-                                                        value="Bachelor of Science in Computer Science and Engineering">
-                                                        Bachelor of Science in
-                                                        Computer Science and Engineering</option>
-                                                    <option x-show="application == 'Undergraduate'"
-                                                        value="Bachelor of Science in Electrical and Electronics Engineering">
-                                                        Bachelor of Science in Electrical
-                                                        and Electronics Engineering</option>
-                                                    <option x-show="application == 'Undergraduate'"
-                                                        value="Bachelor of Science in Civil Engineering">
-                                                        Bachelor of Science in
-                                                        Civil Engineering</option>
-
+                                                <select class="@error('course') border border-danger @enderror" name="course" id="course">
+                                                    <option value="" {{ old('course') == '' ? 'selected' : '' }}>Select course</option>
+                                            
+                                                    <option x-show="application == 'Postgraduate'" 
+                                                        value="Master of Arts in English" 
+                                                        {{ old('course') == 'Master of Arts in English' ? 'selected' : '' }}>
+                                                        Master of Arts in English
+                                                    </option>
+                                                    <option x-show="application == 'Postgraduate'" 
+                                                        value="Master in Business Administration" 
+                                                        {{ old('course') == 'Master in Business Administration' ? 'selected' : '' }}>
+                                                        Master in Business Administration (MBA)
+                                                    </option>
+                                            
+                                                    <option x-show="application == 'Undergraduate'" 
+                                                        value="Bachelor of Arts in English" 
+                                                        {{ old('course') == 'Bachelor of Arts in English' ? 'selected' : '' }}>
+                                                        Bachelor of Arts in English
+                                                    </option>
+                                                    <option x-show="application == 'Undergraduate'" 
+                                                        value="Bachelor of Business Administration" 
+                                                        {{ old('course') == 'Bachelor of Business Administration' ? 'selected' : '' }}>
+                                                        Bachelor of Business Administration (BBA)
+                                                    </option>
+                                                    <option x-show="application == 'Undergraduate'" 
+                                                        value="Bachelor of Science in Computer Science and Engineering" 
+                                                        {{ old('course') == 'Bachelor of Science in Computer Science and Engineering' ? 'selected' : '' }}>
+                                                        Bachelor of Science in Computer Science and Engineering
+                                                    </option>
+                                                    <option x-show="application == 'Undergraduate'" 
+                                                        value="Bachelor of Science in Electrical and Electronics Engineering" 
+                                                        {{ old('course') == 'Bachelor of Science in Electrical and Electronics Engineering' ? 'selected' : '' }}>
+                                                        Bachelor of Science in Electrical and Electronics Engineering
+                                                    </option>
+                                                    <option x-show="application == 'Undergraduate'" 
+                                                        value="Bachelor of Science in Civil Engineering" 
+                                                        {{ old('course') == 'Bachelor of Science in Civil Engineering' ? 'selected' : '' }}>
+                                                        Bachelor of Science in Civil Engineering
+                                                    </option>
                                                 </select>
+                                                @error('course')
+                                                <span class="text-danger">
+                                                    {{ $message }}
+                                                </span>
+                                                @enderror
                                             </div>
+                                            
                                         </div>
 
                                         <div class="card">

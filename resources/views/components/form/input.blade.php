@@ -30,10 +30,11 @@
             @endif
         </label>
         <div class="d-grid">
-            <input type="{{ $type }}"
+            <input type="{{ $type }}" name="{{ $name }}"
                 class="@error(str_replace(['[', ']'], ['.', ''], $name)) border border-danger @enderror"
-                name="{{ $name }}" value="{{ old(str_replace(['[', ']'], ['.', ''], $name)) }}"
-                id="{{ $id }}" placeholder="{{ $placeholder }}" {{ $attributes }}>
+                value="{{ old(str_replace(['[', ']'], ['.', ''], $name)) }}" id="{{ $id }}"
+                placeholder="{{ $placeholder }}" {{ $attributes }}>
+
         </div>
         @error(str_replace(['[', ']'], ['.', ''], $name))
             <span class="text-danger">

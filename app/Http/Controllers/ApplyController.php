@@ -2,22 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ApplicationCompleteMail;
 use App\Models\Application;
 use Illuminate\Http\Request;
+use Mail;
 
 class ApplyController extends Controller
 {
     public function saveApply(Request $request)
     {
-        dd($request->all());
         // Validate the incoming data
         $validated = $request->validate([
             'application' => 'required|in:Undergraduate,Postgraduate',
             'session' => 'required',
             'course' => 'required|string',
             'name' => 'required|string',
-            'photo' => 'required|file|mimes:jpeg,png,jpg,gif',
-            'contact_number' => 'required|string',
+            'photo' => 'required|file|mimes:jpeg,png,jpg,gif|max:512',
+            //apatoto nullable kore nici
+            'contact_number' => 'required',
+            'father_contact_number' => 'required',
+            'mother_contact_number' => 'required',
+            //end
             'email' => 'required|email',
             'passport' => 'required|string',
             'dob' => 'required|date',
@@ -30,12 +35,10 @@ class ApplyController extends Controller
             'state' => 'required|string',
             'country' => 'required|string',
             'father_name' => 'required|string',
-            'father_contact_number' => 'required|string',
             'father_email' => 'required|email',
             'father_occupation' => 'required|string',
             'father_passport' => 'required|string',
             'mother_name' => 'required|string',
-            'mother_contact_number' => 'required|string',
             'mother_email' => 'required|email',
             'mother_occupation' => 'required|string',
             'mother_passport' => 'required|string',
@@ -55,18 +58,18 @@ class ApplyController extends Controller
             'undergraduate_year' => 'required_if:application,Graduate|nullable',
             'undergraduate_inistitute' => 'required_if:application,Graduate|nullable',
             'undergraduate_cgpa' => 'required_if:application,Graduate|nullable',
-            'attachment.ssc_academic_transcript' => 'required|file|mimes:jpeg,png,jpg,gif,doc,docx,pdf|max:512',
-            'attachment.ssc_certificate' => 'required|file|mimes:jpeg,png,jpg,gif,doc,docx,pdf|max:512',
-            'attachment.hsc_academic_transcript' => 'required|file|mimes:jpeg,png,jpg,gif,doc,docx,pdf|max:512',
-            'attachment.hsc_certificate' => 'required|file|mimes:jpeg,png,jpg,gif,doc,docx,pdf|max:512',
-            'attachment.undergraduate_academic_transcript' => 'required_if:application,Graduate|nullable|file|mimes:jpeg,png,jpg,gif,doc,docx,pdf|max:512',
-            'attachment.undergraduate_certificate' => 'required_if:application,Graduate|nullable|file|mimes:jpeg,png,jpg,gif,doc,docx,pdf|max:512',
-            'attachment.police_verification' => 'nullable|file|mimes:jpeg,png,jpg,gif,doc,docx,pdf|max:2024',
+            'attachment.ssc_academic_transcript' => 'required|file|mimes:pdf|max:512',
+            'attachment.ssc_certificate' => 'required|file|mimes:pdf|max:512',
+            'attachment.hsc_academic_transcript' => 'required|file|mimes:pdf|max:512',
+            'attachment.hsc_certificate' => 'required|file|mimes:pdf|max:512',
+            'attachment.undergraduate_academic_transcript' => 'required_if:application,Graduate|nullable|file|mimes:pdf|max:512',
+            'attachment.undergraduate_certificate' => 'required_if:application,Graduate|nullable|file|mimes:pdf|max:512',
+            'attachment.police_verification' => 'nullable|file|mimes:pdf|max:2024',
             'attachment.medical_examination' => 'required|file|mimes:doc,docx,pdf|max:512',
-            'attachment.statement_of_purpose' => 'required_if:application,Graduate|file|mimes:jpeg,png,jpg,gif,doc,docx,pdf|max:512',
-            'attachment.letter_of_recomandation_1' => 'required_if:application,Graduate|file|mimes:jpeg,png,jpg,gif,doc,docx,pdf|max:512',
-            'attachment.letter_of_recomandation_2' => 'nullable|file|mimes:jpeg,png,jpg,gif,doc,docx,pdf|max:512',
-            'attachment.others.*' => 'nullable|mimes:jpeg,png,jpg,gif,doc,docx,pdf|max:512',
+            'attachment.statement_of_purpose' => 'required_if:application,Graduate|file|mimes:pdf|max:512',
+            'attachment.letter_of_recomandation_1' => 'required_if:application,Graduate|file|mimes:pdf|max:512',
+            'attachment.letter_of_recomandation_2' => 'nullable|file|mimes:pdf|max:512',
+            'attachment.others.*' => 'nullable|mimes:pdf|max:512',
         ]);
 
         // Handle file uploads
@@ -138,7 +141,13 @@ class ApplyController extends Controller
             'honors_degree_grade_or_marks' => $validated['undergraduate_cgpa'],
             'attachments' => $attachments ? json_encode($attachments) : null,
         ]);
-
+        $data = [
+            'uid' => $application->unique_id,
+            'name' => $application->name,
+        ];
+        
+        
+        // Mail::to($validated['email'])->send(new ApplicationCompleteMail($data));
         return redirect(route('apply.thank-you', $application->unique_id))->with('success', 'Application submitted successfully!');
     }
     public function thankYou($uid)
