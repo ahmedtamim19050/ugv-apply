@@ -1,6 +1,8 @@
 <x-app>
     @push('css')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" integrity="sha512-gxWow8Mo6q6pLa1XH/CcH8JyiSDEtiwJV78E+D+QP0EVasFs8wKXq16G8CLD4CJ2SnonHr4Lm/yY2fSI2+cbmw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"
+            integrity="sha512-gxWow8Mo6q6pLa1XH/CcH8JyiSDEtiwJV78E+D+QP0EVasFs8wKXq16G8CLD4CJ2SnonHr4Lm/yY2fSI2+cbmw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
         <style>
             .rts-ap-section .rts-application-form .single-form-part .single-input-item label {
                 text-transform: none;
@@ -27,8 +29,8 @@
     @endpush
 
     @push('js')
- 
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js'></script> 
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js'></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         </script>
         <script>
@@ -50,7 +52,34 @@
 
 
             });
-           
+        </script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const form = document.getElementById('applicationForm');
+                const submitBtn = document.getElementById('submitBtn');
+
+                form.addEventListener('submit', function(event) {
+                    // Prevent form submission
+                    event.preventDefault();
+
+                    // Show SweetAlert confirmation popup
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "Please review your application before submitting.",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, submit it!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Submit the form after confirmation
+                            form.submit();
+                        }
+                    });
+                });
+            });
         </script>
 
 
@@ -66,10 +95,11 @@
                 <div class="">
 
                     <div class="banner__wrapper--middle">
-                        <div class="banner__content " >
-                            <div class="breadcrumb-content text-center"  >
-                                <img src="{{asset('assets/UGV-Logo-01.png')}}" style="margin-top:110px;width:500px;" alt="">
-                                <h2 class="section-title text-center text-white mt-3" >Application for
+                        <div class="banner__content ">
+                            <div class="breadcrumb-content text-center">
+                                <img src="{{ asset('assets/UGV-Logo-01.png') }}" style="margin-top:110px;width:500px;"
+                                    alt="">
+                                <h2 class="section-title text-center text-white mt-3">Application for
                                     International students
                                 </h2>
                             </div>
@@ -91,7 +121,7 @@
     </div>
     <div class="container my-5">
 
-        <form action="{{ route('apply.save') }}" enctype="multipart/form-data" method="post" x-data="{ application: 'Undergraduate' }">
+        <form id="applicationForm" action="{{ route('apply.save') }}" enctype="multipart/form-data" method="post" x-data="{ application: 'Undergraduate' }">
             @csrf
 
             <div class="rts-page-content ">
@@ -104,73 +134,84 @@
                                         <div class="single-input">
 
                                             <div class="single-input-item">
-                                                <label class="form-title">Application for <span class="text-danger">*</span></label>
-                                                <select class="@error('application') border border-danger @enderror" name="application" x-model="application" id="application">
-                                                    <option value="" {{ old('application') == '' ? 'selected' : '' }}>Select Postgraduate or Undergraduate</option>
-                                                    <option value="Postgraduate" {{ old('application') == 'Postgraduate' ? 'selected' : '' }}>Postgraduate</option>
-                                                    <option value="Undergraduate" {{ old('application') == 'Undergraduate' ? 'selected' : '' }}>Undergraduate</option>
+                                                <label class="form-title">Application for <span
+                                                        class="text-danger">*</span></label>
+                                                <select class="@error('application') border border-danger @enderror"
+                                                    name="application" x-model="application" id="application">
+                                                    <option value=""
+                                                        {{ old('application') == '' ? 'selected' : '' }}>Select
+                                                        Postgraduate or Undergraduate</option>
+                                                    <option value="Postgraduate"
+                                                        {{ old('application') == 'Postgraduate' ? 'selected' : '' }}>
+                                                        Postgraduate</option>
+                                                    <option value="Undergraduate"
+                                                        {{ old('application') == 'Undergraduate' ? 'selected' : '' }}>
+                                                        Undergraduate</option>
                                                 </select>
                                                 @error('application')
-                                                <span class="text-danger">
-                                                    {{ $message }}
-                                                </span>
+                                                    <span class="text-danger">
+                                                        {{ $message }}
+                                                    </span>
                                                 @enderror
                                             </div>
-                                            
 
-                                            <x-form.input type="select" name="session" id="session" label="Session" :options="['June-2025','January-2026']"/>
-                                            
+
+                                            <x-form.input type="select" name="session" id="session" label="Session"
+                                                :options="['June-2025', 'January-2026']" />
+
                                         </div>
                                         <div class="single-input">
                                             <div class="single-input-item">
                                                 <label for="course">Course <span class="text-danger">*</span></label>
-                                                <select class="@error('course') border border-danger @enderror" name="course" id="course">
-                                                    <option value="" {{ old('course') == '' ? 'selected' : '' }}>Select course</option>
-                                            
-                                                    <option x-show="application == 'Postgraduate'" 
-                                                        value="Master of Arts in English" 
+                                                <select class="@error('course') border border-danger @enderror"
+                                                    name="course" id="course">
+                                                    <option value="" {{ old('course') == '' ? 'selected' : '' }}>
+                                                        Select course</option>
+
+                                                    <option x-show="application == 'Postgraduate'"
+                                                        value="Master of Arts in English"
                                                         {{ old('course') == 'Master of Arts in English' ? 'selected' : '' }}>
                                                         Master of Arts in English
                                                     </option>
-                                                    <option x-show="application == 'Postgraduate'" 
-                                                        value="Master in Business Administration" 
+                                                    <option x-show="application == 'Postgraduate'"
+                                                        value="Master in Business Administration"
                                                         {{ old('course') == 'Master in Business Administration' ? 'selected' : '' }}>
                                                         Master in Business Administration (MBA)
                                                     </option>
-                                            
-                                                    <option x-show="application == 'Undergraduate'" 
-                                                        value="Bachelor of Arts in English" 
+
+                                                    <option x-show="application == 'Undergraduate'"
+                                                        value="Bachelor of Arts in English"
                                                         {{ old('course') == 'Bachelor of Arts in English' ? 'selected' : '' }}>
                                                         Bachelor of Arts in English
                                                     </option>
-                                                    <option x-show="application == 'Undergraduate'" 
-                                                        value="Bachelor of Business Administration" 
+                                                    <option x-show="application == 'Undergraduate'"
+                                                        value="Bachelor of Business Administration"
                                                         {{ old('course') == 'Bachelor of Business Administration' ? 'selected' : '' }}>
                                                         Bachelor of Business Administration (BBA)
                                                     </option>
-                                                    <option x-show="application == 'Undergraduate'" 
-                                                        value="Bachelor of Science in Computer Science and Engineering" 
+                                                    <option x-show="application == 'Undergraduate'"
+                                                        value="Bachelor of Science in Computer Science and Engineering"
                                                         {{ old('course') == 'Bachelor of Science in Computer Science and Engineering' ? 'selected' : '' }}>
                                                         Bachelor of Science in Computer Science and Engineering
                                                     </option>
-                                                    <option x-show="application == 'Undergraduate'" 
-                                                        value="Bachelor of Science in Electrical and Electronics Engineering" 
+                                                    <option x-show="application == 'Undergraduate'"
+                                                        value="Bachelor of Science in Electrical and Electronics Engineering"
                                                         {{ old('course') == 'Bachelor of Science in Electrical and Electronics Engineering' ? 'selected' : '' }}>
                                                         Bachelor of Science in Electrical and Electronics Engineering
                                                     </option>
-                                                    <option x-show="application == 'Undergraduate'" 
-                                                        value="Bachelor of Science in Civil Engineering" 
+                                                    <option x-show="application == 'Undergraduate'"
+                                                        value="Bachelor of Science in Civil Engineering"
                                                         {{ old('course') == 'Bachelor of Science in Civil Engineering' ? 'selected' : '' }}>
                                                         Bachelor of Science in Civil Engineering
                                                     </option>
                                                 </select>
                                                 @error('course')
-                                                <span class="text-danger">
-                                                    {{ $message }}
-                                                </span>
+                                                    <span class="text-danger">
+                                                        {{ $message }}
+                                                    </span>
                                                 @enderror
                                             </div>
-                                            
+
                                         </div>
 
                                         <div class="card">
@@ -544,11 +585,13 @@
 
 
                                     </div>
-                                    <div class="text-end"><button type="submit"
-                                            class="rts-theme-btn primary with-arrow">Submit
-                                            Application<span><i class="fa-thin fa-arrow-right"></i></span></button>
+                                    <div class="text-end">
+                                        <button type="submit" class="rts-theme-btn primary with-arrow"
+                                            id="submitBtn">
+                                            Submit Application
+                                            <span><i class="fa-thin fa-arrow-right"></i></span>
+                                        </button>
                                     </div>
-
                                     <div id="form-messages-admission" class="mt-20"></div>
                                 </div>
                             </div>
