@@ -121,7 +121,8 @@
     </div>
     <div class="container my-5">
 
-        <form id="applicationForm" action="{{ route('apply.save') }}" enctype="multipart/form-data" method="post" x-data="{ application: 'Undergraduate' }">
+        <form id="applicationForm" action="{{ route('apply.save') }}" enctype="multipart/form-data" method="post"
+            x-data="{ application: 'Undergraduate' }">
             @csrf
 
             <div class="rts-page-content ">
@@ -248,7 +249,7 @@
                                                 <div class="single-input">
                                                     <x-form.input type="date" label="Date of Birth"
                                                         id="datepicker" placeholder="dd/mm/yy" name="dob" />
-                                                    <x-form.input type="email" label="Passport Number"
+                                                    <x-form.input type="text" label="Passport Number"
                                                         id="passport" name="passport"
                                                         placeholder="Enter student's passport number" />
                                                 </div>
