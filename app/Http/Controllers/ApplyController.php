@@ -9,6 +9,7 @@ class ApplyController extends Controller
 {
     public function saveApply(Request $request)
     {
+        dd($request->all());
         // Validate the incoming data
         $validated = $request->validate([
             'application' => 'required|in:Undergraduate,Postgraduate',

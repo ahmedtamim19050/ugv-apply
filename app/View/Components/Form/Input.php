@@ -17,10 +17,11 @@ class Input extends Component
     public string $required;
     public array $options;
     public bool $keyValue;
+    public $info;
     /**
      * Create a new component instance.
      */
-    public function __construct(string $id, string $name, string $label, string $type = 'text', string $placeholder = "", bool $required = true, array $options = [], bool $keyValue = false)
+    public function __construct(string $id, string $name, string $label, string $type = 'text', string $placeholder = "", bool $required = true, array $options = [], bool $keyValue = false,$info = null)
     {
         $this->id = $id;
         $this->name = $name;
@@ -30,6 +31,7 @@ class Input extends Component
         $this->required = $required;
         $this->options = $options;
         $this->keyValue = $keyValue;
+        $this->info = $info;
     }
 
     /**

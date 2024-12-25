@@ -36,33 +36,34 @@
 
         </script>
         <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const phoneInput = document.querySelectorAll("input[type='tel']");
-                [...phoneInput].forEach((el) => {
+            document.addEventListener('DOMContentLoaded', function () {
+                const phoneInputs = document.querySelectorAll("input[type='tel']");
+        
+                [...phoneInputs].forEach((el) => {
                     let iti = intlTelInput(el, {
                         initialCountry: "auto",
                         separateDialCode: true,
-                        geoIpLookup: function(callback) {
-                            fetch(
-                                'https://ipinfo.io/json?token=<YOUR_TOKEN>') // Replace <YOUR_TOKEN> with a valid token
+                        geoIpLookup: function (callback) {
+                            fetch('https://ipinfo.io/json?token=<YOUR_TOKEN>') // Replace <YOUR_TOKEN> with a valid token
                                 .then(response => response.json())
                                 .then(data => callback(data.country))
                                 .catch(() => callback('US'));
                         },
-                        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js", // For formatting
+                        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js",
                     });
-
-                    // Set the value in the form submission
+        
+                    // Set the value before form submission
                     const form = el.closest('form');
-                    form.addEventListener('submit', function() {
-                        el.value = iti.getNumber(); // Set full international number
-                    });
-
-
+                    if (form) {
+                        form.addEventListener('submit', function () {
+                            // Set the input value to the full number (international format)
+                            el.value = iti.getNumber();
+                        });
+                    }
                 });
-                // Initialize intl-tel-input
             });
         </script>
+        
 
         <!-- Load FilePond library -->
         <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
@@ -100,15 +101,7 @@
         </div>
     </div>
     <div class="container my-5">
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+
         <form action="{{ route('apply.save') }}" enctype="multipart/form-data" method="post" x-data="{ application: 'Undergraduate' }">
             @csrf
 
@@ -120,6 +113,7 @@
                                 <div class="rts-application-form">
                                     <div class="single-form-part">
                                         <div class="single-input">
+
                                             <div class="single-input-item">
                                                 <label class="form-title">Application for <span
                                                         class="text-danger">*</span></label>
@@ -202,9 +196,9 @@
                                                     <x-form.input type="select" label="Gender" id="gender"
                                                         name="gender" :options="App\Constant::Gender" />
                                                     <x-form.input type="select" label="Blood Group" id="blood"
-                                                        name="blood_group" :options="App\Constant::BloodGroup" />
+                                                        name="blood_group" :options="App\Constant::BloodGroup" :required="false" />
                                                     <x-form.input type="select" label="Religion" id="religion"
-                                                        name="religion" :options="App\Constant::Religion" />
+                                                        name="religion" :options="App\Constant::Religion" :required="false" />
                                                 </div>
                                                 <div class="single-input">
                                                     <x-form.input type="date" label="Date of Birth"
@@ -236,60 +230,53 @@
                                                 <h5 class="form-title">Family Background</h5>
                                                 <div class="single-form-part">
                                                     <div class="single-input">
-                                                        <x-form.input type="text" label="Father's name" id="father_name"
-                                                        name="father_name" placeholder="Father's name" />
-                                                    
-                                                        <x-form.input type="text" label="Mother's name" id="mother_name"
-                                                        name="mother_name" placeholder="Mother's name" />
-                                                    
-                                                       
-                                                    </div>
-                                                    <div class="single-input">
-                                                        <x-form.input type="text" label="Father's occupation" id="father_occupation"
-                                                        name="father_occupation" placeholder="Father's occupation" />
+                                                        <x-form.input type="text" label="Father's name"
+                                                            id="father_name" name="father_name"
+                                                            placeholder="Father's name" />
 
-                                                        <x-form.input type="text" label="Mother's occupation" id="mother_occupation"
-                                                        name="mother_occupation" placeholder="Mother's occupation" />
+                                                        <x-form.input type="text" label="Mother's name"
+                                                            id="mother_name" name="mother_name"
+                                                            placeholder="Mother's name" />
+
+
                                                     </div>
                                                     <div class="single-input">
-                                                        <x-form.input type="tel" label="Father's Contact" id="father_contact_number"
-                                                        name="father_contact_number" placeholder="Father's Contact Number" />
-                                                        
-                                                        <x-form.input type="tel" label="Mother's Contact" id="mother_contact_number"
-                                                        name="mother_contact_number" placeholder="Mother's Contact Number"  />
+                                                        <x-form.input type="text" label="Father's occupation"
+                                                            id="father_occupation" name="father_occupation"
+                                                            placeholder="Father's occupation" />
+
+                                                        <x-form.input type="text" label="Mother's occupation"
+                                                            id="mother_occupation" name="mother_occupation"
+                                                            placeholder="Mother's occupation" />
                                                     </div>
                                                     <div class="single-input">
-                                                        <div class="single-input-item">
-                                                            <label for="father_email">Father's Email Address <span
-                                                                    class="text-danger">*</span>
-                                                            </label>
-                                                            <input name="father_email" id="father_email"
-                                                                value="{{ old('father_email') }}" type="text"
-                                                                placeholder="Father's Email Address">
-                                                        </div>
-                                                        <div class="single-input-item">
-                                                            <label for="mother_email">Mother's Email Address <span
-                                                                    class="text-danger">*</span></label>
-                                                            <input name="mother_email" id="mother_email"
-                                                                value="{{ old('mother_email') }}" type="text"
-                                                                placeholder="Mother's Email Address">
-                                                        </div>
+                                                        <x-form.input type="tel" label="Father's Contact"
+                                                            id="father_contact_number" name="father_contact_number"
+                                                            placeholder="Father's Contact Number" />
+
+                                                        <x-form.input type="tel" label="Mother's Contact"
+                                                            id="mother_contact_number" name="mother_contact_number"
+                                                            placeholder="Mother's Contact Number" />
                                                     </div>
                                                     <div class="single-input">
-                                                        <div class="single-input-item">
-                                                            <label for="father_passport">Father's Passport
-                                                                Number <span class="text-danger">*</span></label>
-                                                            <input name="father_passport" id="father_passport"
-                                                                value="{{ old('father_passport') }}" type="text"
-                                                                placeholder="Father's Passport Number">
-                                                        </div>
-                                                        <div class="single-input-item">
-                                                            <label for="mother_passport">Mother's Passport
-                                                                Number <span class="text-danger">*</span></label>
-                                                            <input name="mother_passport" id="mother_passport"
-                                                                value="{{ old('mother_passport') }}" type="text"
-                                                                placeholder="Mother's Passport Number">
-                                                        </div>
+                                                        <x-form.input type="email" label="Father's Email Address"
+                                                            id="father_email" name="father_email"
+                                                            placeholder="Father's Email Address" />
+                                                        <x-form.input type="email" label="Mother's Email Address"
+                                                            id="mother_email" name="mother_email"
+                                                            placeholder="Mother's Email Address" />
+
+                                                    </div>
+                                                    <div class="single-input">
+                                                        <x-form.input type="text" label="Father's Passport Number"
+                                                            id="father_passport" name="father_passport"
+                                                            placeholder="Father's Passport Number" />
+
+                                                        <x-form.input type="text" label="Mother's Passport Number"
+                                                            id="mother_passport" name="mother_passport"
+                                                            placeholder="Mother's Passport Number" />
+
+
                                                     </div>
 
                                                 </div>
@@ -300,224 +287,142 @@
                                             <div class="card-body">
                                                 <div class="single-form-part">
                                                     <h5 class="form-title">Academic Information</h5>
-
                                                     <h5>SSC or Equivalent</h5>
                                                     <div class="single-input">
-                                                        <div class="single-input-item">
-                                                            <label for="ssc_exam_name">Examination Name <span
-                                                                    class="text-danger">*</span></label>
-                                                            <input name="ssc_exam_name" id="ssc_exam_name"
-                                                                value="{{ old('ssc_exam_name') }}" type="text"
-                                                                placeholder="Examination Name [eg: SSC]">
-                                                        </div>
-                                                        <div class="single-input-item">
-                                                            <label for="ssc_group">Subject Name <span
-                                                                    class="text-danger">*</span></label>
-                                                            <input name="ssc_group" id="ssc_group" type="text"
-                                                                value="{{ old('ssc_group') }}"
-                                                                placeholder="Subject Name [eg: Science]">
-                                                        </div>
-                                                        <div class="single-input-item">
-                                                            <label for="ssc_year">Passing Year <span
-                                                                    class="text-danger">*</span></label>
-                                                            <input name="ssc_year" id="ssc_year" type="text"
-                                                                value="{{ old('ssc_year') }}"
-                                                                placeholder="Passing Year [eg: 2022]">
-                                                        </div>
+                                                        <x-form.input type="text" label="Examination Name"
+                                                            id="ssc_exam_name" name="ssc_exam_name"
+                                                            placeholder="Examination Name [eg: SSC]" />
+
+                                                        <x-form.input type="text" label="Subject Name"
+                                                            id="ssc_group" name="ssc_group"
+                                                            placeholder="Subject Name [eg: Science]" />
+
+                                                        <x-form.input type="text" label="Passing Year"
+                                                            id="ssc_year" name="ssc_year"
+                                                            placeholder="Passing Year [eg: 2022]" />
+
                                                     </div>
                                                     <div class="single-input">
-                                                        <div class="single-input-item">
-                                                            <label for="ssc_inistitute">Institute Name <span
-                                                                    class="text-danger">*</span></label>
-                                                            <input name="ssc_inistitute" id="ssc_inistitute"
-                                                                value="{{ old('ssc_inistitute') }}" type="text"
-                                                                placeholder="Institute Name">
-                                                        </div>
-                                                        <div class="single-input-item">
-                                                            <label for="gpa2">Grade / Marks / GPA <span
-                                                                    class="text-danger">*</span></label>
-                                                            <input type="text" name="ssc_gpa" id="ssc_gpa"
-                                                                value="{{ old('ssc_gpa') }}"
-                                                                placeholder="Grade / Marks / GPA">
-                                                        </div>
+                                                        <x-form.input type="text" label="Institute Name"
+                                                            id="ssc_inistitute" name="ssc_inistitute"
+                                                            placeholder="Institute Name" />
+                                                        <x-form.input type="text" label="Grade / Marks / GPA"
+                                                            id="ssc_gpa" name="ssc_gpa"
+                                                            placeholder="Grade / Marks / GPA" />
                                                     </div>
                                                     <div class="single-input">
-                                                        <div class="single-input-item">
-                                                            <label for="ssc_ministry">Ministry of education <span
-                                                                    class="text-danger">*</span></label>
-                                                            <input type="text" name="ssc_ministry"
-                                                                id="ssc_ministry" placeholder="Ministry of education"
-                                                                value="{{ old('ssc_ministry') }}">
-                                                        </div>
-                                                        <div class="single-input-item">
-                                                            <label for="ssc_academic_transcript">Academic Transcript
-                                                                <span class="text-danger">*</span><span
-                                                                    class="fs-5"> (must be 512kb or
-                                                                    less)</span></label>
-                                                            <input type="file"
-                                                                name="attachment[ssc_academic_transcript]"
-                                                                id="ssc_academic_transcript"
-                                                                accept="image/png, image/jpeg, image/gif">
-                                                        </div>
-                                                        <div class="single-input-item">
-                                                            <label for="ssc_certificate">Degree Certificate
-                                                                <span class="text-danger">*</span><span
-                                                                    class="fs-5"> (must be 512kb or
-                                                                    less)</span></label>
-                                                            <input type="file" name="attachment[ssc_certificate]"
-                                                                id="ssc_certificate"
-                                                                accept="image/png, image/jpeg, image/gif">
-                                                        </div>
+                                                        <x-form.input type="text" label="Ministry of education"
+                                                            id="ssc_ministry" name="ssc_ministry"
+                                                            placeholder="Ministry of education" />
+
+                                                        <x-form.input type="file" accept="application/pdf"
+                                                            info="Must be 512kb or less . Supported format PDF"
+                                                            label="Academic Transcript" id="ssc_academic_transcript"
+                                                            name="attachment[ssc_academic_transcript]" />
+
+                                                        <x-form.input type="file" accept="application/pdf"
+                                                            info="Must be 512kb or less . Supported format PDF"
+                                                            label="Degree Certificate" id="ssc_certificate"
+                                                            name="attachment[ssc_certificate]" />
+
                                                     </div>
                                                     <h5>HSC or Equivalent</h5>
                                                     <div class="single-input">
-                                                        <div class="single-input-item">
-                                                            <label for="hsc_exam_name">Examination Name <span
-                                                                    class="text-danger">*</span></label>
-                                                            <input name="hsc_exam_name" id="hsc_exam_name"
-                                                                type="text"
-                                                                placeholder="Examination Name [eg: Science]"
-                                                                value="{{ old('hsc_exam_name') }}">
-                                                        </div>
-                                                        <div class="single-input-item">
-                                                            <label for="hsc_group">Subject Name <span
-                                                                    class="text-danger">*</span></label>
-                                                            <input name="hsc_group" id="hsc_group" type="text"
-                                                                value="{{ old('hsc_group') }}"
-                                                                placeholder="Subject Name [eg: Science]">
-                                                        </div>
-                                                        <div class="single-input-item">
-                                                            <label for="hsc_year">Passing Year <span
-                                                                    class="text-danger">*</span></label>
-                                                            <input name="hsc_year" id="hsc_year" type="text"
-                                                                value="{{ old('hsc_year') }}"
-                                                                placeholder="Passing Year [eg: 2022]">
-                                                        </div>
-                                                    </div>
-                                                    <div class="single-input">
-                                                        <div class="single-input-item">
-                                                            <label for="hsc_inistitute">Institute Name <span
-                                                                    class="text-danger">*</span></label>
-                                                            <input name="hsc_inistitute" id="hsc_inistitute"
-                                                                value="{{ old('hsc_inistitute') }}" type="text"
-                                                                placeholder="Institute Name">
-                                                        </div>
-                                                        <div class="single-input-item">
-                                                            <label for="gpa2">Grade / Marks / GPA <span
-                                                                    class="text-danger">*</span></label>
-                                                            <input type="text" name="hsc_gpa" id="hsc_gpa"
-                                                                value="{{ old('hsc_gpa') }}"
-                                                                placeholder="Grade / Marks / GPA">
-                                                        </div>
-                                                    </div>
-                                                    <div class="single-input">
-                                                        <div class="single-input-item">
-                                                            <label for="ssc_ministry">Ministry of education <span
-                                                                    class="text-danger">*</span></label>
-                                                            <input type="text" name="hsc_ministry"
-                                                                value="{{ old('hsc_ministry') }}" id="hsc_ministry"
-                                                                placeholder="Ministry of education">
-                                                        </div>
+                                                        <x-form.input type="text" label="Examination Name"
+                                                            id="hsc_exam_name" name="hsc_exam_name"
+                                                            placeholder="Examination Name [eg: HSC]" />
 
-                                                        <div class="single-input-item">
-                                                            <label for="hsc_academic_transcript">Academic Transcript
-                                                                <span class="text-danger">*</span><span
-                                                                    class="fs-5"> (must be 512kb or
-                                                                    less)</span></label>
-                                                            <input type="file"
-                                                                name="attachment[hsc_academic_transcript]"
-                                                                id="hsc_academic_transcript"
-                                                                accept="image/png, image/jpeg, image/gif, .doc, .docx, .pdf">
-                                                        </div>
-                                                        <div class="single-input-item">
-                                                            <label for="hsc_certificate">Degree Certificate
-                                                                <span class="text-danger">*</span><span
-                                                                    class="fs-5"> (must be 512kb or
-                                                                    less)</span></label>
-                                                            <input type="file" name="attachment[hsc_certificate]"
-                                                                id="hsc_certificate"
-                                                                accept="image/png, image/jpeg, image/gif, .doc, .docx, .pdf">
-                                                        </div>
+                                                        <x-form.input type="text" label="Subject Name"
+                                                            id="hsc_group" name="hsc_group"
+                                                            placeholder="Subject Name [eg: Science]" />
+
+                                                        <x-form.input type="text" label="Passing Year"
+                                                            id="hsc_year" name="hsc_year"
+                                                            placeholder="Passing Year [eg: 2022]" />
+
                                                     </div>
+                                                    <div class="single-input">
+                                                        <x-form.input type="text" label="Institute Name"
+                                                            id="hsc_inistitute" name="hsc_inistitute"
+                                                            placeholder="Institute Name" />
+                                                        <x-form.input type="text" label="Grade / Marks / GPA"
+                                                            id="hsc_gpa" name="hsc_gpa"
+                                                            placeholder="Grade / Marks / GPA" />
+                                                    </div>
+                                                    <div class="single-input">
+                                                        <x-form.input type="text" label="Ministry of education"
+                                                            id="hsc_ministry" name="hsc_ministry"
+                                                            placeholder="Ministry of education" />
+
+                                                        <x-form.input type="file" accept="application/pdf"
+                                                            info="Must be 512kb or less . Supported format PDF"
+                                                            label="Academic Transcript" id="hsc_academic_transcript"
+                                                            name="attachment[hsc_academic_transcript]" />
+
+                                                        <x-form.input type="file" accept="application/pdf"
+                                                            info="Must be 512kb or less . Supported format PDF"
+                                                            label="Degree Certificate" id="hsc_certificate"
+                                                            name="attachment[hsc_certificate]" />
+
+                                                    </div>
+
                                                     <h5 x-show="application == 'Postgraduate'">Undergraduate Education
                                                     </h5>
-                                                    <div class="single-input" x-show="application == 'Postgraduate'">
-                                                        <div class="single-input-item">
-                                                            <label for="undergraduate_course">Degree Title <span
-                                                                    class="text-danger">*</span></label>
-                                                            <input name="undergraduate_course"
-                                                                id="undergraduate_course" type="text"
-                                                                value="{{ old('undergraduate_course') }}"
-                                                                placeholder="Degree Title (e.g., Bachelor of Science in Computer Science and Engineering)">
-                                                        </div>
 
-                                                    </div>
-                                                    <div class="single-input" x-show="application == 'Postgraduate'">
-                                                        <div class="single-input-item">
-                                                            <label for="undergraduate_inistitute">Institute Name <span
-                                                                    class="text-danger">*</span></label>
-                                                            <input name="undergraduate_inistitute"
+
+                                                    <template x-if="application == 'Postgraduate'">
+                                                        <div class="single-input">
+                                                            <x-form.input type="text" label="Degree Title"
+                                                                id="undergraduate_course" name="undergraduate_course"
+                                                                placeholder="Degree Title (e.g., Bachelor of Science in Computer Science and Engineering)" />
+                                                        </div>
+                                                    </template>
+                                                    <template x-if="application == 'Postgraduate'">
+                                                        <div class="single-input">
+                                                            <x-form.input label="Institute Name"
+                                                                name="undergraduate_inistitute"
                                                                 id="undergraduate_inistitute" type="text"
-                                                                value="{{ old('undergraduate_inistitute') }}"
-                                                                placeholder="Institute Name">
-                                                        </div>
-                                                        <div class="single-input-item"
-                                                            x-show="application == 'Postgraduate'">
-                                                            <label for="undergraduate_inistitute_country">Country of
-                                                                Institute <span class="text-danger">*</span></label>
-                                                            <select name="undergraduate_inistitute_country"
-                                                                id="undergraduate_inistitute_country">
-                                                                <option value="">Country of Institute</option>
-                                                                @foreach (App\Constant::Countries as $country)
-                                                                    <option value="{{ $country }}">
-                                                                        {{ $country }}
-                                                                    </option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="single-input" x-show="application == 'Postgraduate'">
-                                                        <div class="single-input-item">
-                                                            <label for="undergraduate_year">Year of Graduation <span
-                                                                    class="text-danger">*</span></label>
-                                                            <input type="text" name="undergraduate_year"
-                                                                id="undergraduate_year"
-                                                                value="{{ old('undergraduate_year') }}"
-                                                                placeholder="Year of Graduation">
-                                                        </div>
-                                                        <div class="single-input-item">
-                                                            <label for="undergraduate_cgpa">CGPA <span
-                                                                    class="text-danger">*</span></label>
-                                                            <input type="text" name="undergraduate_cgpa"
-                                                                id="undergraduate_cgpa"
-                                                                value="{{ old('undergraduate_cgpa') }}"
-                                                                placeholder="Undergraduate CGPA">
-                                                        </div>
-                                                    </div>
-                                                    <div class="single-input" x-show="application == 'Postgraduate'">
-                                                        <div class="single-input-item">
-                                                            <label for="hsc_academic_transcript">Academic Transcript
-                                                                <span class="text-danger">*</span><span
-                                                                    class="fs-5"> (must be 512kb or
-                                                                    less)</span></label>
-                                                            <input type="file"
-                                                                name="attachment[undergraduate_academic_transcript]"
-                                                                id="hsc_academic_transcript"
-                                                                accept="image/png, image/jpeg, image/gif, .doc, .docx, .pdf">
-                                                        </div>
-                                                        <div class="single-input-item"
-                                                            x-show="application == 'Postgraduate'">
-                                                            <label for="undergraduate_certificate">Degree Certificate
-                                                                <span class="text-danger">*</span><span
-                                                                    class="fs-5"> (must be 512kb or
-                                                                    less)</span></label>
-                                                            <input type="file"
-                                                                name="attachment[undergraduate_certificate]"
-                                                                id="undergraduate_certificate"
-                                                                accept="image/png, image/jpeg, image/gif, .doc, .docx, .pdf">
-                                                        </div>
+                                                                placeholder="Institute Name" />
 
-                                                    </div>
+                                                            <x-form.input
+                                                                label="Country
+                                                                    of
+                                                                    Institute"
+                                                                name="undergraduate_inistitute_country"
+                                                                id="undergraduate_inistitute_country" type="select"
+                                                                placeholder="Institute Name" :options="App\Constant::Countries" />
+                                                        </div>
+                                                    </template>
+
+                                                    <template x-if="application == 'Postgraduate'">
+                                                        <div class="single-input">
+
+                                                            <x-form.input label="Year of Graduation"
+                                                                name="undergraduate_year" id="undergraduate_year"
+                                                                placeholder="Year of Graduation" />
+
+                                                            <x-form.input label="CGPA" name="undergraduate_cgpa"
+                                                                id="undergraduate_cgpa"
+                                                                placeholder="Undergraduate CGPA" />
+
+                                                        </div>
+                                                    </template>
+
+                                                    <template x-if="application == 'Postgraduate'">
+                                                        <div class="single-input">
+                                                            <x-form.input type="file" accept="application/pdf"
+                                                                info="Must be 512kb or less . Supported format PDF"
+                                                                label="Academic Transcript"
+                                                                id="undergraduate_academic_transcript"
+                                                                name="attachment[undergraduate_academic_transcript]" />
+
+                                                            <x-form.input type="file" accept="application/pdf"
+                                                                info="Must be 512kb or less . Supported format PDF"
+                                                                label="Degree Certificate"
+                                                                id="undergraduate_certificate"
+                                                                name="attachment[undergraduate_certificate]" />
+                                                        </div>
+                                                    </template>
                                                 </div>
                                             </div>
                                         </div>
@@ -526,103 +431,96 @@
                                             <div class="card-body">
                                                 <h5 class="form-title">Attachments</h5>
                                                 <div class="single-input">
-                                                    <div class="single-input-item">
-                                                        <label for="police_verification">Police verification <span
-                                                                class="fs-5"> (must be 512kb or less)</span></label>
-                                                        <input type="file" name="attachment[police_verification]"
-                                                            id="police_verification"
-                                                            accept="image/png, image/jpeg, image/gif .doc, .docx, .pdf">
-                                                    </div>
+
+                                                    <x-form.input type="file" accept="application/pdf"
+                                                        info="Must be 512kb or less . Supported format PDF"
+                                                        label="Police verification" id="police_verification"
+                                                        name="attachment[police_verification]" :required="false" />
+
 
                                                 </div>
-                                                <div class="single-input">
-                                                    <div class="single-input-item">
-                                                        <label for="medical_examination">Medical examination <span
-                                                                <<<<<<< HEAD class="text-danger">*</span></label>
-                                                        <input type="file" name="attachment[medical_examination]"
-                                                            id="medical_examination"=======class="text-danger">*</span><span
-                                                            class="fs-5"> (must be 512kb or less)</span></label>
-                                                        <input type="file" name="attachment[medical_examination]"
-                                                            id="medical_examination" required>>>>>>>
-                                                        d5418a643be2afd40f338ffbfaa8cb171771877f
-                                                        accept="image/png, image/jpeg, image/gif .doc, .docx, .pdf">
-                                                        <p> <a style="text-decoration: underline" class="text-danger"
-                                                                href="{{ asset('assets/Physical Examination Form.pdf') }}">Download
-                                                                the format from here</a>, complete it, and then upload
-                                                            it.</p>
-                                                    </div>
+                                                <div class="single-input mb-1">
+
+                                                    <x-form.input type="file" accept="application/pdf"
+                                                        info="Must be 512kb or less . Supported format PDF"
+                                                        label="Medical examination" id="medical_examination"
+                                                        name="attachment[medical_examination]" />
+
+
 
                                                 </div>
+                                                <p> <a style="text-decoration: underline" class="text-danger"
+                                                        href="{{ asset('assets/Physical Examination Form.pdf') }}">Download
+                                                        the format from here</a>, complete it, and then upload
+                                                    it.</p>
                                                 <div class="single-input">
-                                                    <div class="single-input-item">
-                                                        <label for="passport_copy">Passport <span
-                                                                class="text-danger">*</span><span class="fs-5">
-                                                                (must be 512kb or less)</span></label>
-                                                        <input type="file" name="attachment[passport]"
-                                                            id="passport_copy"
-                                                            accept="image/png, image/jpeg, image/gif .doc, .docx, .pdf">
-                                                    </div>
+
+                                                    <x-form.input type="file" accept="application/pdf"
+                                                        info="Must be 512kb or less . Supported format PDF"
+                                                        label="Passport" id="passport_copy"
+                                                        name="attachment[passport]" />
+
 
                                                 </div>
 
                                                 <div class="single-input">
-                                                    <div class="single-input-item">
-                                                        <label for="statement_of_purpose">Statement of Purpose (SOP)
-                                                            <span class="text-danger" <<<<<<< HEAD
-                                                                x-show="application == 'Postgraduate'">*</span></label>
-                                                        =======
-                                                        x-show="application == 'Postgraduate'">*</span><span
-                                                            class="fs-5"> (must be 512kb or less)</span></label>
-                                                        >>>>>>> d5418a643be2afd40f338ffbfaa8cb171771877f
-                                                        <input type="file" name="attachment[statement_of_purpose]"
+                                                    <template x-if="application == 'Postgraduate'">
+                                                        <x-form.input type="file" accept="application/pdf"
+                                                            info="Must be 512kb or less . Supported format PDF"
+                                                            label="Statement of Purpose (SOP)"
                                                             id="statement_of_purpose"
-                                                            accept="image/png, image/jpeg, image/gif ,.doc, .docx, .pdf">
-                                                    </div>
+                                                            name="attachment[statement_of_purpose]"
+                                                            :required="true" />
+                                                    </template>
+                                                    <template x-if="application != 'Postgraduate'">
+                                                        <x-form.input type="file" accept="application/pdf"
+                                                            info="Must be 512kb or less . Supported format PDF"
+                                                            label="Statement of Purpose (SOP)"
+                                                            id="statement_of_purpose"
+                                                            name="attachment[statement_of_purpose]"
+                                                            :required="false" />
+                                                    </template>
                                                 </div>
 
                                                 <div class="single-input">
-                                                    <div class="single-input-item">
-                                                        <label for="letter_of_recomandation_1">Letter of Recommendation
-                                                            <span class="text-danger" <<<<<<< HEAD
-                                                                x-show="application == 'Postgraduate'">*</span></label>
-                                                        =======
-                                                        x-show="application == 'Postgraduate'">*</span><span
-                                                            class="fs-5"> (must be 512kb or less)</span></label>
-                                                        >>>>>>> d5418a643be2afd40f338ffbfaa8cb171771877f
-                                                        <input type="file"
-                                                            name="attachment[letter_of_recomandation_1]"
+
+                                                    <template x-if="application == 'Postgraduate'">
+                                                        <x-form.input type="file" accept="application/pdf"
+                                                            info="Must be 512kb or less . Supported format PDF"
+                                                            label="Letter of Recommendation"
                                                             id="letter_of_recomandation_1"
-                                                            accept="image/png, image/jpeg, image/gif ,.doc, .docx, .pdf">
-                                                    </div>
+                                                            name="attachment[letter_of_recomandation_1]"
+                                                            :required="true" />
+                                                    </template>
+                                                    <template x-if="application != 'Postgraduate'">
+                                                        <x-form.input type="file" accept="application/pdf"
+                                                            info="Must be 512kb or less . Supported format PDF"
+                                                            label="Letter of Recommendation"
+                                                            id="letter_of_recomandation_1"
+                                                            name="attachment[letter_of_recomandation_1]"
+                                                            :required="false" />
+                                                    </template>
+
                                                 </div>
                                                 <div class="single-input">
-                                                    <div class="single-input-item">
-                                                        <<<<<<< HEAD <label for="letter_of_recomandation_2">Letter of
-                                                            Recommendation
-                                                            =======
-                                                            <label for="letter_of_recomandation_2">Letter of
-                                                                Recommendation<span class="fs-5"> (must be 512kb or
-                                                                    less)</span>
-                                                                >>>>>>> d5418a643be2afd40f338ffbfaa8cb171771877f
-                                                            </label>
-                                                            <input type="file"
-                                                                name="attachment[letter_of_recomandation_2]"
-                                                                id="letter_of_recomandation_2"
-                                                                accept="image/png, image/jpeg, image/gif ,.doc, .docx, .pdf">
-                                                    </div>
+                                                    <x-form.input type="file" accept="application/pdf"
+                                                        info="Must be 512kb or less . Supported format PDF"
+                                                        label="Letter of Recommendation"
+                                                        id="letter_of_recomandation_2"
+                                                        name="attachment[letter_of_recomandation_2]"
+                                                        :required="false" />
+
                                                 </div>
 
 
 
                                                 <div class="single-input">
-                                                    <div class="single-input-item">
-                                                        <label for="others">Others</label>
-                                                        <small>(multiple upload supported) <span class="fs-5"> (must
-                                                                be 512kb or less)</span></small>
-                                                        <input type="file" name="attachment[others][]"
-                                                            id="others" multiple
-                                                            accept="image/png, image/jpeg, image/gif ,.doc, .docx, .pdf">
-                                                    </div>
+                                                    <x-form.input type="file" accept="application/pdf"
+                                                        info="Must be 512kb or less . Supported format PDF"
+                                                        label="Others" id="others" name="attachment[others][]"
+                                                        :required="false" multiple />
+
+
                                                 </div>
 
                                             </div>
