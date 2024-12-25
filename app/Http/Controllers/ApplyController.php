@@ -58,6 +58,7 @@ class ApplyController extends Controller
             'undergraduate_year' => 'required_if:application,Graduate|nullable',
             'undergraduate_inistitute' => 'required_if:application,Graduate|nullable',
             'undergraduate_cgpa' => 'required_if:application,Graduate|nullable',
+
             'attachment.ssc_academic_transcript' => 'required|file|mimes:pdf|max:512',
             'attachment.ssc_certificate' => 'required|file|mimes:pdf|max:512',
             'attachment.hsc_academic_transcript' => 'required|file|mimes:pdf|max:512',
