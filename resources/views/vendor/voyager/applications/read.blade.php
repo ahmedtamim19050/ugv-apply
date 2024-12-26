@@ -149,7 +149,7 @@
                     </div>
                 </div>
                 @php
-                    $attachments = json_decode($dataTypeContent->attachments);
+                    $attachment = json_decode($dataTypeContent->attachments);
 
                 @endphp
 
